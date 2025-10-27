@@ -1,16 +1,19 @@
-## Hi there 👋
+# Hey, I'm Ryder 👋  
 
-<!--
-**ryderjt/ryderjt** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+> “A jack of all trades is a master of none, but oftentimes better than a master of one.”
 
-Here are some ideas to get you started:
+I’m a creator who loves making things from **video edits and cinematic visuals** to **small film projects and creative code**.  
+I’ve spent years learning how to tell stories through editing, color, and motion, and I’m always experimenting with new forms of creativity.  
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+🎬 **Video Editing / Film** — After Effects, Premiere Pro, DaVinci Resolve  
+💻 **Coding / Projects** — Web, design tools, automation experiments  
+🎨 **What I Love** — Cinematography, storytelling, learning new stuff  
+
+---
+
+📫 **Find me online**  
+[Personal Website](https://ryderjt.com)
+[Editing Portfolio](https://ryduzz.com)
+[YouTube](https://www.youtube.com/@ryduzzz)  
+[TikTok](https://www.tiktok.com/@ryduzzz)  
+[Instagram](https://www.instagram.com/ryduzzz)
