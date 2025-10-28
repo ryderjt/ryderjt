@@ -16,4 +16,3 @@ I’ve spent years learning how to tell stories through editing, color, and moti
 [Editing Portfolio](https://ryduzz.com)
 [YouTube](https://www.youtube.com/@ryduzzz)  
 [TikTok](https://www.tiktok.com/@ryduzzz)  
-[Instagram](https://www.instagram.com/ryduzzz)
