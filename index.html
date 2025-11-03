@@ -6,13 +6,13 @@
   <title>Ryder Thomas — Cinematographer, Filmmaker, Photographer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #f9f8f6;
+      --bg: #f8f6f2;
       --text: #181818;
       --muted: rgba(24, 24, 24, 0.6);
-      --accent: #d9c7ad;
+      --accent: #d8c7ad;
       --mono: "Space Mono", monospace;
       --serif: "Playfair Display", "Georgia", serif;
       --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -28,7 +28,12 @@
       background: var(--bg);
       color: var(--text);
       overflow-x: hidden;
-      line-height: 1.65;
+      line-height: 1.7;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
     }
 
     a {
@@ -59,86 +64,160 @@
       opacity: 0.7;
     }
 
+    .site-mark {
+      position: fixed;
+      top: 1.6rem;
+      left: clamp(1.5rem, 4vw, 3.5rem);
+      z-index: 12;
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: rgba(24, 24, 24, 0.65);
+      pointer-events: none;
+    }
+
     header {
       min-height: 100vh;
       display: flex;
       align-items: center;
-      justify-content: center;
       position: relative;
-      padding: 8rem 2rem 6rem;
+      padding: clamp(7rem, 12vw, 10rem) clamp(2rem, 9vw, 7rem) clamp(4rem, 10vw, 8rem);
+      overflow: hidden;
     }
 
     header::before {
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(249,248,246,0.6) 100%);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(248, 246, 242, 0.65) 100%);
       pointer-events: none;
     }
 
     .hero {
-      max-width: 1100px;
-      width: 100%;
+      width: min(1500px, 94vw);
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: clamp(2rem, 6vw, 5rem);
       position: relative;
       z-index: 1;
+      align-items: center;
+    }
+
+    .hero-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
     }
 
     .hero h1 {
+      font-family: var(--sans);
+      font-size: clamp(3.6rem, 7vw, 6rem);
+      line-height: 1.02;
+      letter-spacing: -0.05em;
+      margin: 0;
+      font-weight: 300;
+    }
+
+    .hero h1 .serif-accent {
       font-family: var(--serif);
-      font-size: clamp(3.8rem, 8vw, 6rem);
-      line-height: 1.05;
-      letter-spacing: -0.04em;
+      font-weight: 600;
+    }
+
+    .subtitle {
+      font-family: var(--mono);
+      font-size: clamp(0.95rem, 2vw, 1.1rem);
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: rgba(24, 24, 24, 0.62);
       margin: 0;
     }
 
-    .hero .subtitle {
-      font-family: var(--serif);
-      font-size: clamp(1.2rem, 3vw, 2rem);
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin: 1rem 0;
-    }
-
-    .hero .tagline {
+    .tagline {
       font-family: var(--mono);
       font-size: 1rem;
-      letter-spacing: 0.3em;
+      letter-spacing: 0.28em;
       text-transform: uppercase;
       color: var(--text);
       overflow: hidden;
       white-space: nowrap;
-      border-right: 1px solid rgba(24, 24, 24, 0.4);
+      border-right: 1px solid rgba(24, 24, 24, 0.45);
       width: fit-content;
-      padding-right: 0.5rem;
+      padding-right: 0.4rem;
     }
 
     .intro-note {
-      font-family: var(--sans);
-      font-size: 0.95rem;
-      color: var(--muted);
-      max-width: 440px;
+      font-size: 1rem;
+      color: rgba(24, 24, 24, 0.72);
+      max-width: 560px;
+    }
+
+    .hero-gallery {
+      display: grid;
+      gap: 1.2rem;
+      grid-template-columns: repeat(6, 1fr);
+      grid-auto-rows: minmax(140px, 1fr);
+    }
+
+    .hero-gallery figure {
+      position: relative;
+      overflow: hidden;
+      border-radius: 22px;
+      grid-column: span 3;
+      transform: translateY(40px);
+      opacity: 0;
+      transition: transform 1.2s ease, opacity 1.2s ease;
+    }
+
+    .hero-gallery figure:nth-child(2) {
+      grid-column: span 2;
+    }
+
+    .hero-gallery figure:nth-child(3) {
+      grid-column: span 4;
+    }
+
+    .hero-gallery figure.visible {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .hero-gallery img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(6%) saturate(1.12);
+      transform: scale(1.02);
+      transition: transform 1.6s ease, filter 0.8s ease;
+    }
+
+    .hero-gallery figure::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(217, 199, 173, 0.35), rgba(24, 24, 24, 0));
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+
+    .hero-gallery figure:hover img {
+      transform: scale(1.07);
+      filter: saturate(1.35);
     }
 
     section {
-      padding: 6rem 2rem;
+      padding: clamp(5rem, 11vw, 7rem) clamp(2rem, 10vw, 8rem);
       position: relative;
-    }
-
-    section.light {
-      background: var(--bg);
     }
 
     .section-heading {
-      font-family: var(--serif);
-      font-size: clamp(2.2rem, 5vw, 3.5rem);
-      margin-bottom: 1.5rem;
-      letter-spacing: -0.02em;
+      font-family: var(--sans);
+      font-size: clamp(2.4rem, 5vw, 3.9rem);
+      margin-bottom: 1.8rem;
+      letter-spacing: -0.03em;
       position: relative;
-      display: inline-block;
+      display: inline-flex;
+      flex-direction: column;
     }
 
     .section-heading::before {
@@ -149,7 +228,7 @@
       width: 3rem;
       height: 1px;
       background: var(--text);
-      opacity: 0.3;
+      opacity: 0.25;
       transform: translateY(-50%);
     }
 
@@ -157,36 +236,93 @@
       display: block;
       font-family: var(--mono);
       font-size: 0.75rem;
-      letter-spacing: 0.4em;
+      letter-spacing: 0.42em;
       color: var(--muted);
       text-transform: uppercase;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .serif-accent {
+      font-family: var(--serif);
     }
 
     .content-wrapper {
-      max-width: 1100px;
+      width: min(1500px, 94vw);
       margin: 0 auto;
       display: grid;
-      gap: 2.5rem;
+      gap: clamp(2rem, 4vw, 3.5rem);
+    }
+
+    .about-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: clamp(2rem, 5vw, 4rem);
+      align-items: center;
     }
 
     .about-text {
-      font-family: var(--sans);
       font-size: 1.05rem;
+      line-height: 1.85;
+      color: rgba(24, 24, 24, 0.78);
+    }
+
+    .about-gallery {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 140px;
+      gap: 1.1rem;
+    }
+
+    .about-gallery figure {
+      position: relative;
+      overflow: hidden;
+      border-radius: 18px;
+      grid-column: span 2;
+      transform: translateY(40px);
+      opacity: 0;
+      transition: transform 1.1s ease, opacity 1.1s ease;
+    }
+
+    .about-gallery figure:nth-child(1) {
+      grid-column: span 4;
+      height: 220px;
+    }
+
+    .about-gallery figure.visible {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .about-gallery img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.05);
+      transition: transform 1.3s ease, filter 0.8s ease;
+      filter: saturate(1.2);
+    }
+
+    .about-gallery figure:hover img {
+      transform: scale(1.08);
+      filter: saturate(1.35);
+    }
+
+    .portfolio-intro {
       max-width: 720px;
-      line-height: 1.8;
+      font-size: 1rem;
+      color: rgba(24, 24, 24, 0.7);
     }
 
     .portfolio-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 1.2rem;
     }
 
     .portfolio-item {
       position: relative;
       overflow: hidden;
-      border-radius: 14px;
+      border-radius: 18px;
       transform: translateY(40px);
       opacity: 0;
       transition: transform 1.2s ease, opacity 1.2s ease;
@@ -201,23 +337,22 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      display: block;
       filter: grayscale(10%) saturate(1.1);
       transition: transform 1.8s ease, filter 0.8s ease;
-    }
-
-    .portfolio-item:hover img {
-      transform: scale(1.06);
-      filter: saturate(1.4);
     }
 
     .portfolio-item::after {
       content: "";
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at top left, rgba(217,199,173,0.35), transparent 50%);
+      background: radial-gradient(circle at top left, rgba(217, 199, 173, 0.35), transparent 55%);
       mix-blend-mode: multiply;
       pointer-events: none;
+    }
+
+    .portfolio-item:hover img {
+      transform: scale(1.08);
+      filter: saturate(1.4);
     }
 
     .portfolio-grid .tall {
@@ -238,6 +373,11 @@
       }
     }
 
+    .reels-section {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.65));
+      overflow: hidden;
+    }
+
     .reels-wrapper {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -246,8 +386,8 @@
 
     .reel {
       background: rgba(255, 255, 255, 0.8);
-      border-radius: 18px;
-      padding: 1.5rem;
+      border-radius: 20px;
+      padding: 1.6rem;
       box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
       position: relative;
       overflow: hidden;
@@ -266,20 +406,25 @@
       position: absolute;
       inset: 0;
       border: 1px solid rgba(24, 24, 24, 0.08);
-      border-radius: 18px;
+      border-radius: 20px;
       pointer-events: none;
     }
 
     .reel h3 {
-      font-family: var(--serif);
+      font-family: var(--sans);
       font-size: 1.6rem;
       margin-bottom: 0.6rem;
+      font-weight: 500;
+    }
+
+    .reel h3 .serif-accent {
+      font-family: var(--serif);
     }
 
     .reel .meta {
       font-family: var(--mono);
       font-size: 0.8rem;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--muted);
       margin-bottom: 1rem;
@@ -297,14 +442,27 @@
       padding-bottom: 5rem;
     }
 
+    .contact::before {
+      content: "";
+      position: absolute;
+      inset: 0 10% 0 50%;
+      background: url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80") center/cover;
+      opacity: 0.15;
+      mix-blend-mode: multiply;
+      pointer-events: none;
+      border-radius: 30px 0 0 30px;
+    }
+
     .contact-details {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 1.5rem;
       font-family: var(--mono);
-      letter-spacing: 0.15em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--muted);
+      position: relative;
+      z-index: 1;
     }
 
     .contact-details a {
@@ -315,31 +473,6 @@
 
     .contact-details span {
       font-size: 0.65rem;
-    }
-
-    .floating-stamp {
-      position: fixed;
-      top: 2rem;
-      right: 2rem;
-      padding: 1.2rem 1.6rem;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.85);
-      border: 1px solid rgba(24, 24, 24, 0.08);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
-      font-family: var(--mono);
-      text-transform: uppercase;
-      letter-spacing: 0.4em;
-      font-size: 0.65rem;
-      backdrop-filter: blur(14px);
-      z-index: 10;
-      opacity: 0;
-      transform: translateY(-20px);
-      transition: opacity 1s ease, transform 1s ease;
-    }
-
-    .floating-stamp.visible {
-      opacity: 1;
-      transform: translateY(0);
     }
 
     .scroll-hint {
@@ -357,6 +490,7 @@
       gap: 0.8rem;
       opacity: 0.7;
       animation: float 3s ease-in-out infinite;
+      z-index: 1;
     }
 
     .scroll-hint::before {
@@ -370,15 +504,6 @@
       transform: rotate(-45deg);
     }
 
-    @keyframes float {
-      0%, 100% {
-        transform: translate(-50%, 0);
-      }
-      50% {
-        transform: translate(-50%, -8px);
-      }
-    }
-
     .parallax-burst {
       position: absolute;
       top: 15%;
@@ -386,15 +511,13 @@
       width: 220px;
       height: 220px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(217,199,173,0.35) 0%, rgba(217,199,173,0) 65%);
-      filter: blur(0px);
+      background: radial-gradient(circle, rgba(217, 199, 173, 0.35) 0%, rgba(217, 199, 173, 0) 70%);
       pointer-events: none;
-      transform: translateZ(0);
     }
 
     .parallax-burst.two {
       top: auto;
-      bottom: 20%;
+      bottom: 12%;
       left: 6%;
       right: auto;
       width: 280px;
@@ -404,13 +527,13 @@
     .divider {
       width: 100%;
       height: 1px;
-      background: linear-gradient(90deg, rgba(24,24,24,0) 0%, rgba(24,24,24,0.15) 50%, rgba(24,24,24,0) 100%);
+      background: linear-gradient(90deg, rgba(24, 24, 24, 0) 0%, rgba(24, 24, 24, 0.15) 50%, rgba(24, 24, 24, 0) 100%);
       margin: 5rem 0;
     }
 
     footer {
       text-align: center;
-      padding: 3rem 2rem 4rem;
+      padding: 3rem clamp(2rem, 8vw, 5rem) 4rem;
       font-family: var(--mono);
       letter-spacing: 0.3em;
       font-size: 0.7rem;
@@ -428,48 +551,84 @@
       transform: translateY(0);
     }
 
-    @media (max-width: 720px) {
-      header {
-        padding: 6rem 1.5rem 4rem;
+    @keyframes float {
+      0%, 100% {
+        transform: translate(-50%, 0);
+      }
+      50% {
+        transform: translate(-50%, -8px);
+      }
+    }
+
+    @media (max-width: 960px) {
+      .hero {
+        grid-template-columns: 1fr;
       }
 
-      .hero .tagline {
-        letter-spacing: 0.2em;
+      .hero-gallery {
+        grid-template-columns: repeat(4, 1fr);
       }
 
-      .floating-stamp {
-        top: auto;
-        bottom: 1.5rem;
-        right: 1.5rem;
-        font-size: 0.6rem;
-        padding: 1rem 1.2rem;
-        letter-spacing: 0.3em;
+      .about-layout {
+        grid-template-columns: 1fr;
       }
 
       .section-heading::before {
         display: none;
       }
+    }
 
-      .scroll-hint {
-        bottom: 1.5rem;
+    @media (max-width: 640px) {
+      .tagline {
+        letter-spacing: 0.18em;
+      }
+
+      .hero-gallery {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 160px;
+      }
+
+      .about-gallery {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 160px;
+      }
+
+      .contact::before {
+        inset: 0 0 45% 0;
+        border-radius: 0;
       }
     }
   </style>
 </head>
 <body>
-  <div class="floating-stamp" id="stamp">Light &amp; Color Journal</div>
+  <div class="site-mark">Ryder Thomas</div>
   <header>
     <div class="parallax-burst" data-depth="0.4"></div>
-    <div class="parallax-burst two" data-depth="0.2"></div>
+    <div class="parallax-burst two" data-depth="0.25"></div>
     <div class="hero">
-      <div>
-        <div class="intro-note" data-depth="0.05">Cinematic visions shaped through light, color, and the rhythm of motion.</div>
-        <h1 class="reveal">Ryder Thomas</h1>
-        <div class="subtitle reveal">Cinematographer · Filmmaker · Photographer</div>
-        <div class="tagline" id="tagline">Stories through light, color, and motion.</div>
+      <div class="hero-copy">
+        <p class="subtitle reveal">Cinematographer · Filmmaker · Photographer</p>
+        <h1 class="reveal"><span class="serif-accent">Ryder</span> Thomas</h1>
+        <p class="tagline" id="tagline">Stories through light, color, and motion.</p>
+        <p class="intro-note reveal">
+          I’m Ryder, a 16-year-old cinematographer, filmmaker, and photographer chasing the magnetic pull of color, movement,
+          and emotion. Behind the camera and inside the edit — in After Effects, Premiere Pro, and DaVinci Resolve — I chase
+          palettes, textures, and pacing that make stories feel alive.
+        </p>
+      </div>
+      <div class="hero-gallery">
+        <figure class="reveal" style="--delay:0.1s">
+          <img src="https://images.unsplash.com/photo-1516727003284-a96541e51e9f?auto=format&fit=crop&w=1200&q=80" alt="Camera close-up placeholder" />
+        </figure>
+        <figure class="reveal" style="--delay:0.18s">
+          <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=900&q=80" alt="Film still placeholder" />
+        </figure>
+        <figure class="reveal" style="--delay:0.26s">
+          <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1400&q=80" alt="Lighting setup placeholder" />
+        </figure>
       </div>
     </div>
-    <div class="scroll-hint">scroll</div>
+    <div class="scroll-hint">Scroll</div>
   </header>
 
   <main>
@@ -477,38 +636,65 @@
       <div class="content-wrapper">
         <h2 class="section-heading reveal">
           <small>About</small>
-          A filmmaker in motion
+          <span class="serif-accent">Ryder</span> in focus
         </h2>
-        <p class="about-text reveal">
-          I’m Ryder Thomas, a 16-year-old cinematographer, filmmaker, and photographer. My world revolves around the way light tells a story — from early golden hours to neon midnight frames. I craft visuals that feel intimate and emotionally rich, refining each shot through color grading and careful editing in After Effects, Premiere Pro, and DaVinci Resolve. Every project is a chance to sculpt color, pace, and emotion into something that lingers.
-        </p>
+        <div class="about-layout">
+          <div class="about-text reveal">
+            I’m 16 and obsessed with the way light can sculpt feeling. When I’m not framing a shot, I’m refining tone and rhythm
+            in After Effects, Premiere Pro, and DaVinci Resolve. Color grading is my playground — chasing palettes that feel
+            cinematic, emotive, and unmistakably mine. Every frame is a chance to invite viewers into the worlds I imagine.
+          </div>
+          <div class="about-gallery">
+            <figure class="reveal" style="--delay:0.12s">
+              <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80" alt="Sunset portrait placeholder" />
+            </figure>
+            <figure class="reveal" style="--delay:0.18s">
+              <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=80" alt="Editing suite placeholder" />
+            </figure>
+            <figure class="reveal" style="--delay:0.24s">
+              <img src="https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=1200&q=80" alt="Color grading placeholder" />
+            </figure>
+          </div>
+        </div>
       </div>
     </section>
+
+    <div class="divider"></div>
 
     <section class="light" id="portfolio">
       <div class="content-wrapper">
         <h2 class="section-heading reveal">
           <small>Portfolio</small>
-          Stills &amp; Frames
+          Frame <span class="serif-accent">Stories</span>
         </h2>
+        <p class="portfolio-intro reveal">
+          Selected stills from narrative shorts, music visuals, and photo essays. Hover to feel the motion and color that shape
+          each frame.
+        </p>
         <div class="portfolio-grid">
-          <figure class="portfolio-item wide" style="--delay:0.1s">
-            <img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=1200&q=80" alt="Cinematic still placeholder" />
+          <figure class="portfolio-item wide" style="--delay:0.05s">
+            <img src="https://images.unsplash.com/photo-1526481280695-3c4691e75bef?auto=format&fit=crop&w=1600&q=80" alt="Desert cinematography placeholder" />
+          </figure>
+          <figure class="portfolio-item" style="--delay:0.1s">
+            <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&w=900&q=80" alt="Portrait placeholder" />
+          </figure>
+          <figure class="portfolio-item tall" style="--delay:0.15s">
+            <img src="https://images.unsplash.com/photo-1444065381814-865dc9da92c0?auto=format&fit=crop&w=900&q=80" alt="City lights placeholder" />
           </figure>
           <figure class="portfolio-item" style="--delay:0.2s">
-            <img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?auto=format&fit=crop&w=800&q=80" alt="Colorful portrait placeholder" />
+            <img src="https://images.unsplash.com/photo-1487412912498-0447578fcca8?auto=format&fit=crop&w=900&q=80" alt="Studio detail placeholder" />
           </figure>
-          <figure class="portfolio-item tall" style="--delay:0.3s">
-            <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80" alt="Film still placeholder" />
+          <figure class="portfolio-item" style="--delay:0.25s">
+            <img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=900&q=80" alt="Color gel portrait placeholder" />
+          </figure>
+          <figure class="portfolio-item wide" style="--delay:0.3s">
+            <img src="https://images.unsplash.com/photo-1452587925148-ce544e77e70d?auto=format&fit=crop&w=1600&q=80" alt="Mountains placeholder" />
           </figure>
           <figure class="portfolio-item" style="--delay:0.35s">
-            <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=900&q=80" alt="Street photography placeholder" />
+            <img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?auto=format&fit=crop&w=900&q=80" alt="Film grain placeholder" />
           </figure>
-          <figure class="portfolio-item wide" style="--delay:0.4s">
-            <img src="https://images.unsplash.com/photo-1526498460520-4c246339dccb?auto=format&fit=crop&w=1200&q=80" alt="Landscape placeholder" />
-          </figure>
-          <figure class="portfolio-item" style="--delay:0.5s">
-            <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=800&q=80" alt="Silhouette placeholder" />
+          <figure class="portfolio-item" style="--delay:0.4s">
+            <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=900&q=80" alt="Forest still placeholder" />
           </figure>
         </div>
       </div>
@@ -516,26 +702,26 @@
 
     <div class="divider"></div>
 
-    <section class="light" id="reels">
+    <section class="light reels-section" id="reels">
       <div class="content-wrapper">
         <h2 class="section-heading reveal">
           <small>Reels</small>
-          Moving Pictures
+          Moving <span class="serif-accent">Pictures</span>
         </h2>
         <div class="reels-wrapper">
           <article class="reel" style="--delay:0.1s">
             <div class="meta">Short Film · Color Journey</div>
-            <h3>"Chromatic Echoes"</h3>
+            <h3><span class="serif-accent">Chromatic</span> Echoes</h3>
             <iframe src="https://www.youtube.com/embed/ScMzIvxBSi4" title="Chromatic Echoes" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           </article>
-          <article class="reel" style="--delay:0.2s">
+          <article class="reel" style="--delay:0.18s">
             <div class="meta">Concept Reel · Motion Study</div>
-            <h3>"Pulse in Motion"</h3>
+            <h3><span class="serif-accent">Pulse</span> in Motion</h3>
             <iframe src="https://www.youtube.com/embed/tgbNymZ7vqY" title="Pulse in Motion" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           </article>
-          <article class="reel" style="--delay:0.3s">
+          <article class="reel" style="--delay:0.26s">
             <div class="meta">Travel Reel · Visual Diary</div>
-            <h3>"Frames Between"</h3>
+            <h3><span class="serif-accent">Frames</span> Between</h3>
             <iframe src="https://www.youtube.com/embed/sVPYIRF9RCQ" title="Frames Between" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           </article>
         </div>
@@ -546,7 +732,7 @@
       <div class="content-wrapper">
         <h2 class="section-heading reveal">
           <small>Contact</small>
-          Keep in touch
+          Keep in <span class="serif-accent">Touch</span>
         </h2>
         <div class="contact-details reveal">
           <a href="https://www.instagram.com/ryderjt1/" target="_blank" rel="noopener">
@@ -582,16 +768,9 @@
       threshold: 0.2
     });
 
-    document.querySelectorAll('.reveal, .portfolio-item, .reel').forEach((el, index) => {
+    document.querySelectorAll('.reveal, .portfolio-item, .reel, .hero-gallery figure, .about-gallery figure').forEach((el, index) => {
       el.style.transitionDelay = el.style.getPropertyValue('--delay') || `${index * 0.08}s`;
       observer.observe(el);
-    });
-
-    const stamp = document.getElementById('stamp');
-    window.addEventListener('load', () => {
-      requestAnimationFrame(() => {
-        stamp.classList.add('visible');
-      });
     });
 
     const tagline = document.getElementById('tagline');
