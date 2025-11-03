@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ryder Thomas — Cinematographer, Filmmaker, Photographer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f9f8f6;
+      --text: #181818;
+      --muted: rgba(24, 24, 24, 0.6);
+      --accent: #d9c7ad;
+      --mono: "Space Mono", monospace;
+      --serif: "Playfair Display", "Georgia", serif;
+      --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      position: relative;
+      transition: opacity 0.3s ease;
+    }
+
+    a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 100%;
+      height: 1px;
+      background: var(--text);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+
+    a:hover::after {
+      transform: scaleX(1);
+    }
+
+    a:hover {
+      opacity: 0.7;
+    }
+
+    header {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 8rem 2rem 6rem;
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(249,248,246,0.6) 100%);
+      pointer-events: none;
+    }
+
+    .hero {
+      max-width: 1100px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(3.8rem, 8vw, 6rem);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      margin: 0;
+    }
+
+    .hero .subtitle {
+      font-family: var(--serif);
+      font-size: clamp(1.2rem, 3vw, 2rem);
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 1rem 0;
+    }
+
+    .hero .tagline {
+      font-family: var(--mono);
+      font-size: 1rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--text);
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 1px solid rgba(24, 24, 24, 0.4);
+      width: fit-content;
+      padding-right: 0.5rem;
+    }
+
+    .intro-note {
+      font-family: var(--sans);
+      font-size: 0.95rem;
+      color: var(--muted);
+      max-width: 440px;
+    }
+
+    section {
+      padding: 6rem 2rem;
+      position: relative;
+    }
+
+    section.light {
+      background: var(--bg);
+    }
+
+    .section-heading {
+      font-family: var(--serif);
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-heading::before {
+      content: "";
+      position: absolute;
+      left: -4rem;
+      top: 50%;
+      width: 3rem;
+      height: 1px;
+      background: var(--text);
+      opacity: 0.3;
+      transform: translateY(-50%);
+    }
+
+    .section-heading small {
+      display: block;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.4em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .content-wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      gap: 2.5rem;
+    }
+
+    .about-text {
+      font-family: var(--sans);
+      font-size: 1.05rem;
+      max-width: 720px;
+      line-height: 1.8;
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .portfolio-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 14px;
+      transform: translateY(40px);
+      opacity: 0;
+      transition: transform 1.2s ease, opacity 1.2s ease;
+    }
+
+    .portfolio-item.visible {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .portfolio-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(10%) saturate(1.1);
+      transition: transform 1.8s ease, filter 0.8s ease;
+    }
+
+    .portfolio-item:hover img {
+      transform: scale(1.06);
+      filter: saturate(1.4);
+    }
+
+    .portfolio-item::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top left, rgba(217,199,173,0.35), transparent 50%);
+      mix-blend-mode: multiply;
+      pointer-events: none;
+    }
+
+    .portfolio-grid .tall {
+      grid-row: span 2;
+    }
+
+    .portfolio-grid .wide {
+      grid-column: span 2;
+    }
+
+    @media (max-width: 900px) {
+      .portfolio-grid .tall {
+        grid-row: span 1;
+      }
+
+      .portfolio-grid .wide {
+        grid-column: span 1;
+      }
+    }
+
+    .reels-wrapper {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+    }
+
+    .reel {
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 18px;
+      padding: 1.5rem;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+      position: relative;
+      overflow: hidden;
+      transform: translateY(40px);
+      opacity: 0;
+      transition: transform 1.2s ease, opacity 1.2s ease;
+    }
+
+    .reel.visible {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .reel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(24, 24, 24, 0.08);
+      border-radius: 18px;
+      pointer-events: none;
+    }
+
+    .reel h3 {
+      font-family: var(--serif);
+      font-size: 1.6rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .reel .meta {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .reel iframe {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .contact {
+      padding-bottom: 5rem;
+    }
+
+    .contact-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      font-family: var(--mono);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .contact-details a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .contact-details span {
+      font-size: 0.65rem;
+    }
+
+    .floating-stamp {
+      position: fixed;
+      top: 2rem;
+      right: 2rem;
+      padding: 1.2rem 1.6rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(24, 24, 24, 0.08);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+      font-family: var(--mono);
+      text-transform: uppercase;
+      letter-spacing: 0.4em;
+      font-size: 0.65rem;
+      backdrop-filter: blur(14px);
+      z-index: 10;
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .floating-stamp.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--mono);
+      letter-spacing: 0.6em;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      opacity: 0.7;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .scroll-hint::before {
+      content: "";
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 1px solid rgba(24, 24, 24, 0.3);
+      border-top-color: transparent;
+      border-right-color: transparent;
+      transform: rotate(-45deg);
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translate(-50%, 0);
+      }
+      50% {
+        transform: translate(-50%, -8px);
+      }
+    }
+
+    .parallax-burst {
+      position: absolute;
+      top: 15%;
+      right: 10%;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(217,199,173,0.35) 0%, rgba(217,199,173,0) 65%);
+      filter: blur(0px);
+      pointer-events: none;
+      transform: translateZ(0);
+    }
+
+    .parallax-burst.two {
+      top: auto;
+      bottom: 20%;
+      left: 6%;
+      right: auto;
+      width: 280px;
+      height: 280px;
+    }
+
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(24,24,24,0) 0%, rgba(24,24,24,0.15) 50%, rgba(24,24,24,0) 100%);
+      margin: 5rem 0;
+    }
+
+    footer {
+      text-align: center;
+      padding: 3rem 2rem 4rem;
+      font-family: var(--mono);
+      letter-spacing: 0.3em;
+      font-size: 0.7rem;
+      color: rgba(24, 24, 24, 0.5);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: transform 1.2s ease, opacity 1.2s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 720px) {
+      header {
+        padding: 6rem 1.5rem 4rem;
+      }
+
+      .hero .tagline {
+        letter-spacing: 0.2em;
+      }
+
+      .floating-stamp {
+        top: auto;
+        bottom: 1.5rem;
+        right: 1.5rem;
+        font-size: 0.6rem;
+        padding: 1rem 1.2rem;
+        letter-spacing: 0.3em;
+      }
+
+      .section-heading::before {
+        display: none;
+      }
+
+      .scroll-hint {
+        bottom: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="floating-stamp" id="stamp">Light &amp; Color Journal</div>
+  <header>
+    <div class="parallax-burst" data-depth="0.4"></div>
+    <div class="parallax-burst two" data-depth="0.2"></div>
+    <div class="hero">
+      <div>
+        <div class="intro-note" data-depth="0.05">Cinematic visions shaped through light, color, and the rhythm of motion.</div>
+        <h1 class="reveal">Ryder Thomas</h1>
+        <div class="subtitle reveal">Cinematographer · Filmmaker · Photographer</div>
+        <div class="tagline" id="tagline">Stories through light, color, and motion.</div>
+      </div>
+    </div>
+    <div class="scroll-hint">scroll</div>
+  </header>
+
+  <main>
+    <section class="light" id="about">
+      <div class="content-wrapper">
+        <h2 class="section-heading reveal">
+          <small>About</small>
+          A filmmaker in motion
+        </h2>
+        <p class="about-text reveal">
+          I’m Ryder Thomas, a 16-year-old cinematographer, filmmaker, and photographer. My world revolves around the way light tells a story — from early golden hours to neon midnight frames. I craft visuals that feel intimate and emotionally rich, refining each shot through color grading and careful editing in After Effects, Premiere Pro, and DaVinci Resolve. Every project is a chance to sculpt color, pace, and emotion into something that lingers.
+        </p>
+      </div>
+    </section>
+
+    <section class="light" id="portfolio">
+      <div class="content-wrapper">
+        <h2 class="section-heading reveal">
+          <small>Portfolio</small>
+          Stills &amp; Frames
+        </h2>
+        <div class="portfolio-grid">
+          <figure class="portfolio-item wide" style="--delay:0.1s">
+            <img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=1200&q=80" alt="Cinematic still placeholder" />
+          </figure>
+          <figure class="portfolio-item" style="--delay:0.2s">
+            <img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?auto=format&fit=crop&w=800&q=80" alt="Colorful portrait placeholder" />
+          </figure>
+          <figure class="portfolio-item tall" style="--delay:0.3s">
+            <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80" alt="Film still placeholder" />
+          </figure>
+          <figure class="portfolio-item" style="--delay:0.35s">
+            <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=900&q=80" alt="Street photography placeholder" />
+          </figure>
+          <figure class="portfolio-item wide" style="--delay:0.4s">
+            <img src="https://images.unsplash.com/photo-1526498460520-4c246339dccb?auto=format&fit=crop&w=1200&q=80" alt="Landscape placeholder" />
+          </figure>
+          <figure class="portfolio-item" style="--delay:0.5s">
+            <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=800&q=80" alt="Silhouette placeholder" />
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="light" id="reels">
+      <div class="content-wrapper">
+        <h2 class="section-heading reveal">
+          <small>Reels</small>
+          Moving Pictures
+        </h2>
+        <div class="reels-wrapper">
+          <article class="reel" style="--delay:0.1s">
+            <div class="meta">Short Film · Color Journey</div>
+            <h3>"Chromatic Echoes"</h3>
+            <iframe src="https://www.youtube.com/embed/ScMzIvxBSi4" title="Chromatic Echoes" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </article>
+          <article class="reel" style="--delay:0.2s">
+            <div class="meta">Concept Reel · Motion Study</div>
+            <h3>"Pulse in Motion"</h3>
+            <iframe src="https://www.youtube.com/embed/tgbNymZ7vqY" title="Pulse in Motion" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </article>
+          <article class="reel" style="--delay:0.3s">
+            <div class="meta">Travel Reel · Visual Diary</div>
+            <h3>"Frames Between"</h3>
+            <iframe src="https://www.youtube.com/embed/sVPYIRF9RCQ" title="Frames Between" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="light contact" id="contact">
+      <div class="content-wrapper">
+        <h2 class="section-heading reveal">
+          <small>Contact</small>
+          Keep in touch
+        </h2>
+        <div class="contact-details reveal">
+          <a href="https://www.instagram.com/ryderjt1/" target="_blank" rel="noopener">
+            <span>Instagram</span>
+            @ryderjt1
+          </a>
+          <a href="https://tiktok.com/@ryderjt" target="_blank" rel="noopener">
+            <span>TikTok</span>
+            @ryderjt
+          </a>
+          <a href="mailto:ryder@ryderjt.com">
+            <span>Email</span>
+            ryder@ryderjt.com
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> Ryder Thomas — Cinematic storytelling through light &amp; color.
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.2
+    });
+
+    document.querySelectorAll('.reveal, .portfolio-item, .reel').forEach((el, index) => {
+      el.style.transitionDelay = el.style.getPropertyValue('--delay') || `${index * 0.08}s`;
+      observer.observe(el);
+    });
+
+    const stamp = document.getElementById('stamp');
+    window.addEventListener('load', () => {
+      requestAnimationFrame(() => {
+        stamp.classList.add('visible');
+      });
+    });
+
+    const tagline = document.getElementById('tagline');
+    const taglineText = tagline.textContent.trim();
+    tagline.textContent = '';
+    let index = 0;
+
+    function typeWriter() {
+      if (index < taglineText.length) {
+        tagline.textContent += taglineText.charAt(index);
+        index++;
+        const delay = taglineText.charAt(index - 1) === ' ' ? 140 : 90;
+        setTimeout(typeWriter, delay);
+      } else {
+        tagline.style.borderRightColor = 'transparent';
+      }
+    }
+
+    window.addEventListener('load', () => {
+      setTimeout(typeWriter, 600);
+    });
+
+    const parallaxElements = document.querySelectorAll('[data-depth]');
+
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      parallaxElements.forEach((el) => {
+        const depth = parseFloat(el.getAttribute('data-depth'));
+        const movement = scrollY * depth * 0.3;
+        el.style.transform = `translate3d(0, ${movement}px, 0)`;
+      });
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
