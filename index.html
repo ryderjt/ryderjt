@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ryder Thomas — Cinematographer · Filmmaker · Photographer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: radial-gradient(circle at top left, rgba(138, 121, 255, 0.45), transparent 45%),
+              radial-gradient(circle at bottom right, rgba(255, 118, 187, 0.3), transparent 40%),
+              #05050a;
+      --glass: rgba(12, 12, 23, 0.62);
+      --accent: #c5d4ff;
+      --accent-strong: #8b91ff;
+      --text: #f5f6ff;
+      --muted: rgba(245, 246, 255, 0.65);
+      --border: rgba(255, 255, 255, 0.08);
+      --glow: 0 0 22px rgba(139, 145, 255, 0.55);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(120deg, rgba(203, 188, 255, 0.08), rgba(123, 248, 255, 0.05));
+      mix-blend-mode: screen;
+      opacity: 0.8;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      backdrop-filter: blur(16px);
+      background: rgba(5, 5, 10, 0.55);
+      border-bottom: 1px solid var(--border);
+      z-index: 10;
+    }
+
+    nav {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+    }
+
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.4s ease;
+    }
+
+    .logo:hover {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -0.4rem;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent-strong), transparent);
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 0.35s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    .nav-links a:hover::after {
+      transform: scaleX(1);
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 7rem 1.5rem 4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 6rem;
+    }
+
+    section {
+      position: relative;
+      padding: 2rem;
+      border: 1px solid var(--border);
+      border-radius: 32px;
+      background: var(--glass);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 20px 45px rgba(2, 3, 12, 0.45);
+      overflow: hidden;
+    }
+
+    section::before {
+      content: "";
+      position: absolute;
+      inset: -40% -10% 40% 60%;
+      background: radial-gradient(circle at center, rgba(139, 145, 255, 0.28), transparent 60%);
+      filter: blur(60px);
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    section::after {
+      content: "";
+      position: absolute;
+      inset: 65% -35% -30% 40%;
+      background: radial-gradient(circle at center, rgba(255, 178, 240, 0.22), transparent 70%);
+      filter: blur(60px);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    section > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero {
+      display: grid;
+      gap: 1.5rem;
+      align-items: center;
+      min-height: 60vh;
+      padding-top: 4rem;
+    }
+
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(3.25rem, 8vw, 5.5rem);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      line-height: 1.05;
+      text-shadow: var(--glow);
+    }
+
+    .hero h2 {
+      font-size: clamp(1.1rem, 3vw, 1.7rem);
+      color: var(--accent);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .hero p {
+      max-width: 530px;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .highlight-strip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: linear-gradient(120deg, rgba(139, 145, 255, 0.2), rgba(203, 188, 255, 0.08));
+      border-radius: 999px;
+      padding: 0.75rem 1.25rem;
+      border: 1px solid rgba(197, 212, 255, 0.3);
+      color: var(--muted);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      width: fit-content;
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1.75rem;
+      color: var(--accent);
+    }
+
+    .about-grid {
+      display: grid;
+      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      align-items: start;
+    }
+
+    .about-grid p {
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .traits {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+
+    .trait {
+      padding: 0.6rem 1.2rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(8, 8, 16, 0.4);
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .portfolio-item {
+      position: relative;
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(10, 10, 18, 0.7);
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+    }
+
+    .portfolio-item::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(5, 5, 15, 0) 40%, rgba(5, 5, 20, 0.75) 100%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .portfolio-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 25px 60px rgba(10, 9, 36, 0.45);
+    }
+
+    .portfolio-item:hover::after {
+      opacity: 1;
+    }
+
+    .portfolio-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: saturate(1.15);
+      transition: transform 0.6s ease;
+    }
+
+    .portfolio-item:hover img {
+      transform: scale(1.08);
+    }
+
+    .portfolio-caption {
+      position: absolute;
+      bottom: 1rem;
+      left: 1.2rem;
+      z-index: 2;
+      color: var(--text);
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .video-wrapper {
+      position: relative;
+      padding-top: 56.25%;
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(10, 10, 18, 0.7);
+      box-shadow: 0 20px 45px rgba(5, 8, 25, 0.45);
+    }
+
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .contact-section {
+      text-align: center;
+    }
+
+    .contact-section p {
+      color: var(--muted);
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+      font-size: 1.05rem;
+    }
+
+    .social-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .social-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 1.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      text-decoration: none;
+      color: var(--text);
+      background: linear-gradient(135deg, rgba(139, 145, 255, 0.18), rgba(50, 60, 110, 0.35));
+      box-shadow: 0 12px 28px rgba(7, 8, 22, 0.45);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.82rem;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .social-links a:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px rgba(12, 16, 45, 0.55);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 0 3rem;
+      color: rgba(245, 246, 255, 0.45);
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .nav-links {
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      section {
+        padding: 1.75rem;
+      }
+
+      .hero {
+        text-align: center;
+        justify-items: center;
+        padding-top: 2rem;
+      }
+
+      .hero p {
+        max-width: 600px;
+      }
+
+      .highlight-strip {
+        margin: 0 auto;
+      }
+    }
+
+    [data-animate] {
+      opacity: 0;
+      transform: translateY(35px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+
+    [data-animate].visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <span class="logo">ryder thomas</span>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#reels">Reels</a>
+        <a href="#contact">Connect</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home" data-animate>
+      <span class="highlight-strip">Cinematic storytelling in motion</span>
+      <h1>Ryder Thomas</h1>
+      <h2>Cinematographer · Filmmaker · Photographer</h2>
+      <p>I’m a 16-year-old cinematographer who chases light, motion, and emotion. I blend color, texture, and rhythm to craft visuals that feel intimate and alive — from dreamy film stills to dynamic edits that pull you in.</p>
+    </section>
+
+    <section id="about" data-animate>
+      <h3 class="section-title">About</h3>
+      <div class="about-grid">
+        <p>Stories have been my favorite escape for as long as I can remember. I started editing as a kid, experimenting in <strong>After Effects, Premiere Pro, and DaVinci Resolve</strong> until layers of color, motion, and sound began to click. Now I’m obsessed with building cinematic moments — the kind that linger, feel nostalgic, and glow like you remember them.</p>
+        <div>
+          <p>I love taking raw footage and sculpting it into something immersive. Whether it’s color grading to create a specific mood, designing motion that feels effortless, or framing shots that feel like memories, my goal is to make every project personal and alive.</p>
+          <div class="traits">
+            <span class="trait">Color Grading</span>
+            <span class="trait">Cinematic Edits</span>
+            <span class="trait">After Effects</span>
+            <span class="trait">Premiere Pro</span>
+            <span class="trait">DaVinci Resolve</span>
+            <span class="trait">Visual Storytelling</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="portfolio" data-animate>
+      <h3 class="section-title">Portfolio</h3>
+      <div class="portfolio-grid">
+        <div class="portfolio-item">
+          <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80" alt="Neon city street at night" />
+          <span class="portfolio-caption">Neon Drift</span>
+        </div>
+        <div class="portfolio-item">
+          <img src="https://images.unsplash.com/photo-1527964279765-76fe0e42250a?auto=format&fit=crop&w=900&q=80" alt="Moody portrait with color lighting" />
+          <span class="portfolio-caption">Chromatic Gaze</span>
+        </div>
+        <div class="portfolio-item">
+          <img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?auto=format&fit=crop&w=900&q=80" alt="Film still of a skateboarder" />
+          <span class="portfolio-caption">Frame in Motion</span>
+        </div>
+        <div class="portfolio-item">
+          <img src="https://images.unsplash.com/photo-1511765224389-37f0e77cf0eb?auto=format&fit=crop&w=900&q=80" alt="Cinematic shot of mountains" />
+          <span class="portfolio-caption">Skyline Pulse</span>
+        </div>
+        <div class="portfolio-item">
+          <img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=900&q=80" alt="Soft-lit portrait" />
+          <span class="portfolio-caption">Soft Focus</span>
+        </div>
+        <div class="portfolio-item">
+          <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=80" alt="Landscape at sunrise" />
+          <span class="portfolio-caption">Golden Horizon</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="reels" data-animate>
+      <h3 class="section-title">Reels &amp; Edits</h3>
+      <div class="video-grid">
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/aqz-KE-bpKQ" title="Ryder Thomas cinematic reel" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="video-wrapper">
+          <iframe src="https://player.vimeo.com/video/76979871?h=7d15c4615e" title="Visual storytelling edit" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/Z1LmpiIGYNs" title="Color grading breakdown" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact-section" data-animate>
+      <h3 class="section-title">Connect</h3>
+      <p>Let’s craft something that feels cinematic, honest, and alive. Reach out for collaborations, edits, or just to talk about visuals and stories that inspire you.</p>
+      <div class="social-links">
+        <a href="https://www.instagram.com/ryderjt1/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://tiktok.com/@ryderjt" target="_blank" rel="noopener">TikTok</a>
+        <a href="mailto:ryder@ryderjt.com">Email</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> Ryder Thomas · Crafting light, color, and motion
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.18
+    });
+
+    document.querySelectorAll('[data-animate]').forEach(section => observer.observe(section));
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
