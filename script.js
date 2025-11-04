@@ -52,15 +52,6 @@ document.querySelectorAll(interactiveSelectors).forEach((el) => {
   });
 });
 
-const floaters = document.querySelectorAll('.notes__card');
-floaters.forEach((el) => {
-  const amplitude = 6 + Math.random() * 6;
-  const duration = 6 + Math.random() * 4;
-  el.style.setProperty('--amplitude', `${amplitude}px`);
-  el.style.setProperty('--float-duration', `${duration}s`);
-  el.classList.add('float');
-});
-
 const reelFrame = document.querySelector('.reel-frame');
 if (reelFrame) {
   const baseTilt = -2;
