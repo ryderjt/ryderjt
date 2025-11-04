@@ -196,6 +196,22 @@ body {
   box-shadow: 0 25px 60px rgba(59, 130, 246, 0.18);
 }
 
+.hero__still {
+  align-self: flex-end;
+  width: min(320px, 90%);
+  border-radius: 22px;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  box-shadow: 0 25px 55px rgba(0, 0, 0, 0.12);
+  background: #e5e7eb;
+}
+
+.hero__still img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .note-label {
   text-transform: uppercase;
   font-size: 0.7rem;
