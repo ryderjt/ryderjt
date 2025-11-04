@@ -170,7 +170,7 @@ body {
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
   position: relative;
   transform: rotate(-2deg);
-  width: clamp(400px, 44vw, 640px);
+  width: clamp(280px, 32vw, 460px);
   aspect-ratio: 1 / 1;
   background: linear-gradient(
       135deg,
