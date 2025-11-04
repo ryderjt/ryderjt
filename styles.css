@@ -159,16 +159,17 @@ body {
   position: relative;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
-
 .reel-frame {
-  border-radius: 30px;
+  border-radius: 26px;
   overflow: hidden;
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
   position: relative;
   transform: rotate(-2deg);
-  aspect-ratio: 4 / 5;
+  width: min(360px, 75vw);
+  aspect-ratio: 4 / 3;
   background: #f9fafb;
   background-image: linear-gradient(
       135deg,
@@ -199,12 +200,12 @@ body {
 .hero__note {
   position: absolute;
   z-index: 2;
-  right: -1.5rem;
-  bottom: 12%;
+  right: -1.2rem;
+  bottom: 10%;
   background: linear-gradient(120deg, rgba(59, 130, 246, 0.18), rgba(234, 179, 8, 0.25));
   border-radius: 18px;
-  padding: 1.3rem 1.6rem;
-  width: min(300px, 80%);
+  padding: 1.1rem 1.4rem;
+  width: min(260px, 82%);
   font-family: var(--mono);
   backdrop-filter: blur(5px);
   box-shadow: 0 30px 60px rgba(59, 130, 246, 0.22);
