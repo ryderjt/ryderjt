@@ -157,9 +157,10 @@ body {
 
 .hero__reel {
   position: relative;
-  display: flex;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
+  padding: 1.5rem;
 }
 
 .reel-frame {
@@ -168,7 +169,7 @@ body {
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
   position: relative;
   transform: rotate(-2deg);
-  width: min(360px, 75vw);
+  width: min(320px, 70vw);
   aspect-ratio: 4 / 3;
   background: #f9fafb;
   background-image: linear-gradient(
@@ -199,21 +200,21 @@ body {
 
 .hero__note {
   position: absolute;
-  z-index: 2;
-  right: -1.2rem;
-  bottom: 10%;
+  z-index: 3;
+  top: -1.6rem;
+  right: -1.8rem;
   background: linear-gradient(120deg, rgba(59, 130, 246, 0.18), rgba(234, 179, 8, 0.25));
   border-radius: 18px;
   padding: 1.1rem 1.4rem;
-  width: min(260px, 82%);
+  width: clamp(200px, 45vw, 240px);
   font-family: var(--mono);
   backdrop-filter: blur(5px);
   box-shadow: 0 30px 60px rgba(59, 130, 246, 0.22);
-  transform: translateY(var(--reveal-offset)) rotate(4deg);
+  transform: translateY(var(--reveal-offset)) rotate(-4deg);
 }
 
 .hero__note.is-visible {
-  transform: translateY(0) rotate(4deg);
+  transform: translateY(0) rotate(-4deg);
 }
 
 .note-label {
