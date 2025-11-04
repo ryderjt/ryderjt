@@ -162,27 +162,38 @@ body {
   gap: 1.5rem;
 }
 
+
 .reel-frame {
   border-radius: 30px;
   overflow: hidden;
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
   position: relative;
   transform: rotate(-2deg);
+  aspect-ratio: 4 / 5;
+  background: #f9fafb;
+  background-image: linear-gradient(
+      135deg,
+      rgba(59, 130, 246, 0.12),
+      rgba(234, 179, 8, 0.18)
+    ),
+    url('https://images.unsplash.com/photo-1526481280695-3c469928b67b?auto=format&fit=crop&w=900&q=80');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 1px solid rgba(255, 255, 255, 0.65);
 }
 
 .reel-frame::after {
   content: '';
   position: absolute;
   inset: 0;
-  border: 2px solid rgba(255, 255, 255, 0.6);
-  mix-blend-mode: screen;
+  background: linear-gradient(
+      to top,
+      rgba(15, 23, 42, 0.35) 0%,
+      rgba(15, 23, 42, 0.05) 45%,
+      transparent 100%
+    );
   pointer-events: none;
-}
-
-.reel-frame video {
-  width: 100%;
-  display: block;
-  filter: saturate(1.2) contrast(1.1);
 }
 
 .hero__note {
@@ -194,22 +205,6 @@ body {
   font-family: var(--mono);
   backdrop-filter: blur(5px);
   box-shadow: 0 25px 60px rgba(59, 130, 246, 0.18);
-}
-
-.hero__still {
-  align-self: flex-end;
-  width: min(320px, 90%);
-  aspect-ratio: 1 / 1;
-  border-radius: 22px;
-  box-shadow: 0 25px 55px rgba(0, 0, 0, 0.12);
-  overflow: hidden;
-  background: #e5e7eb;
-  background-image: url('https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=640&q=80');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  position: relative;
 }
 
 .note-label {
