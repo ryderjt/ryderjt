@@ -170,8 +170,8 @@ body {
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
   position: relative;
   transform: rotate(-2deg);
-  width: clamp(420px, 48vw, 760px);
-  aspect-ratio: 4 / 3;
+  width: clamp(460px, 50vw, 720px);
+  aspect-ratio: 1 / 1;
   background: linear-gradient(
       135deg,
       rgba(59, 130, 246, 0.18),
@@ -208,8 +208,8 @@ body {
   z-index: 3;
   top: auto;
   left: auto;
-  bottom: -6%;
-  right: -8%;
+  bottom: 6%;
+  right: -6%;
   background: linear-gradient(120deg, rgba(59, 130, 246, 0.18), rgba(234, 179, 8, 0.25));
   border-radius: 18px;
   padding: 1.1rem 1.4rem;
@@ -217,7 +217,7 @@ body {
   font-family: var(--mono);
   backdrop-filter: blur(5px);
   box-shadow: 0 30px 60px rgba(59, 130, 246, 0.22);
-  --note-position: translate(18%, 22%);
+  --note-position: translate(14%, 12%);
   transform: var(--note-position) rotate(-4deg) translateY(var(--reveal-offset));
 }
 
