@@ -162,6 +162,7 @@ body {
   align-items: center;
   padding: 1.5rem;
   gap: 1rem;
+  margin-left: clamp(-2.5rem, -6vw, -0.75rem);
 }
 
 .reel-frame {
@@ -169,7 +170,7 @@ body {
   overflow: hidden;
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
   position: relative;
-  transform: rotate(-2deg);
+  transform: rotate(-3deg);
   width: clamp(220px, 26vw, 340px);
   aspect-ratio: 1 / 1;
   background: linear-gradient(
@@ -179,6 +180,7 @@ body {
     );
   background-color: #f7f8fc;
   border: 1px solid rgba(255, 255, 255, 0.7);
+  will-change: transform;
 }
 
 .reel-frame::after {
@@ -209,7 +211,7 @@ body {
   top: auto;
   left: auto;
   bottom: 6%;
-  right: -8%;
+  right: -4%;
   background: linear-gradient(120deg, rgba(59, 130, 246, 0.18), rgba(234, 179, 8, 0.25));
   border-radius: 18px;
   padding: 1.1rem 1.4rem;
@@ -217,7 +219,7 @@ body {
   font-family: var(--mono);
   backdrop-filter: blur(5px);
   box-shadow: 0 30px 60px rgba(59, 130, 246, 0.22);
-  --note-position: translate(-14%, 12%);
+  --note-position: translate(-28%, 12%);
   transform: var(--note-position) rotate(-4deg) translateY(var(--reveal-offset));
 }
 
@@ -519,6 +521,7 @@ main {
 
   .hero__reel {
     justify-content: flex-start;
+    margin-left: 0;
   }
 
   .reel-frame {
