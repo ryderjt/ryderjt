@@ -169,7 +169,7 @@ body {
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
   position: relative;
   transform: rotate(-2deg);
-  width: min(320px, 70vw);
+  width: min(360px, 75vw);
   aspect-ratio: 4 / 3;
   background: #f9fafb;
   background-image: linear-gradient(
@@ -201,8 +201,8 @@ body {
 .hero__note {
   position: absolute;
   z-index: 3;
-  top: -1.6rem;
-  right: -1.8rem;
+  top: 52%;
+  left: 70%;
   background: linear-gradient(120deg, rgba(59, 130, 246, 0.18), rgba(234, 179, 8, 0.25));
   border-radius: 18px;
   padding: 1.1rem 1.4rem;
@@ -210,11 +210,12 @@ body {
   font-family: var(--mono);
   backdrop-filter: blur(5px);
   box-shadow: 0 30px 60px rgba(59, 130, 246, 0.22);
-  transform: translateY(var(--reveal-offset)) rotate(-4deg);
+  --note-position: translate(-55%, -55%);
+  transform: var(--note-position) rotate(-4deg) translateY(var(--reveal-offset));
 }
 
 .hero__note.is-visible {
-  transform: translateY(0) rotate(-4deg);
+  transform: var(--note-position) rotate(-4deg);
 }
 
 .note-label {
@@ -518,10 +519,11 @@ main {
   }
 
   .hero__note {
-    right: auto;
-    left: 1.2rem;
-    bottom: 1.2rem;
-    width: calc(100% - 2.4rem);
+    top: auto;
+    left: 50%;
+    bottom: -1.2rem;
+    width: calc(100% - 3rem);
+    --note-position: translate(-50%, 0);
   }
 
   .gallery__grid {
