@@ -57,7 +57,7 @@ if (reelFrame) {
   const baseTilt = -2;
   const updateTilt = () => {
     const rect = reelFrame.getBoundingClientRect();
-    const offset = baseTilt + (window.innerHeight / 2 - rect.top) * 0.006;
+    const offset = baseTilt + (window.innerHeight / 2 - rect.top) * 0.002;
     reelFrame.style.transform = `rotate(${offset}deg)`;
   };
   updateTilt();
