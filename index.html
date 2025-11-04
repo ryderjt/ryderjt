@@ -9,10 +9,11 @@
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #f8f6f2;
-      --text: #181818;
-      --muted: rgba(24, 24, 24, 0.6);
-      --accent: #d8c7ad;
+      --bg: #f7f8fb;
+      --text: #141414;
+      --muted: rgba(20, 20, 20, 0.58);
+      --soft-veil: rgba(164, 180, 210, 0.22);
+      --soft-glow: rgba(164, 180, 210, 0.34);
       --mono: "IBM Plex Mono", monospace;
       --serif: "Playfair Display", "Georgia", serif;
       --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -29,6 +30,21 @@
       color: var(--text);
       overflow-x: hidden;
       line-height: 1.7;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at 20% 20%, rgba(164, 180, 210, 0.3), transparent 55%), radial-gradient(circle at 80% 35%, rgba(139, 155, 187, 0.3), transparent 55%), radial-gradient(circle at 50% 80%, rgba(193, 202, 222, 0.32), transparent 60%);
+      mix-blend-mode: screen;
+      opacity: 0.55;
+      transform: translate3d(0, calc(var(--scroll-shift, 0) * -4%), 0);
+      transition: opacity 0.6s ease;
+      z-index: 0;
     }
 
     img {
@@ -64,16 +80,45 @@
       opacity: 0.7;
     }
 
+    [data-reactive] {
+      --rx: 0deg;
+      --ry: 0deg;
+      --tx: 0px;
+      --ty: 0px;
+      --scale: 1;
+      transform: translate3d(var(--tx), var(--ty), 0) rotateX(var(--rx)) rotateY(var(--ry)) scale(var(--scale));
+      transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.6s ease, filter 0.6s ease;
+      will-change: transform;
+    }
+
+    [data-reactive]:hover {
+      --scale: 1.04;
+    }
+
     .site-mark {
-      position: fixed;
-      top: 1.6rem;
-      left: clamp(1.5rem, 4vw, 3.5rem);
-      z-index: 12;
+      position: relative;
+      padding: 1.6rem clamp(2rem, 6vw, 5rem) 0;
       font-family: var(--mono);
       font-size: 0.85rem;
-      letter-spacing: 0.28em;
-      color: rgba(24, 24, 24, 0.65);
+      letter-spacing: 0.22em;
+      color: rgba(20, 20, 20, 0.6);
+      text-transform: lowercase;
+      z-index: 2;
+    }
+
+    .cursor-glow {
+      position: fixed;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
       pointer-events: none;
+      background: radial-gradient(circle, rgba(164, 180, 210, 0.45) 0%, rgba(164, 180, 210, 0) 70%);
+      mix-blend-mode: screen;
+      transform: translate3d(-50%, -50%, 0);
+      opacity: 0;
+      transition: opacity 0.4s ease, transform 0.28s ease-out;
+      z-index: 11;
+      filter: blur(0.5px);
     }
 
     header {
@@ -89,7 +134,7 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(248, 246, 242, 0.65) 100%);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(245, 247, 251, 0.75) 100%);
       pointer-events: none;
     }
 
@@ -127,7 +172,7 @@
       font-family: var(--mono);
       font-size: clamp(0.95rem, 2vw, 1.1rem);
       letter-spacing: 0.24em;
-      color: rgba(24, 24, 24, 0.62);
+      color: rgba(20, 20, 20, 0.6);
       margin: 0;
     }
 
@@ -138,14 +183,14 @@
       color: var(--text);
       overflow: hidden;
       white-space: nowrap;
-      border-right: 1px solid rgba(24, 24, 24, 0.45);
+      border-right: 1px solid rgba(20, 20, 20, 0.45);
       width: fit-content;
       padding-right: 0.4rem;
     }
 
     .intro-note {
       font-size: 1rem;
-      color: rgba(24, 24, 24, 0.72);
+      color: rgba(20, 20, 20, 0.72);
       max-width: 560px;
     }
 
@@ -164,6 +209,7 @@
       transform: translateY(40px);
       opacity: 0;
       transition: transform 1.2s ease, opacity 1.2s ease;
+      box-shadow: 0 25px 55px rgba(17, 24, 39, 0.12);
     }
 
     .hero-gallery figure:nth-child(2) {
@@ -184,7 +230,7 @@
       height: 100%;
       object-fit: cover;
       filter: grayscale(6%) saturate(1.12);
-      transform: scale(1.02);
+      transform: scale(1.03);
       transition: transform 1.6s ease, filter 0.8s ease;
     }
 
@@ -192,13 +238,172 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(217, 199, 173, 0.35), rgba(24, 24, 24, 0));
+      background: linear-gradient(180deg, var(--soft-glow), rgba(24, 24, 24, 0));
       mix-blend-mode: screen;
       pointer-events: none;
     }
 
     .hero-gallery figure:hover img {
-      transform: scale(1.07);
+      transform: scale(1.09);
+      filter: saturate(1.38);
+    }
+
+    .hero-experiments {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.1rem;
+      margin-top: 1.5rem;
+    }
+
+    .micro-frame,
+    .micro-notes {
+      position: relative;
+      padding: 1rem;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.58);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
+    }
+
+    .micro-frame::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), transparent 60%);
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .micro-frame img {
+      border-radius: 12px;
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      margin-bottom: 0.8rem;
+      filter: saturate(1.1);
+      transition: filter 0.6s ease;
+    }
+
+    .micro-frame:hover img {
+      filter: saturate(1.3);
+    }
+
+    .micro-frame figcaption {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      color: rgba(20, 20, 20, 0.62);
+      text-transform: lowercase;
+    }
+
+    .micro-notes {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      font-size: 0.95rem;
+      color: rgba(20, 20, 20, 0.72);
+      min-height: 100%;
+    }
+
+    .micro-notes span {
+      font-family: var(--mono);
+      letter-spacing: 0.24em;
+      font-size: 0.75rem;
+      color: rgba(20, 20, 20, 0.55);
+    }
+
+    .micro-notes p {
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .micro-notes .mono-line {
+      font-family: var(--mono);
+      letter-spacing: 0.2em;
+      font-size: 0.72rem;
+      color: rgba(20, 20, 20, 0.48);
+    }
+
+    .hero-filmstrip {
+      width: min(1400px, 95vw);
+      margin: clamp(3rem, 6vw, 4.5rem) auto 0;
+      border-radius: 28px;
+      overflow: hidden;
+      position: relative;
+      padding: 1.6rem 0;
+      background: rgba(255, 255, 255, 0.55);
+      box-shadow: 0 28px 60px rgba(15, 23, 42, 0.16);
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-filmstrip::before,
+    .hero-filmstrip::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      width: 160px;
+      height: 100%;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .hero-filmstrip::before {
+      left: 0;
+      background: linear-gradient(90deg, rgba(247, 248, 251, 1), rgba(247, 248, 251, 0));
+    }
+
+    .hero-filmstrip::after {
+      right: 0;
+      background: linear-gradient(270deg, rgba(247, 248, 251, 1), rgba(247, 248, 251, 0));
+    }
+
+    .filmstrip-track {
+      display: flex;
+      gap: 1.6rem;
+      animation: filmstrip 28s ease-in-out infinite alternate;
+      padding: 0 2rem;
+      will-change: transform;
+    }
+
+    .filmstrip-frame {
+      width: 220px;
+      min-height: 160px;
+      border-radius: 18px;
+      overflow: hidden;
+      background: rgba(0, 0, 0, 0.06);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      position: relative;
+      box-shadow: 0 15px 40px rgba(15, 23, 42, 0.14);
+    }
+
+    .filmstrip-frame img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(1.15);
+      transition: transform 1.8s ease, filter 1.2s ease;
+    }
+
+    .filmstrip-frame span {
+      position: relative;
+      z-index: 1;
+      background: rgba(247, 248, 251, 0.75);
+      padding: 0.85rem 1rem;
+      font-family: var(--mono);
+      letter-spacing: 0.22em;
+      font-size: 0.68rem;
+      text-transform: lowercase;
+      color: rgba(20, 20, 20, 0.7);
+      mix-blend-mode: multiply;
+    }
+
+    .filmstrip-frame:hover img {
+      transform: scale(1.08);
       filter: saturate(1.35);
     }
 
@@ -303,10 +508,81 @@
       filter: saturate(1.35);
     }
 
+    .moodboard {
+      padding-top: 0;
+    }
+
+    .moodboard .content-wrapper {
+      gap: clamp(2rem, 5vw, 3.5rem);
+    }
+
+    .moodboard-heading {
+      max-width: 620px;
+      display: grid;
+      gap: 0.8rem;
+    }
+
+    .moodboard-heading span {
+      font-family: var(--mono);
+      letter-spacing: 0.28em;
+      font-size: 0.76rem;
+      color: rgba(20, 20, 20, 0.55);
+      text-transform: lowercase;
+    }
+
+    .moodboard-heading p {
+      margin: 0;
+      font-size: 1.02rem;
+      color: rgba(20, 20, 20, 0.7);
+      line-height: 1.8;
+    }
+
+    .moodboard-grid {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 1.1rem;
+    }
+
+    .moodboard-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 22px;
+      grid-column: span 2;
+      box-shadow: 0 24px 50px rgba(15, 23, 42, 0.15);
+    }
+
+    .moodboard-item:nth-child(2),
+    .moodboard-item:nth-child(5) {
+      grid-column: span 3;
+    }
+
+    .moodboard-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(1.18);
+      transition: transform 1.4s ease, filter 1.1s ease;
+    }
+
+    .moodboard-item::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(125deg, rgba(255, 255, 255, 0.3), rgba(0, 0, 0, 0));
+      mix-blend-mode: screen;
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .moodboard-item:hover img {
+      transform: scale(1.08);
+      filter: saturate(1.35);
+    }
+
     .portfolio-intro {
       max-width: 720px;
       font-size: 1rem;
-      color: rgba(24, 24, 24, 0.7);
+      color: rgba(20, 20, 20, 0.7);
     }
 
     .portfolio-grid {
@@ -341,8 +617,8 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at top left, rgba(217, 199, 173, 0.35), transparent 55%);
-      mix-blend-mode: multiply;
+      background: radial-gradient(circle at top left, var(--soft-glow), transparent 55%);
+      mix-blend-mode: screen;
       pointer-events: none;
     }
 
@@ -357,6 +633,61 @@
 
     .portfolio-grid .wide {
       grid-column: span 2;
+    }
+
+    .process {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.8) 0%, rgba(246, 248, 252, 0.75) 100%);
+    }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.6rem;
+    }
+
+    .process-card {
+      display: grid;
+      gap: 1.1rem;
+      padding: 1.6rem;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 24px 60px rgba(15, 23, 42, 0.16);
+    }
+
+    .process-card figure {
+      margin: 0;
+      position: relative;
+      overflow: hidden;
+      border-radius: 18px;
+      height: 180px;
+    }
+
+    .process-card figure img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 1.3s ease, filter 0.9s ease;
+      filter: saturate(1.18);
+    }
+
+    .process-card:hover figure img {
+      transform: scale(1.06);
+      filter: saturate(1.35);
+    }
+
+    .process-copy h3 {
+      margin: 0;
+      font-family: var(--sans);
+      font-size: 1.3rem;
+      letter-spacing: -0.01em;
+    }
+
+    .process-copy p {
+      margin: 0.7rem 0 0;
+      color: rgba(20, 20, 20, 0.72);
+      font-size: 0.95rem;
+      line-height: 1.75;
     }
 
     @media (max-width: 900px) {
@@ -442,10 +773,71 @@
       position: absolute;
       inset: 0 10% 0 50%;
       background: url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80") center/cover;
-      opacity: 0.15;
-      mix-blend-mode: multiply;
+      opacity: 0.18;
+      mix-blend-mode: screen;
       pointer-events: none;
       border-radius: 30px 0 0 30px;
+      filter: saturate(1.1);
+    }
+
+    .contact-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
+      gap: clamp(2rem, 5vw, 3.5rem);
+      position: relative;
+      z-index: 1;
+      align-items: stretch;
+    }
+
+    .contact-collage {
+      position: relative;
+      display: grid;
+      gap: 1.2rem;
+    }
+
+    .contact-collage figure {
+      margin: 0;
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 24px 55px rgba(15, 23, 42, 0.18);
+    }
+
+    .contact-collage figure:nth-child(2) {
+      justify-self: end;
+      width: 70%;
+    }
+
+    .contact-collage img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(1.18);
+      transition: transform 1.2s ease, filter 0.9s ease;
+    }
+
+    .contact-collage figure:hover img {
+      transform: scale(1.08);
+      filter: saturate(1.35);
+    }
+
+    .contact-note {
+      padding: 1.4rem 1.6rem;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 16px 45px rgba(15, 23, 42, 0.14);
+      font-size: 0.95rem;
+      color: rgba(20, 20, 20, 0.72);
+      display: grid;
+      gap: 0.6rem;
+      animation: gentle-pulse 9s ease-in-out infinite alternate;
+    }
+
+    .contact-note span {
+      font-family: var(--mono);
+      letter-spacing: 0.24em;
+      font-size: 0.7rem;
+      color: rgba(20, 20, 20, 0.55);
     }
 
     .contact-details {
@@ -455,8 +847,7 @@
       font-family: var(--mono);
       letter-spacing: 0.14em;
       color: var(--muted);
-      position: relative;
-      z-index: 1;
+      align-content: start;
     }
 
     .contact-details a {
@@ -504,8 +895,10 @@
       width: 220px;
       height: 220px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(217, 199, 173, 0.35) 0%, rgba(217, 199, 173, 0) 70%);
+      background: radial-gradient(circle, rgba(164, 180, 210, 0.45) 0%, rgba(164, 180, 210, 0) 70%);
       pointer-events: none;
+      filter: blur(0.5px);
+      animation: drift 22s ease-in-out infinite;
     }
 
     .parallax-burst.two {
@@ -515,6 +908,7 @@
       right: auto;
       width: 280px;
       height: 280px;
+      animation-duration: 26s;
     }
 
     .divider {
@@ -530,7 +924,7 @@
       font-family: var(--mono);
       letter-spacing: 0.3em;
       font-size: 0.7rem;
-      color: rgba(24, 24, 24, 0.5);
+      color: rgba(20, 20, 20, 0.5);
     }
 
     .reveal {
@@ -553,6 +947,35 @@
       }
     }
 
+    @keyframes drift {
+      0%, 100% {
+        transform: translate3d(0, -6px, 0);
+      }
+      50% {
+        transform: translate3d(0, 10px, 0);
+      }
+    }
+
+    @keyframes filmstrip {
+      0% {
+        transform: translate3d(0, 0, 0);
+      }
+      100% {
+        transform: translate3d(-25%, 0, 0);
+      }
+    }
+
+    @keyframes gentle-pulse {
+      0% {
+        box-shadow: 0 16px 45px rgba(15, 23, 42, 0.12);
+        background: rgba(255, 255, 255, 0.55);
+      }
+      100% {
+        box-shadow: 0 22px 60px rgba(15, 23, 42, 0.18);
+        background: rgba(255, 255, 255, 0.7);
+      }
+    }
+
     @media (max-width: 960px) {
       .hero {
         grid-template-columns: 1fr;
@@ -562,8 +985,32 @@
         grid-template-columns: repeat(4, 1fr);
       }
 
+      .hero-experiments {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .micro-notes {
+        grid-column: span 2;
+      }
+
       .about-layout {
         grid-template-columns: 1fr;
+      }
+
+      .moodboard-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .moodboard-item {
+        grid-column: span 2;
+      }
+
+      .contact-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-collage figure:nth-child(2) {
+        width: 100%;
       }
 
       .section-heading::before {
@@ -581,14 +1028,34 @@
         grid-auto-rows: 160px;
       }
 
+      .hero-experiments {
+        grid-template-columns: 1fr;
+      }
+
+      .micro-notes {
+        grid-column: span 1;
+      }
+
       .about-gallery {
         grid-template-columns: repeat(2, 1fr);
         grid-auto-rows: 160px;
       }
 
+      .moodboard-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .process-grid {
+        grid-template-columns: 1fr;
+      }
+
       .contact::before {
         inset: 0 0 45% 0;
         border-radius: 0;
+      }
+
+      .contact-collage {
+        order: 2;
       }
     }
   </style>
@@ -608,6 +1075,21 @@
           and emotion. behind the camera and inside the edit — in after effects, premiere pro, and davinci resolve — i chase
           palettes, textures, and pacing that make stories feel alive.
         </p>
+        <div class="hero-experiments reveal">
+          <figure class="micro-frame" data-reactive="0.45">
+            <img src="https://images.unsplash.com/photo-1512218168353-4bba6ac5cb2a?auto=format&fit=crop&w=900&q=80" alt="cinematic light test placeholder" />
+            <figcaption>light tests / 50mm</figcaption>
+          </figure>
+          <figure class="micro-frame" data-reactive="0.3">
+            <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80" alt="edit suite monitor placeholder" />
+            <figcaption>grade preview / resolve</figcaption>
+          </figure>
+          <div class="micro-notes" data-reactive="0.2">
+            <span>live color notes</span>
+            <p>tonal blends, afterglow palettes, frames that breathe slowly. i chase gradients that stay with you after the cut.</p>
+            <p class="mono-line">motion, warmth, hush, glow.</p>
+          </div>
+        </div>
       </div>
       <div class="hero-gallery">
         <figure class="reveal" style="--delay:0.1s">
@@ -619,6 +1101,34 @@
         <figure class="reveal" style="--delay:0.26s">
           <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1400&q=80" alt="lighting setup placeholder" />
         </figure>
+      </div>
+    </div>
+    <div class="hero-filmstrip reveal" aria-hidden="true">
+      <div class="filmstrip-track">
+        <div class="filmstrip-frame" data-reactive="0.18">
+          <img src="https://images.unsplash.com/photo-1526481280695-3c4691e75bef?auto=format&fit=crop&w=1200&q=80" alt="film still placeholder" />
+          <span>color drift</span>
+        </div>
+        <div class="filmstrip-frame" data-reactive="0.22">
+          <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=1000&q=80" alt="camera pan placeholder" />
+          <span>handheld pulse</span>
+        </div>
+        <div class="filmstrip-frame" data-reactive="0.2">
+          <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80" alt="editing desk placeholder" />
+          <span>timeline glow</span>
+        </div>
+        <div class="filmstrip-frame" data-reactive="0.16">
+          <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80" alt="portrait light placeholder" />
+          <span>portrait hush</span>
+        </div>
+        <div class="filmstrip-frame" data-reactive="0.2">
+          <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80" alt="lighting rig placeholder" />
+          <span>set atmos</span>
+        </div>
+        <div class="filmstrip-frame" data-reactive="0.18">
+          <img src="https://images.unsplash.com/photo-1487412912498-0447578fcca8?auto=format&fit=crop&w=1000&q=80" alt="studio shadows placeholder" />
+          <span>grain + glow</span>
+        </div>
       </div>
     </div>
     <div class="scroll-hint">scroll</div>
@@ -648,6 +1158,73 @@
               <img src="https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=1200&q=80" alt="color grading placeholder" />
             </figure>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="light moodboard" aria-label="color and motion studies">
+      <div class="content-wrapper">
+        <div class="moodboard-heading reveal" data-reactive="0.12">
+          <span>palette journal</span>
+          <p>fragments from location scouts, frame grabs, and color grade experiments. overlays, light leaks, and motion blur mapped into a living moodboard.</p>
+        </div>
+        <div class="moodboard-grid">
+          <figure class="moodboard-item reveal" data-reactive="0.25" style="--delay:0.08s">
+            <img src="https://images.unsplash.com/photo-1523419409543-0c1df022bdd1?auto=format&fit=crop&w=1200&q=80" alt="projection wash placeholder" />
+          </figure>
+          <figure class="moodboard-item reveal" data-reactive="0.22" style="--delay:0.12s">
+            <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=1200&q=80" alt="bokeh river placeholder" />
+          </figure>
+          <figure class="moodboard-item reveal" data-reactive="0.2" style="--delay:0.16s">
+            <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1200&q=80" alt="foggy forest placeholder" />
+          </figure>
+          <figure class="moodboard-item reveal" data-reactive="0.24" style="--delay:0.2s">
+            <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80" alt="sunset silhouette placeholder" />
+          </figure>
+          <figure class="moodboard-item reveal" data-reactive="0.26" style="--delay:0.24s">
+            <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1200&q=80" alt="mountain mist placeholder" />
+          </figure>
+          <figure class="moodboard-item reveal" data-reactive="0.28" style="--delay:0.28s">
+            <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80" alt="studio color palette placeholder" />
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="light process" aria-label="process notes">
+      <div class="content-wrapper">
+        <h2 class="section-heading reveal">
+          <small>process</small>
+          edit <span class="serif-accent">rituals</span>
+        </h2>
+        <div class="process-grid">
+          <article class="process-card reveal" data-reactive="0.22" style="--delay:0.06s">
+            <figure>
+              <img src="https://images.unsplash.com/photo-1465101162946-4377e57745c3?auto=format&fit=crop&w=1200&q=80" alt="storyboarding placeholder" />
+            </figure>
+            <div class="process-copy">
+              <h3>story sketching</h3>
+              <p>loose boards, tone playlists, and light diagrams keep each sequence grounded in feeling before i ever touch the camera.</p>
+            </div>
+          </article>
+          <article class="process-card reveal" data-reactive="0.24" style="--delay:0.12s">
+            <figure>
+              <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=80" alt="editing bay placeholder" />
+            </figure>
+            <div class="process-copy">
+              <h3>edit alchemy</h3>
+              <p>after effects, premiere pro, and davinci resolve become one canvas — compositing motion, pacing, and rhythm into cohesive arcs.</p>
+            </div>
+          </article>
+          <article class="process-card reveal" data-reactive="0.26" style="--delay:0.18s">
+            <figure>
+              <img src="https://images.unsplash.com/photo-1526481280695-3c4691e75bef?auto=format&fit=crop&w=1200&q=80" alt="color grading placeholder" />
+            </figure>
+            <div class="process-copy">
+              <h3>color breathing</h3>
+              <p>color grades evolve through layered passes — subtle hue shifts, film grain, and contrast sculpting to pull viewers deeper.</p>
+            </div>
+          </article>
         </div>
       </div>
     </section>
@@ -727,19 +1304,33 @@
           <small>contact</small>
           keep in <span class="serif-accent">touch</span>
         </h2>
-        <div class="contact-details reveal">
-          <a href="https://www.instagram.com/ryderjt1/" target="_blank" rel="noopener">
-            <span>instagram</span>
-            @ryderjt1
-          </a>
-          <a href="https://tiktok.com/@ryderjt" target="_blank" rel="noopener">
-            <span>tiktok</span>
-            @ryderjt
-          </a>
-          <a href="mailto:ryder@ryderjt.com">
-            <span>email</span>
-            ryder@ryderjt.com
-          </a>
+        <div class="contact-layout">
+          <div class="contact-collage reveal" data-reactive="0.22">
+            <figure>
+              <img src="https://images.unsplash.com/photo-1487412912498-0447578fcca8?auto=format&fit=crop&w=1200&q=80" alt="contact portrait placeholder" />
+            </figure>
+            <figure>
+              <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1200&q=80" alt="misty frame placeholder" />
+            </figure>
+            <div class="contact-note">
+              <span>let’s make something cinematic.</span>
+              <p>dm or email for collaborations, color grading sessions, and storytelling experiments.</p>
+            </div>
+          </div>
+          <div class="contact-details reveal">
+            <a href="https://www.instagram.com/ryderjt1/" target="_blank" rel="noopener">
+              <span>instagram</span>
+              @ryderjt1
+            </a>
+            <a href="https://tiktok.com/@ryderjt" target="_blank" rel="noopener">
+              <span>tiktok</span>
+              @ryderjt
+            </a>
+            <a href="mailto:ryder@ryderjt.com">
+              <span>email</span>
+              ryder@ryderjt.com
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -748,6 +1339,8 @@
   <footer>
     © <span id="year"></span> ryder thomas — cinematic storytelling through light &amp; color.
   </footer>
+
+  <div class="cursor-glow"></div>
 
   <script>
     const observer = new IntersectionObserver((entries) => {
@@ -761,7 +1354,7 @@
       threshold: 0.2
     });
 
-    document.querySelectorAll('.reveal, .portfolio-item, .reel, .hero-gallery figure, .about-gallery figure').forEach((el, index) => {
+    document.querySelectorAll('.reveal, .portfolio-item, .reel, .hero-gallery figure, .about-gallery figure, .moodboard-item, .process-card').forEach((el, index) => {
       el.style.transitionDelay = el.style.getPropertyValue('--delay') || `${index * 0.08}s`;
       observer.observe(el);
     });
@@ -787,6 +1380,10 @@
     });
 
     const parallaxElements = document.querySelectorAll('[data-depth]');
+    const reactiveNodes = document.querySelectorAll('[data-reactive]');
+    const cursorGlow = document.querySelector('.cursor-glow');
+    const rootElement = document.documentElement;
+    let pointerRAF;
 
     window.addEventListener('scroll', () => {
       const scrollY = window.scrollY;
@@ -795,6 +1392,61 @@
         const movement = scrollY * depth * 0.3;
         el.style.transform = `translate3d(0, ${movement}px, 0)`;
       });
+
+      const docHeight = document.body.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? scrollY / docHeight : 0;
+      rootElement.style.setProperty('--scroll-shift', progress.toFixed(3));
+    });
+
+    window.addEventListener('pointermove', (event) => {
+      const { clientX, clientY } = event;
+      if (cursorGlow) {
+        cursorGlow.style.opacity = 1;
+      }
+
+      if (pointerRAF) {
+        cancelAnimationFrame(pointerRAF);
+      }
+
+      pointerRAF = requestAnimationFrame(() => {
+        if (cursorGlow) {
+          cursorGlow.style.transform = `translate3d(${clientX}px, ${clientY}px, 0)`;
+        }
+
+        const normalizedX = (clientX / window.innerWidth - 0.5) * 2;
+        const normalizedY = (clientY / window.innerHeight - 0.5) * 2;
+
+        reactiveNodes.forEach((node) => {
+          const intensity = parseFloat(node.getAttribute('data-reactive')) || 0.2;
+          node.style.setProperty('--rx', `${normalizedY * -8 * intensity}deg`);
+          node.style.setProperty('--ry', `${normalizedX * 8 * intensity}deg`);
+          node.style.setProperty('--tx', `${normalizedX * 14 * intensity}px`);
+          node.style.setProperty('--ty', `${normalizedY * 14 * intensity}px`);
+        });
+      });
+    });
+
+    const resetReactive = () => {
+      reactiveNodes.forEach((node) => {
+        node.style.setProperty('--rx', '0deg');
+        node.style.setProperty('--ry', '0deg');
+        node.style.setProperty('--tx', '0px');
+        node.style.setProperty('--ty', '0px');
+      });
+    };
+
+    document.addEventListener('mouseleave', () => {
+      if (cursorGlow) {
+        cursorGlow.style.opacity = 0;
+      }
+      resetReactive();
+    });
+
+    window.addEventListener('blur', () => {
+      if (cursorGlow) {
+        cursorGlow.style.opacity = 0;
+      }
+      resetReactive();
     });
 
     document.getElementById('year').textContent = new Date().getFullYear();
