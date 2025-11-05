@@ -10,8 +10,14 @@ const observer = new IntersectionObserver(
   { threshold: 0.2 }
 );
 
-document.querySelectorAll('[data-reveal]').forEach((el, index) => {
-  el.style.setProperty('--delay', `${index * 60}ms`);
+let revealIndex = 0;
+document.querySelectorAll('[data-reveal]').forEach((el) => {
+  if (el.closest('.footer')) {
+    el.style.setProperty('--delay', '0ms');
+  } else {
+    el.style.setProperty('--delay', `${revealIndex * 60}ms`);
+    revealIndex += 1;
+  }
   observer.observe(el);
 });
 

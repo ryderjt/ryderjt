@@ -1,5 +1,5 @@
 :root {
-  --bg: #f9fafb;
+  --bg: #ffffff;
   --text: #111;
   --accent-blue: #3b82f6;
   --accent-red: #ef4444;
@@ -40,7 +40,7 @@ body {
   position: fixed;
   inset: 0;
   background-image: url('https://grainy-gradients.vercel.app/noise.svg');
-  opacity: 0.15;
+  opacity: 0.08;
   mix-blend-mode: multiply;
   animation: drift 20s linear infinite;
   z-index: 1;
@@ -62,6 +62,25 @@ body {
   padding: 6rem clamp(2rem, 6vw, 7rem) 4rem;
   position: relative;
   z-index: 2;
+  color: #f5f7ff;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+      120deg,
+      rgba(15, 23, 42, 0.76),
+      rgba(15, 23, 42, 0.55)
+    ),
+    url('https://placehold.co/2000x1400/1f2937/ffffff?text=Ryder+Thomas+Placeholder');
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.9);
+  z-index: -1;
 }
 
 .cinema-cursor {
@@ -95,7 +114,7 @@ body {
   letter-spacing: 0.3em;
   text-transform: uppercase;
   font-size: 0.75rem;
-  color: rgba(0, 0, 0, 0.6);
+  color: rgba(241, 245, 249, 0.76);
 }
 
 .hero__title {
@@ -127,7 +146,7 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.2em;
   font-size: 0.85rem;
-  color: rgba(0, 0, 0, 0.65);
+  color: rgba(226, 232, 240, 0.78);
   margin-bottom: 1.5rem;
 }
 
@@ -135,6 +154,7 @@ body {
   max-width: 32ch;
   font-size: 1.1rem;
   margin-bottom: 2rem;
+  color: rgba(241, 245, 249, 0.92);
 }
 
 .hero__tags {
@@ -144,14 +164,15 @@ body {
 }
 
 .hero__tags span {
-  background: #fff;
+  background: rgba(255, 255, 255, 0.92);
   border-radius: 999px;
   padding: 0.35rem 0.9rem;
   font-family: var(--mono);
   font-size: 0.75rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 15px 40px rgba(15, 23, 42, 0.24);
+  color: var(--text);
 }
 
 .hero__reel {
@@ -242,6 +263,7 @@ body {
 main {
   position: relative;
   z-index: 2;
+  background: linear-gradient(180deg, #f8fafc 0%, #ffffff 55%, #f1f5f9 100%);
 }
 
 .story {
@@ -383,65 +405,6 @@ main {
 .gallery__item--wide {
   grid-column: span 4;
   grid-row: span 2;
-}
-
-.notes {
-  padding: 4rem clamp(2rem, 6vw, 7rem) 6rem;
-  display: grid;
-  gap: 2rem;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-}
-
-.notes__card {
-  position: relative;
-  background: #fff;
-  border-radius: 24px;
-  padding: 2rem;
-  box-shadow: 0 25px 55px rgba(0, 0, 0, 0.08);
-  overflow: hidden;
-  transform: translateY(var(--reveal-offset, 0px));
-  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.6s;
-}
-
-.notes__card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at top left, rgba(59, 130, 246, 0.3), transparent 55%),
-    radial-gradient(circle at bottom right, rgba(239, 68, 68, 0.25), transparent 45%);
-  opacity: 0;
-  transition: opacity 0.6s ease;
-}
-
-.notes__card:hover::before {
-  opacity: 1;
-}
-
-.notes__card:hover {
-  transform: translateY(var(--reveal-offset, 0px));
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.14);
-}
-
-.notes__card h3 {
-  font-family: var(--serif);
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
-}
-
-.notes__card p,
-.notes__card li {
-  position: relative;
-  z-index: 1;
-}
-
-.notes__card ul {
-  list-style: none;
-  display: grid;
-  gap: 0.7rem;
-  font-family: var(--mono);
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-size: 0.8rem;
 }
 
 .footer {
