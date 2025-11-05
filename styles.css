@@ -103,6 +103,21 @@ body {
   align-items: center;
 }
 
+@media (min-width: 1100px) {
+  .hero {
+    grid-template-columns: minmax(420px, 620px) minmax(320px, 1fr);
+    padding-right: clamp(4rem, 12vw, 14rem);
+  }
+
+  .hero__content {
+    max-width: 620px;
+  }
+
+  .hero__title {
+    font-size: clamp(4rem, 7vw, 7rem);
+  }
+}
+
 .cinema-cursor {
   pointer-events: none;
   position: fixed;
