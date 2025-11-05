@@ -54,10 +54,10 @@ document.querySelectorAll(interactiveSelectors).forEach((el) => {
 
 const reelFrame = document.querySelector('.reel-frame');
 if (reelFrame) {
-  const baseTilt = -3;
+  const baseTilt = -2.2;
   const updateTilt = () => {
     const rect = reelFrame.getBoundingClientRect();
-    const offset = baseTilt + (window.innerHeight / 2 - rect.top) * 0.0008;
+    const offset = baseTilt + (window.innerHeight / 2 - rect.top) * 0.00045;
     reelFrame.style.transform = `rotate(${offset}deg)`;
   };
   updateTilt();
