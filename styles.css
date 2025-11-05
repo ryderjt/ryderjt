@@ -162,7 +162,7 @@ body {
   align-items: center;
   padding: 1.5rem;
   gap: 1rem;
-  margin-left: clamp(-6.5rem, -18vw, -3rem);
+  margin-left: clamp(-9rem, -26vw, -4rem);
 }
 
 .reel-frame {
@@ -219,7 +219,7 @@ body {
   font-family: var(--mono);
   backdrop-filter: blur(5px);
   box-shadow: 0 30px 60px rgba(59, 130, 246, 0.22);
-  --note-position: translate(-65%, 12%);
+  --note-position: translate(-78%, 14%);
   transform: var(--note-position) rotate(-4deg) translateY(var(--reveal-offset));
 }
 
