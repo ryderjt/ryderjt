@@ -148,6 +148,7 @@ body {
   font-size: clamp(3.5rem, 6vw, 6rem);
   line-height: 1;
   margin: 1.5rem 0 1rem;
+  margin-left: clamp(0rem, 5vw, 2.5rem);
   letter-spacing: 0.02em;
 }
 
@@ -199,6 +200,48 @@ body {
   text-transform: uppercase;
   box-shadow: 0 15px 40px rgba(2, 6, 23, 0.45);
   color: #f1f5f9;
+}
+
+.hero__about {
+  margin-top: 2.5rem;
+  padding: 1.75rem 2rem;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.7), rgba(30, 41, 59, 0.55));
+  border-radius: 26px;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  box-shadow: 0 25px 50px rgba(2, 6, 23, 0.4);
+  display: grid;
+  gap: 1.5rem;
+}
+
+.hero__about-title {
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+}
+
+.hero__about p {
+  color: rgba(226, 232, 240, 0.88);
+  font-size: 1rem;
+}
+
+.hero__about-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+}
+
+.hero__about-label {
+  font-family: var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.7rem;
+  color: rgba(203, 213, 225, 0.68);
+}
+
+.hero__about-value {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 1.05rem;
+  color: rgba(248, 250, 252, 0.92);
 }
 
 .hero__reel {
