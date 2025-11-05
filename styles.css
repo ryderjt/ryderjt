@@ -24,15 +24,19 @@ body {
 }
 
 [data-reveal] {
-  opacity: 0;
+  --visible-opacity: 1;
   --reveal-offset: 40px;
+  opacity: var(--visible-opacity);
   transform: translateY(var(--reveal-offset));
   transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1) var(--delay, 0ms),
     transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) var(--delay, 0ms);
 }
 
+[data-reveal]:not(.is-visible) {
+  opacity: 0;
+}
+
 .is-visible {
-  opacity: var(--visible-opacity, 1) !important;
   --reveal-offset: 0px;
 }
 
@@ -212,7 +216,7 @@ body {
   left: auto;
   bottom: 6%;
   right: -6%;
-  --visible-opacity: 0.88;
+  --visible-opacity: 0.82;
   background: linear-gradient(120deg, rgba(59, 130, 246, 0.18), rgba(234, 179, 8, 0.25));
   border-radius: 18px;
   padding: 1.1rem 1.4rem;
