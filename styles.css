@@ -24,15 +24,15 @@ body {
 }
 
 [data-reveal] {
-  opacity: 0;
-  transform: translateY(40px);
+  opacity: var(--reveal-hidden-opacity, 0);
+  transform: var(--reveal-hidden-transform, translateY(40px));
   transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1) var(--delay, 0ms),
     transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) var(--delay, 0ms);
 }
 
 [data-reveal].is-visible {
   opacity: var(--reveal-visible-opacity, 1);
-  transform: translateY(0px);
+  transform: var(--reveal-visible-transform, translateY(0px));
 }
 
 .noise {
@@ -165,11 +165,13 @@ body {
 }
 
 .reel-frame {
+  --tilt-angle: -3deg;
+  --reveal-hidden-transform: rotate(var(--tilt-angle)) translateY(40px);
+  --reveal-visible-transform: rotate(var(--tilt-angle)) translateY(0px);
   border-radius: 26px;
   overflow: hidden;
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
   position: relative;
-  transform: rotate(-3deg);
   width: clamp(220px, 26vw, 340px);
   aspect-ratio: 1 / 1;
   background: linear-gradient(
@@ -220,11 +222,8 @@ body {
   backdrop-filter: blur(5px);
   box-shadow: 0 30px 60px rgba(59, 130, 246, 0.22);
   --note-position: translate(-78%, 14%);
-  transform: var(--note-position) rotate(-4deg) translateY(40px);
-}
-
-.hero__note.is-visible {
-  transform: var(--note-position) rotate(-4deg) translateY(0px);
+  --reveal-hidden-transform: var(--note-position) rotate(-4deg) translateY(40px);
+  --reveal-visible-transform: var(--note-position) rotate(-4deg) translateY(0px);
 }
 
 .note-label {
@@ -525,7 +524,9 @@ main {
   }
 
   .reel-frame {
-    transform: none;
+    --tilt-angle: 0deg;
+    --reveal-hidden-transform: rotate(var(--tilt-angle)) translateY(40px);
+    --reveal-visible-transform: rotate(var(--tilt-angle)) translateY(0px);
   }
 
   .hero__note {

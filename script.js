@@ -58,7 +58,7 @@ if (reelFrame) {
   const updateTilt = () => {
     const rect = reelFrame.getBoundingClientRect();
     const offset = baseTilt + (window.innerHeight / 2 - rect.top) * 0.00045;
-    reelFrame.style.transform = `rotate(${offset}deg)`;
+    reelFrame.style.setProperty('--tilt-angle', `${offset}deg`);
   };
   updateTilt();
   window.addEventListener('scroll', updateTilt);
