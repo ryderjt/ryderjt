@@ -32,7 +32,7 @@ body {
 }
 
 .is-visible {
-  opacity: 1 !important;
+  opacity: var(--visible-opacity, 1) !important;
   --reveal-offset: 0px;
 }
 
@@ -212,6 +212,7 @@ body {
   left: auto;
   bottom: 6%;
   right: -6%;
+  --visible-opacity: 0.88;
   background: linear-gradient(120deg, rgba(59, 130, 246, 0.18), rgba(234, 179, 8, 0.25));
   border-radius: 18px;
   padding: 1.1rem 1.4rem;
@@ -224,7 +225,6 @@ body {
 }
 
 .hero__note.is-visible {
-  opacity: 0.88 !important;
   transform: var(--note-position) rotate(-4deg);
 }
 
