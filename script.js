@@ -54,7 +54,7 @@ document.querySelectorAll(interactiveSelectors).forEach((el) => {
   el.addEventListener('mouseleave', () => {
     cursor.style.width = '50px';
     cursor.style.height = '50px';
-    cursor.style.borderColor = 'rgba(17, 24, 39, 0.2)';
+    cursor.style.borderColor = 'rgba(96, 165, 250, 0.4)';
   });
 });
 
