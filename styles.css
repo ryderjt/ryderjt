@@ -24,20 +24,15 @@ body {
 }
 
 [data-reveal] {
-  --visible-opacity: 1;
-  --reveal-offset: 40px;
-  opacity: var(--visible-opacity);
-  transform: translateY(var(--reveal-offset));
+  opacity: 0;
+  transform: translateY(40px);
   transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1) var(--delay, 0ms),
     transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) var(--delay, 0ms);
 }
 
-[data-reveal]:not(.is-visible) {
-  opacity: 0;
-}
-
-.is-visible {
-  --reveal-offset: 0px;
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0px);
 }
 
 .noise {
@@ -216,7 +211,7 @@ body {
   left: auto;
   bottom: 6%;
   right: -6%;
-  --visible-opacity: 0.82;
+  opacity: 0.82;
   background: linear-gradient(120deg, rgba(59, 130, 246, 0.18), rgba(234, 179, 8, 0.25));
   border-radius: 18px;
   padding: 1.1rem 1.4rem;
@@ -225,11 +220,12 @@ body {
   backdrop-filter: blur(5px);
   box-shadow: 0 30px 60px rgba(59, 130, 246, 0.22);
   --note-position: translate(-78%, 14%);
-  transform: var(--note-position) rotate(-4deg) translateY(var(--reveal-offset));
+  transform: var(--note-position) rotate(-4deg) translateY(40px);
 }
 
 .hero__note.is-visible {
-  transform: var(--note-position) rotate(-4deg);
+  opacity: 0.82;
+  transform: var(--note-position) rotate(-4deg) translateY(0px);
 }
 
 .note-label {
