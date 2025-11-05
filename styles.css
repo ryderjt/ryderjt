@@ -31,7 +31,7 @@ body {
 }
 
 [data-reveal].is-visible {
-  opacity: 1;
+  opacity: var(--reveal-visible-opacity, 1);
   transform: translateY(0px);
 }
 
@@ -205,13 +205,13 @@ body {
 }
 
 .hero__note {
+  --reveal-visible-opacity: 0.82;
   position: absolute;
   z-index: 3;
   top: auto;
   left: auto;
   bottom: 6%;
   right: -6%;
-  opacity: 0.82;
   background: linear-gradient(120deg, rgba(59, 130, 246, 0.18), rgba(234, 179, 8, 0.25));
   border-radius: 18px;
   padding: 1.1rem 1.4rem;
@@ -224,7 +224,6 @@ body {
 }
 
 .hero__note.is-visible {
-  opacity: 0.82;
   transform: var(--note-position) rotate(-4deg) translateY(0px);
 }
 
