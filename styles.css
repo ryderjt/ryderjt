@@ -224,6 +224,7 @@ body {
 }
 
 .hero__note.is-visible {
+  opacity: 0.88 !important;
   transform: var(--note-position) rotate(-4deg);
 }
 
