@@ -70,20 +70,19 @@ body {
   isolation: isolate;
 }
 
-.hero::before {
-  content: '';
+.hero__backdrop {
   position: absolute;
   inset: 0;
-  background-image: linear-gradient(
-      125deg,
-      rgba(5, 7, 15, 0.82),
-      rgba(8, 11, 22, 0.68)
-    ),
-    url('https://placehold.co/2200x1500/0b1220/ffffff?text=Ryder+Thomas+Placeholder');
-  background-size: cover;
-  background-position: center;
-  filter: brightness(0.55);
-  z-index: -1;
+  z-index: -2;
+  overflow: hidden;
+}
+
+.hero__backdrop img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.4) saturate(1.05);
+  transform: scale(1.03);
 }
 
 .hero::after {
@@ -125,7 +124,7 @@ body {
   position: relative;
   padding: 2.5rem clamp(2rem, 4vw, 3rem);
   border-radius: 30px;
-  background: var(--surface);
+  background: rgba(9, 13, 26, 0.72);
   border: 1px solid rgba(148, 163, 184, 0.1);
   backdrop-filter: blur(18px);
   box-shadow: 0 25px 70px rgba(2, 6, 14, 0.55);
@@ -304,20 +303,19 @@ main {
   isolation: isolate;
 }
 
-.story::before {
-  content: '';
+.story__backdrop {
   position: absolute;
   inset: 0;
-  background-image: linear-gradient(
-      140deg,
-      rgba(5, 7, 15, 0.85),
-      rgba(10, 15, 30, 0.7)
-    ),
-    url('https://placehold.co/2000x1400/0a0f1f/ffffff?text=Color-led+Storytelling+Placeholder');
-  background-size: cover;
-  background-position: center;
-  filter: brightness(0.55);
-  z-index: -2;
+  z-index: -3;
+  overflow: hidden;
+}
+
+.story__backdrop img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.35) saturate(1.05);
+  transform: scale(1.03);
 }
 
 .story::after {
