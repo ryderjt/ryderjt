@@ -101,6 +101,8 @@ a:hover::after {
 .nav__orbit {
   display: flex;
   gap: 1.75rem;
+  transform-origin: center;
+  animation: orbitDrift 16s ease-in-out infinite;
 }
 
 .nav__link {
@@ -193,10 +195,13 @@ a:hover::after {
   gap: 0.75rem;
   opacity: 1;
   transition: opacity 0.35s ease;
+  animation: scrollPulse 3.6s ease-in-out infinite;
 }
 
 .hero__scroll.is-hidden {
   opacity: 0;
+  transform: translateY(12px);
+  animation: none;
 }
 
 .hero__scroll::before {
@@ -208,6 +213,17 @@ a:hover::after {
 
 .hero__scroll span {
   text-shadow: 0 0 12px rgba(27, 26, 26, 0.15);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.hero__scroll span::after {
+  content: "⌄";
+  font-size: 0.75rem;
+  transform-origin: center;
+  animation: scrollArrow 1.8s ease-in-out infinite;
+  opacity: 0.75;
 }
 
 .hero__portrait {
@@ -218,7 +234,7 @@ a:hover::after {
   justify-self: center;
   align-self: center;
   position: relative;
-  transform: translate(-32%, -6%);
+  transform: translate(-28%, -18%);
 }
 
 .hero__polaroid {
@@ -234,6 +250,18 @@ a:hover::after {
   transform: rotate(2.5deg);
   position: relative;
   overflow: hidden;
+  animation: polaroidFloat 7s ease-in-out infinite;
+}
+
+.hero__polaroid::before {
+  content: "";
+  position: absolute;
+  inset: -40% -120%;
+  background: linear-gradient(105deg, rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, 0.7) 45%, rgba(255, 255, 255, 0) 70%);
+  transform: rotate(8deg);
+  animation: polaroidShimmer 9.5s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
 }
 
 .hero__polaroid::after {
@@ -242,6 +270,7 @@ a:hover::after {
   inset: 1rem;
   border: 1px solid rgba(27, 26, 26, 0.08);
   pointer-events: none;
+  z-index: 2;
 }
 
 .hero__polaroid-frame {
@@ -253,6 +282,7 @@ a:hover::after {
   align-items: stretch;
   justify-content: center;
   position: relative;
+  z-index: 3;
 }
 
 .hero__polaroid-image {
@@ -464,6 +494,75 @@ main {
 .split span.visible {
   transform: translateY(0);
   opacity: 1;
+}
+
+@keyframes orbitDrift {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-4px) rotate(0.6deg);
+  }
+  50% {
+    transform: translateY(3px) rotate(-0.6deg);
+  }
+  75% {
+    transform: translateY(-2px) rotate(0.3deg);
+  }
+}
+
+@keyframes polaroidFloat {
+  0%,
+  100% {
+    transform: rotate(2.5deg) translateY(0);
+  }
+  40% {
+    transform: rotate(1.2deg) translateY(-12px);
+  }
+  70% {
+    transform: rotate(2.9deg) translateY(6px);
+  }
+}
+
+@keyframes polaroidShimmer {
+  0% {
+    transform: translateX(-60%) rotate(8deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(40%) rotate(8deg);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateX(120%) rotate(8deg);
+    opacity: 0;
+  }
+}
+
+@keyframes scrollPulse {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+@keyframes scrollArrow {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.65;
+  }
+  50% {
+    transform: translateY(4px);
+    opacity: 1;
+  }
 }
 
 @media (max-width: 768px) {
