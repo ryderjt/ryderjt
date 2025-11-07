@@ -218,7 +218,7 @@ a:hover::after {
   justify-self: center;
   align-self: center;
   position: relative;
-  transform: translate(-32%, -6%);
+  transform: translate(-38%, -12%);
 }
 
 .hero__polaroid {
