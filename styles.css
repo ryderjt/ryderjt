@@ -212,7 +212,7 @@ a:hover::after {
 
 .hero__portrait {
   position: absolute;
-  top: 20%;
+  top: 0%;
   left: 60%;
   width: clamp(240px, 28vw, 340px);
   transform: rotate(2.5deg);
