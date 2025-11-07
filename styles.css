@@ -211,12 +211,14 @@ a:hover::after {
 }
 
 .hero__portrait {
-  position: absolute;
-  top: 12%;
-  left: 58%;
   width: clamp(240px, 28vw, 340px);
-  transform: rotate(2.5deg);
-  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-self: center;
+  align-self: center;
+  position: relative;
+  transform: translate(-32%, -6%);
 }
 
 .hero__polaroid {
