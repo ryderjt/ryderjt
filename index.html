@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ryder Thomas — Cinematic Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,300;6..72,500;6..72,700&family=Special+Elite&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="cursor"></div>
+  <div class="noise"></div>
+  <header class="hero" id="top">
+    <nav class="nav">
+      <div class="nav__orbit">
+        <a href="#about" class="nav__link">About</a>
+        <a href="#contact" class="nav__link">Contact</a>
+      </div>
+      <div class="nav__socials">
+        <a href="https://www.instagram.com/ryderjt1/" target="_blank" rel="noopener" class="nav__social">IG</a>
+        <a href="https://tiktok.com/@ryderjt" target="_blank" rel="noopener" class="nav__social">TT</a>
+        <a href="mailto:ryder@ryderjt.com" class="nav__social">Mail</a>
+      </div>
+    </nav>
+    <div class="hero__content">
+      <div class="hero__info">
+        <div class="hero__badge" data-split>Visual storyteller — est. 2007</div>
+        <h1 class="hero__title">
+          <span>Ryder</span>
+          <span class="hero__surname">Thomas</span>
+        </h1>
+        <p class="hero__subtitle">Cinematographer / Filmmaker / Photographer / Editor</p>
+        <p class="hero__tagline">Exploring stories through color, light, and sound.</p>
+        <div class="hero__scroll">
+          <span>scroll to enter</span>
+        </div>
+      </div>
+      <div class="hero__portrait" aria-hidden="true">
+        <div class="hero__polaroid">
+          <div class="hero__polaroid-frame">
+            <span>Your photo here</span>
+          </div>
+          <p class="hero__polaroid-caption">Ryder — self portrait</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="panel panel--about" id="about">
+      <div class="panel__heading" data-split>About</div>
+      <div class="panel__content">
+        <p>
+          I’m Ryder Thomas, a 16-year-old cinematographer crafting intimate narratives through lens, light, and motion. I pull emotion out of color, frame rhythm with sound, and cut films with a painter’s patience. My toolkit spans Premiere Pro, After Effects, and DaVinci Resolve — each a brush to sculpt mood and memory.
+        </p>
+        <p>
+          I live for the in-between moments: the flicker before a smile, the pulse of a bassline, the hush of a scene just before it erupts. Every project is a chance to experiment, to stretch a feeling into a sequence, and to make the ordinary feel cinematic.
+        </p>
+      </div>
+    </section>
+
+    <section class="panel panel--contact" id="contact">
+      <div class="panel__heading" data-split>Contact</div>
+      <div class="panel__content">
+        <p>
+          Let’s craft something electric. Reach out for collaborations, commissions, or just to talk about the films that keep you up at night.
+        </p>
+        <ul class="contact__list">
+          <li><a href="mailto:ryder@ryderjt.com">ryder@ryderjt.com</a></li>
+          <li><a href="https://www.instagram.com/ryderjt1/" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://tiktok.com/@ryderjt" target="_blank" rel="noopener">TikTok</a></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <span>© <span id="year"></span> Ryder Thomas</span>
+      <a href="#top" class="footer__top">back to top</a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
