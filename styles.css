@@ -406,6 +406,7 @@ a:hover::after {
   overflow-y: auto;
   overflow-x: hidden;
   grid-template-columns: repeat(4, minmax(0, 1fr));
+  justify-items: center;
   align-content: start;
   align-items: start;
   min-height: 0;
@@ -430,7 +431,8 @@ a:hover::after {
 
 .gallery.is-grid .gallery__item {
   box-shadow: none;
-  overflow: visible;
+  overflow: hidden;
+  border-radius: 1.6rem;
 }
 
 .gallery__nav {
@@ -640,6 +642,9 @@ main {
 .gallery__grid .gallery__item {
   width: 100%;
   height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .gallery__item::before {
@@ -672,6 +677,13 @@ main {
   transition: transform 0.6s ease, filter 0.6s ease;
   z-index: 0;
   object-fit: contain;
+}
+
+.gallery__grid .gallery__item img {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
 }
 
 .gallery__item--single img {
