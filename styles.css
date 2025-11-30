@@ -685,8 +685,7 @@ a:hover::after {
   background: rgba(27, 26, 26, 0.08);
   display: grid;
   place-items: center;
-  box-shadow: 0 16px 36px rgba(27, 26, 26, 0.14);
-  transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+  transition: transform 0.25s ease, background 0.25s ease;
   z-index: 6;
 }
 
@@ -701,7 +700,6 @@ a:hover::after {
 .gallery__toggle:hover {
   transform: translateY(-2px);
   background: rgba(185, 131, 255, 0.16);
-  box-shadow: 0 20px 46px rgba(27, 26, 26, 0.18);
 }
 
 .gallery__toggle[aria-pressed='true'] {
