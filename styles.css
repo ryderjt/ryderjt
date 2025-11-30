@@ -83,6 +83,11 @@ a:hover::after {
   border-color: var(--accent);
 }
 
+#cursor.is-hidden {
+  opacity: 0;
+  transform: translate3d(-50%, -50%, 0) scale(0.6);
+}
+
 body.lightbox-open #cursor {
   opacity: 0;
 }
