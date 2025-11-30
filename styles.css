@@ -341,7 +341,7 @@ a:hover::after {
   border-radius: 1.25rem;
   background: transparent;
   border: none;
-  overflow: visible;
+  overflow: hidden;
   min-height: 0;
 }
 
