@@ -3,6 +3,7 @@ const hoverables = document.querySelectorAll('a, button, [data-tilt]');
 const splitElements = document.querySelectorAll('[data-split]');
 const viewButtons = document.querySelectorAll('[data-view-target]');
 const views = document.querySelectorAll('[data-view]');
+const workspacePanel = document.querySelector('.workspace__panel');
 const galleryGrid = document.getElementById('gallery-grid');
 const galleryStage = galleryGrid?.querySelector('.gallery__stage');
 const galleryGridView = galleryGrid?.querySelector('.gallery__grid');
@@ -451,6 +452,10 @@ const showView = (name) => {
   viewButtons.forEach((button) => {
     button.classList.toggle('is-active', button.dataset.viewTarget === name);
   });
+
+  if (workspacePanel) {
+    workspacePanel.dataset.activeView = name;
+  }
 };
 
 viewButtons.forEach((button) => {
