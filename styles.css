@@ -347,7 +347,7 @@ a:hover::after {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: clamp(0.35rem, 1.25vw, 0.9rem);
+  padding: clamp(0.2rem, 0.9vw, 0.6rem);
   overflow: hidden;
   height: 100%;
   max-height: 100%;
@@ -614,7 +614,7 @@ main {
 .gallery__item--single {
   width: auto;
   height: auto;
-  max-width: min(100%, 1100px);
+  max-width: 100%;
   max-height: 100%;
   box-shadow: 0 28px 70px rgba(27, 26, 26, 0.22);
   width: var(--media-width, auto);
