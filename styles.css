@@ -285,13 +285,21 @@ a:hover::after {
   height: calc(100vh - (2 * var(--hero-padding-y)));
   max-height: calc(100vh - (2 * var(--hero-padding-y)));
   width: min(100%, calc(100vw - (2 * var(--hero-padding-x))));
-  display: grid;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
+  min-height: 0;
+}
+
+.workspace__panel > * {
+  min-height: 0;
 }
 
 .workspace__view {
   display: none;
   height: 100%;
+  flex: 1;
+  min-height: 0;
 }
 
 .workspace__view.is-active {
@@ -337,6 +345,8 @@ a:hover::after {
 .workspace__body .gallery {
   position: relative;
   flex: 1;
+  height: 100%;
+  max-height: 100%;
   display: grid;
   grid-template-rows: 1fr;
   border-radius: 1.25rem;
@@ -352,11 +362,12 @@ a:hover::after {
   padding: clamp(0.75rem, 2vw, 1.5rem);
   overflow: hidden;
   height: 100%;
+  max-height: 100%;
 }
 
 .gallery__stage figure {
   width: 100%;
-  height: 100%;
+  height: auto;
   max-width: 100%;
   max-height: 100%;
   display: grid;
@@ -370,8 +381,10 @@ a:hover::after {
 }
 
 .gallery__stage img {
-  width: 100%;
-  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
   object-fit: contain;
   border-radius: 0.9rem;
 }
@@ -401,6 +414,7 @@ a:hover::after {
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   align-content: start;
   min-height: 0;
+  max-height: 100%;
 }
 
 .gallery.is-grid .gallery__stage,
