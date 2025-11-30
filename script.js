@@ -3,6 +3,11 @@ const hoverables = document.querySelectorAll('a, button, [data-tilt]');
 const splitElements = document.querySelectorAll('[data-split]');
 const panels = document.querySelectorAll('.panel');
 const scrollCue = document.querySelector('.hero__scroll');
+const galleryGrid = document.getElementById('gallery-grid');
+const lightbox = document.getElementById('lightbox');
+const lightboxImage = lightbox?.querySelector('.lightbox__image');
+const lightboxCaption = lightbox?.querySelector('.lightbox__caption');
+const lightboxClose = lightbox?.querySelector('.lightbox__close');
 
 const lerp = (a, b, n) => (1 - n) * a + n * b;
 let cursorX = window.innerWidth / 2;
@@ -106,6 +111,186 @@ document.querySelectorAll('[data-tilt]').forEach((item) => {
   });
 });
 
+const formatCaption = (src) => {
+  const fileName = src.split('/').pop() || '';
+  return fileName
+    .replace(/\.[^.]+$/, '')
+    .replace(/[-_]+/g, ' ')
+    .replace(/\b\w/g, (char) => char.toUpperCase());
+};
+
+const normalizeSource = (src) => {
+  if (!src) return '';
+  const trimmed = src.trim();
+  if (/^https?:\/\//i.test(trimmed)) return trimmed;
+  if (trimmed.startsWith('assets/')) return trimmed;
+  return `assets/gallery/${trimmed.replace(/^\.?(\/)*/, '')}`;
+};
+
+const closeLightbox = () => {
+  if (!lightbox) return;
+  lightbox.classList.remove('is-active');
+  document.body.classList.remove('is-locked');
+  lightbox.setAttribute('aria-hidden', 'true');
+};
+
+const openLightbox = (src) => {
+  if (!lightbox || !lightboxImage || !lightboxCaption) return;
+  lightboxImage.src = src;
+  lightboxImage.alt = formatCaption(src);
+  lightboxCaption.textContent = formatCaption(src);
+  lightbox.classList.add('is-active');
+  document.body.classList.add('is-locked');
+  lightbox.setAttribute('aria-hidden', 'false');
+};
+
+const createGalleryItem = (src) => {
+  const figure = document.createElement('figure');
+  figure.className = 'gallery__item';
+  figure.tabIndex = 0;
+
+  const image = document.createElement('img');
+  image.src = src;
+  image.alt = formatCaption(src);
+
+  const caption = document.createElement('figcaption');
+  caption.textContent = formatCaption(src);
+
+  figure.appendChild(image);
+  figure.appendChild(caption);
+
+  const activate = () => openLightbox(src);
+  figure.addEventListener('click', activate);
+  figure.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      activate();
+    }
+  });
+
+  return figure;
+};
+
+const IMAGE_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.avif'];
+
+const sanitizeFileName = (file) => file.split(/[?#]/)[0].replace(/^\/?\.\//, '').replace(/^\//, '');
+
+const discoverGithubImages = async () => {
+  const repo = document.documentElement.dataset.galleryRepo || 'ryderjt/ryderjt';
+  const branch = document.documentElement.dataset.galleryBranch || 'work';
+
+  try {
+    const response = await fetch(
+      `https://api.github.com/repos/${repo}/contents/assets/gallery?ref=${encodeURIComponent(branch)}`,
+      {
+        headers: { Accept: 'application/vnd.github.v3+json' },
+        cache: 'no-store',
+      }
+    );
+
+    if (!response.ok) return [];
+
+    const files = await response.json();
+    if (!Array.isArray(files)) return [];
+
+    return files
+      .filter((item) => item.type === 'file' && typeof item.name === 'string')
+      .filter((item) => IMAGE_EXTENSIONS.some((ext) => item.name.toLowerCase().endsWith(ext)))
+      .map((item) => normalizeSource(item.path));
+  } catch (error) {
+    console.warn('Unable to read gallery via GitHub API', error);
+    return [];
+  }
+};
+
+const discoverDirectoryImages = async () => {
+  try {
+    const response = await fetch('assets/gallery/', {
+      headers: { Accept: 'text/html,application/xhtml+xml' },
+      cache: 'no-store',
+    });
+
+    if (!response.ok) return [];
+
+    const contentType = response.headers.get('content-type') || '';
+    if (!contentType.toLowerCase().includes('text/html')) return [];
+
+    const directoryHtml = await response.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(directoryHtml, 'text/html');
+    const links = Array.from(doc.querySelectorAll('a'));
+
+    return links
+      .map((link) => link.getAttribute('href') || '')
+      .map(sanitizeFileName)
+      .filter((href) => IMAGE_EXTENSIONS.some((ext) => href.toLowerCase().endsWith(ext)))
+      .map(normalizeSource);
+  } catch (error) {
+    console.warn('Unable to read gallery directory listing', error);
+    return [];
+  }
+};
+
+const loadManifestImages = async () => {
+  try {
+    const response = await fetch('assets/gallery/manifest.json', { cache: 'no-store' });
+    if (!response.ok) return [];
+
+    const manifest = await response.json();
+    const images = Array.isArray(manifest) ? manifest : manifest.images;
+    return (images || []).map(normalizeSource).filter(Boolean);
+  } catch (error) {
+    console.warn('Unable to load gallery manifest', error);
+    return [];
+  }
+};
+
+const renderGallery = async () => {
+  if (!galleryGrid) return;
+
+  const [directoryImages, manifestImages, githubImages] = await Promise.all([
+    discoverDirectoryImages(),
+    loadManifestImages(),
+    discoverGithubImages(),
+  ]);
+
+  const seen = new Set();
+  const normalizedImages = [...directoryImages, ...manifestImages, ...githubImages].filter((src) => {
+    if (!src || seen.has(src)) return false;
+    seen.add(src);
+    return true;
+  });
+
+  if (!normalizedImages.length) {
+    galleryGrid.innerHTML =
+      '<p class="gallery__empty">Drop your stills into <span>assets/gallery</span> and they will automatically surface here.</p>';
+    return;
+  }
+
+  const fragment = document.createDocumentFragment();
+  normalizedImages.forEach((src) => fragment.appendChild(createGalleryItem(src)));
+  galleryGrid.innerHTML = '';
+  galleryGrid.appendChild(fragment);
+};
+
+if (lightbox) {
+  lightbox.addEventListener('click', (event) => {
+    if (event.target === lightbox || event.target.classList.contains('lightbox__scrim')) {
+      closeLightbox();
+    }
+  });
+}
+
+if (lightboxClose) {
+  lightboxClose.addEventListener('click', closeLightbox);
+}
+
+window.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') {
+    closeLightbox();
+  }
+});
+
 const year = document.getElementById('year');
 if (year) {
   year.textContent = new Date().getFullYear();
@@ -131,3 +316,5 @@ const updateScrollCueVisibility = () => {
 
 updateScrollCueVisibility();
 window.addEventListener('scroll', updateScrollCueVisibility, { passive: true });
+
+renderGallery();
