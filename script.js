@@ -144,9 +144,15 @@ const openLightbox = (src) => {
   lightbox.setAttribute('aria-hidden', 'false');
 };
 
-const createGalleryItem = (src) => {
+const layoutCycle = ['statement', 'tall', 'wide', '', 'tall', 'spotlight', 'wide'];
+
+const createGalleryItem = (src, index = 0) => {
   const figure = document.createElement('figure');
   figure.className = 'gallery__item';
+  const layout = layoutCycle[index % layoutCycle.length];
+  if (layout) {
+    figure.classList.add(`gallery__item--${layout}`);
+  }
   figure.tabIndex = 0;
 
   const image = document.createElement('img');
@@ -291,7 +297,7 @@ const renderGallery = async () => {
   }
 
   const fragment = document.createDocumentFragment();
-  normalizedImages.forEach((src) => fragment.appendChild(createGalleryItem(src)));
+  normalizedImages.forEach((src, index) => fragment.appendChild(createGalleryItem(src, index)));
   galleryGrid.innerHTML = '';
   galleryGrid.appendChild(fragment);
 };
