@@ -340,7 +340,7 @@ main {
 }
 
 .panel__heading::before {
-  content: "â—Ž";
+  content: "\2022";
   position: absolute;
   left: -3.5rem;
   top: 50%;
@@ -476,7 +476,7 @@ main {
 }
 
 .footer__top::before {
-  content: "â†‘";
+  content: "\2191";
   font-size: 0.9rem;
 }
 
