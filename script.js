@@ -300,12 +300,16 @@ const renderStage = () => {
     const maxHeight = stageRect.height || naturalHeight;
 
     const baseScale = Math.min(maxWidth / naturalWidth, maxHeight / naturalHeight);
-    const boostedScale = baseScale * 1.32;
-    const scaledWidth = naturalWidth * boostedScale;
-    const scaledHeight = naturalHeight * boostedScale;
+    let scale = baseScale * 1.1;
 
-    const width = Math.min(scaledWidth, maxWidth);
-    const height = Math.min(scaledHeight, maxHeight);
+    let width = naturalWidth * scale;
+    let height = naturalHeight * scale;
+
+    if (width > maxWidth || height > maxHeight) {
+      scale = Math.min(maxWidth / naturalWidth, maxHeight / naturalHeight);
+      width = naturalWidth * scale;
+      height = naturalHeight * scale;
+    }
 
     figure.style.setProperty('--media-width', `${width}px`);
     figure.style.setProperty('--media-height', `${height}px`);
