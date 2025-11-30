@@ -1,13 +1,14 @@
 const cursor = document.getElementById('cursor');
 const hoverables = document.querySelectorAll('a, button, [data-tilt]');
 const splitElements = document.querySelectorAll('[data-split]');
-const panels = document.querySelectorAll('.panel');
-const scrollCue = document.querySelector('.hero__scroll');
-const galleryGrid = document.getElementById('gallery-grid');
+const galleryGrid = document.getElementById('portfolio-grid');
 const lightbox = document.getElementById('lightbox');
 const lightboxImage = lightbox?.querySelector('.lightbox__image');
 const lightboxCaption = lightbox?.querySelector('.lightbox__caption');
 const lightboxClose = lightbox?.querySelector('.lightbox__close');
+const tabButtons = document.querySelectorAll('.hero__link');
+const displayViews = document.querySelectorAll('.display__view');
+let hasRenderedPortfolio = false;
 
 const lerp = (a, b, n) => (1 - n) * a + n * b;
 let cursorX = window.innerWidth / 2;
@@ -53,26 +54,8 @@ function revealSplit(element, baseDelay = 0) {
 
 splitElements.forEach((element) => {
   splitText(element);
-  if (!element.closest('.panel')) {
-    revealSplit(element);
-  }
+  revealSplit(element);
 });
-
-const observer = new IntersectionObserver(
-  (entries, obs) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        const splits = entry.target.querySelectorAll('.split');
-        splits.forEach((split, index) => revealSplit(split, index * 160));
-        obs.unobserve(entry.target);
-      }
-    });
-  },
-  { threshold: 0.3 }
-);
-
-panels.forEach((panel) => observer.observe(panel));
 
 document.querySelectorAll('[data-tilt]').forEach((item) => {
   let rafId;
@@ -109,6 +92,31 @@ document.querySelectorAll('[data-tilt]').forEach((item) => {
   item.addEventListener('mouseenter', () => {
     item.classList.add('is-hovered');
   });
+});
+
+const setActiveView = async (target) => {
+  const normalized = target || 'portfolio';
+
+  tabButtons.forEach((button) => {
+    const isMatch = button.dataset.target === normalized;
+    button.classList.toggle('is-active', isMatch);
+    button.setAttribute('aria-selected', String(isMatch));
+  });
+
+  displayViews.forEach((view) => {
+    const isMatch = view.dataset.view === normalized;
+    view.classList.toggle('is-active', isMatch);
+    view.toggleAttribute('hidden', !isMatch);
+  });
+
+  if (normalized === 'portfolio' && !hasRenderedPortfolio) {
+    await renderGallery();
+    hasRenderedPortfolio = true;
+  }
+};
+
+tabButtons.forEach((button) => {
+  button.addEventListener('click', () => setActiveView(button.dataset.target));
 });
 
 const formatCaption = (src) => {
@@ -320,11 +328,6 @@ window.addEventListener('keydown', (event) => {
   }
 });
 
-const year = document.getElementById('year');
-if (year) {
-  year.textContent = new Date().getFullYear();
-}
-
 animateCursor();
 
 window.addEventListener('load', () => {
@@ -336,14 +339,4 @@ window.addEventListener('load', () => {
   });
 });
 
-const updateScrollCueVisibility = () => {
-  if (!scrollCue) return;
-  const scrollPosition = window.scrollY || document.documentElement.scrollTop;
-  const shouldHide = scrollPosition > 12;
-  scrollCue.classList.toggle('is-hidden', shouldHide);
-};
-
-updateScrollCueVisibility();
-window.addEventListener('scroll', updateScrollCueVisibility, { passive: true });
-
-renderGallery();
+setActiveView('portfolio');
