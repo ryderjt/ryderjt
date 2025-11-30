@@ -296,11 +296,16 @@ const renderStage = () => {
     if (!naturalWidth || !naturalHeight) return;
 
     const stageRect = galleryStage.getBoundingClientRect();
-    const maxWidth = stageRect.width;
-    const maxHeight = stageRect.height;
-    const scale = Math.min(maxWidth / naturalWidth, maxHeight / naturalHeight);
-    const width = naturalWidth * scale;
-    const height = naturalHeight * scale;
+    const maxWidth = stageRect.width || naturalWidth;
+    const maxHeight = stageRect.height || naturalHeight;
+
+    const baseScale = Math.min(maxWidth / naturalWidth, maxHeight / naturalHeight, 1);
+    const boostedScale = Math.min(baseScale * 1.08, 1);
+    const scaledWidth = naturalWidth * boostedScale;
+    const scaledHeight = naturalHeight * boostedScale;
+
+    const width = Math.min(scaledWidth, maxWidth);
+    const height = Math.min(scaledHeight, maxHeight);
 
     figure.style.setProperty('--media-width', `${width}px`);
     figure.style.setProperty('--media-height', `${height}px`);
