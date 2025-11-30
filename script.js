@@ -4,6 +4,11 @@ const splitElements = document.querySelectorAll('[data-split]');
 const viewButtons = document.querySelectorAll('[data-view-target]');
 const views = document.querySelectorAll('[data-view]');
 const galleryGrid = document.getElementById('gallery-grid');
+const galleryStage = galleryGrid?.querySelector('.gallery__stage');
+const galleryGridView = galleryGrid?.querySelector('.gallery__grid');
+const galleryPrev = galleryGrid?.querySelector('.gallery__nav--prev');
+const galleryNext = galleryGrid?.querySelector('.gallery__nav--next');
+const galleryToggle = galleryGrid?.querySelector('.gallery__toggle');
 const lightbox = document.getElementById('lightbox');
 const lightboxImage = lightbox?.querySelector('.lightbox__image');
 const lightboxCaption = lightbox?.querySelector('.lightbox__caption');
@@ -128,7 +133,7 @@ const openLightbox = (src) => {
 
 const layoutCycle = ['statement', 'tall', 'wide', '', 'tall', 'spotlight', 'wide'];
 
-const createGalleryItem = (src, index = 0) => {
+const createGalleryItem = (src, index = 0, options = {}) => {
   const figure = document.createElement('figure');
   figure.className = 'gallery__item';
   const layout = layoutCycle[index % layoutCycle.length];
@@ -147,14 +152,16 @@ const createGalleryItem = (src, index = 0) => {
   figure.appendChild(image);
   figure.appendChild(caption);
 
-  const activate = () => openLightbox(src);
-  figure.addEventListener('click', activate);
-  figure.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault();
-      activate();
-    }
-  });
+  if (!options?.suppressLightbox) {
+    const activate = () => openLightbox(src);
+    figure.addEventListener('click', activate);
+    figure.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        activate();
+      }
+    });
+  }
 
   return figure;
 };
@@ -242,6 +249,12 @@ const discoverDirectoryImages = async () => {
   }
 };
 
+const changeSlide = (delta) => {
+  if (!galleryImages.length) return;
+  galleryIndex = (galleryIndex + delta + galleryImages.length) % galleryImages.length;
+  renderStage();
+};
+
 const loadManifestImages = async () => {
   try {
     const response = await fetch('assets/gallery/manifest.json', { cache: 'no-store' });
@@ -256,6 +269,55 @@ const loadManifestImages = async () => {
   }
 };
 
+let galleryImages = [];
+let galleryIndex = 0;
+let galleryIsGrid = false;
+
+const renderStage = () => {
+  if (!galleryStage) return;
+  galleryStage.innerHTML = '';
+
+  if (!galleryImages.length) {
+    galleryStage.innerHTML =
+      '<p class="gallery__empty">Drop your stills into <span>assets/gallery</span> and they will automatically surface here.</p>';
+    return;
+  }
+
+  const src = galleryImages[galleryIndex];
+  const figure = createGalleryItem(src, galleryIndex, { suppressLightbox: true });
+  figure.classList.add('gallery__item--single');
+  figure.addEventListener('click', () => openLightbox(src));
+  galleryStage.appendChild(figure);
+};
+
+const renderGridView = () => {
+  if (!galleryGridView) return;
+  galleryGridView.innerHTML = '';
+
+  if (!galleryImages.length) return;
+
+  const fragment = document.createDocumentFragment();
+  galleryImages.forEach((src, index) => {
+    const figure = createGalleryItem(src, index, { suppressLightbox: true });
+    figure.addEventListener('click', () => {
+      galleryIndex = index;
+      galleryIsGrid = false;
+      galleryGrid?.classList.remove('is-grid');
+      galleryToggle?.setAttribute('aria-pressed', 'false');
+      renderStage();
+    });
+    fragment.appendChild(figure);
+  });
+
+  galleryGridView.appendChild(fragment);
+};
+
+const updateNavState = () => {
+  const disabled = galleryImages.length <= 1;
+  if (galleryPrev) galleryPrev.disabled = disabled;
+  if (galleryNext) galleryNext.disabled = disabled;
+};
+
 const renderGallery = async () => {
   if (!galleryGrid) return;
 
@@ -266,22 +328,24 @@ const renderGallery = async () => {
   ]);
 
   const seen = new Set();
-  const normalizedImages = [...directoryImages, ...manifestImages, ...githubImages].filter((src) => {
+  galleryImages = [...directoryImages, ...manifestImages, ...githubImages].filter((src) => {
     if (!src || seen.has(src)) return false;
     seen.add(src);
     return true;
   });
 
-  if (!normalizedImages.length) {
-    galleryGrid.innerHTML =
-      '<p class="gallery__empty">Drop your stills into <span>assets/gallery</span> and they will automatically surface here.</p>';
+  if (!galleryImages.length) {
+    renderStage();
     return;
   }
 
-  const fragment = document.createDocumentFragment();
-  normalizedImages.forEach((src, index) => fragment.appendChild(createGalleryItem(src, index)));
-  galleryGrid.innerHTML = '';
-  galleryGrid.appendChild(fragment);
+  galleryIndex = 0;
+  galleryIsGrid = false;
+  galleryGrid.classList.remove('is-grid');
+  galleryToggle?.setAttribute('aria-pressed', 'false');
+  renderStage();
+  renderGridView();
+  updateNavState();
 };
 
 if (lightbox) {
@@ -325,6 +389,15 @@ const showView = (name) => {
 
 viewButtons.forEach((button) => {
   button.addEventListener('click', () => showView(button.dataset.viewTarget));
+});
+
+galleryPrev?.addEventListener('click', () => changeSlide(-1));
+galleryNext?.addEventListener('click', () => changeSlide(1));
+
+galleryToggle?.addEventListener('click', () => {
+  galleryIsGrid = !galleryIsGrid;
+  galleryToggle.setAttribute('aria-pressed', galleryIsGrid ? 'true' : 'false');
+  galleryGrid?.classList.toggle('is-grid', galleryIsGrid);
 });
 
 const initialView =
