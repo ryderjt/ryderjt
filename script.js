@@ -396,6 +396,27 @@ if (lightboxClose) {
   lightboxClose.addEventListener('click', closeLightbox);
 }
 
+if (lightboxImage) {
+  let hoverRaf;
+
+  lightboxImage.addEventListener('mousemove', (event) => {
+    if (hoverRaf) cancelAnimationFrame(hoverRaf);
+    hoverRaf = requestAnimationFrame(() => {
+      const rect = lightboxImage.getBoundingClientRect();
+      const x = ((event.clientX - rect.left) / rect.width) * 100;
+      const y = ((event.clientY - rect.top) / rect.height) * 100;
+      lightboxImage.style.transformOrigin = `${x}% ${y}%`;
+      lightboxImage.classList.add('is-zoomed');
+    });
+  });
+
+  lightboxImage.addEventListener('mouseleave', () => {
+    if (hoverRaf) cancelAnimationFrame(hoverRaf);
+    lightboxImage.classList.remove('is-zoomed');
+    lightboxImage.style.transformOrigin = '';
+  });
+}
+
 window.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') {
     closeLightbox();
