@@ -403,11 +403,13 @@ a:hover::after {
   display: none;
   gap: 1rem;
   padding: 1.1rem;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   align-content: start;
+  align-items: start;
   min-height: 0;
-  max-height: 100%;
+  max-height: none;
 }
 
 .gallery.is-grid .gallery__stage,
@@ -419,8 +421,16 @@ a:hover::after {
   display: grid;
 }
 
+.gallery.is-grid {
+  height: auto;
+  max-height: none;
+  overflow-y: visible;
+  overflow-x: hidden;
+}
+
 .gallery.is-grid .gallery__item {
   box-shadow: none;
+  overflow: visible;
 }
 
 .gallery__nav {
