@@ -162,6 +162,7 @@ a:hover::after {
 .hero__tagline {
   font-size: 1.2rem;
   max-width: 38ch;
+  font-family: var(--font-type);
 }
 
 .hero__links {
@@ -321,6 +322,193 @@ a:hover::after {
 .workspace__body > p,
 .workspace__body ul {
   font-size: 1.05rem;
+  color: var(--muted);
+}
+
+.about__lede {
+  background: linear-gradient(135deg, rgba(185, 131, 255, 0.12), rgba(27, 26, 26, 0.06));
+  border: 1px solid rgba(27, 26, 26, 0.12);
+  border-radius: 16px;
+  padding: 1.5rem 1.75rem;
+  backdrop-filter: blur(6px);
+  display: grid;
+  gap: 1rem;
+}
+
+.about__pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.about__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(27, 26, 26, 0.08);
+  color: var(--text);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.about__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+  align-items: start;
+}
+
+
+.about__card,
+.about__goal {
+  border: 1px solid rgba(27, 26, 26, 0.12);
+  border-radius: 16px;
+  padding: 1.35rem 1.5rem;
+  background: #fffdf8;
+  position: relative;
+  overflow: hidden;
+}
+
+.about__card h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.about__tools {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.about__card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.about__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(27, 26, 26, 0.08);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.about__stack {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.about__stack-item {
+  padding: 0.75rem 0.9rem;
+  border: 1px solid rgba(27, 26, 26, 0.08);
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(185, 131, 255, 0.12), rgba(27, 26, 26, 0.04));
+}
+
+.about__stack-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+}
+
+.about__stack-item p {
+  margin: 0.35rem 0 0;
+  color: var(--muted);
+}
+
+.about__goal {
+  background: linear-gradient(140deg, rgba(27, 26, 26, 0.95), rgba(27, 26, 26, 0.85));
+  color: #f6f3ef;
+}
+
+.about__goal-label {
+  display: inline-flex;
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(246, 243, 239, 0.12);
+  border: 1px solid rgba(246, 243, 239, 0.2);
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.about__goal p {
+  margin: 0.75rem 0 0;
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+.contact__card {
+  border: 1px solid rgba(27, 26, 26, 0.12);
+  border-radius: 18px;
+  padding: 1.6rem 1.75rem;
+  background: linear-gradient(120deg, rgba(185, 131, 255, 0.14), rgba(27, 26, 26, 0.04));
+  display: grid;
+  gap: 1.2rem;
+}
+
+.contact__lede {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--text);
+}
+
+.contact__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.contact__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 1.1rem;
+  border: 1px solid rgba(27, 26, 26, 0.12);
+  border-radius: 12px;
+  background: #fffdf8;
+  transition: transform 0.25s ease, background 0.25s ease;
+  gap: 1.1rem;
+  min-width: 260px;
+  width: auto;
+}
+
+.contact__link:hover {
+  transform: translateY(-3px);
+  background: rgba(185, 131, 255, 0.12);
+}
+
+.contact__link::after {
+  display: none;
+}
+
+.contact__link span {
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.contact__link strong {
+  font-size: 1.05rem;
+}
+
+.contact__note {
+  margin: 0;
   color: var(--muted);
 }
 
@@ -484,7 +672,15 @@ a:hover::after {
   place-items: center;
   box-shadow: 0 16px 36px rgba(27, 26, 26, 0.14);
   transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
-  z-index: 4;
+  z-index: 6;
+}
+
+.gallery.is-grid .gallery__toggle {
+  position: sticky;
+  top: 0.85rem;
+  right: 0.85rem;
+  justify-self: end;
+  align-self: start;
 }
 
 .gallery__toggle:hover {
