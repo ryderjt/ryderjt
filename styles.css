@@ -419,6 +419,10 @@ a:hover::after {
   display: grid;
 }
 
+.gallery.is-grid .gallery__item {
+  box-shadow: none;
+}
+
 .gallery__nav {
   position: absolute;
   top: 50%;
