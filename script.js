@@ -300,7 +300,7 @@ const renderStage = () => {
     const maxHeight = stageRect.height || naturalHeight;
 
     const baseScale = Math.min(maxWidth / naturalWidth, maxHeight / naturalHeight);
-    const boostedScale = baseScale * 1.05;
+    const boostedScale = baseScale * 1.12;
     const scaledWidth = naturalWidth * boostedScale;
     const scaledHeight = naturalHeight * boostedScale;
 
