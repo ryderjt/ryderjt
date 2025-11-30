@@ -131,6 +131,7 @@ const closeLightbox = () => {
   if (!lightbox) return;
   lightbox.classList.remove('is-active');
   document.body.classList.remove('is-locked');
+  document.body.classList.remove('lightbox-open');
   lightbox.setAttribute('aria-hidden', 'true');
 };
 
@@ -141,6 +142,7 @@ const openLightbox = (src) => {
   lightboxCaption.textContent = formatCaption(src);
   lightbox.classList.add('is-active');
   document.body.classList.add('is-locked');
+  document.body.classList.add('lightbox-open');
   lightbox.setAttribute('aria-hidden', 'false');
 };
 
