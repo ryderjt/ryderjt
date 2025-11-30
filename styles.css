@@ -432,7 +432,7 @@ a:hover::after {
 
 .gallery.is-grid .gallery__item {
   box-shadow: none;
-  overflow: visible;
+  overflow: hidden;
   border-radius: 1.6rem;
 }
 
