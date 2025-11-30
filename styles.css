@@ -162,6 +162,7 @@ a:hover::after {
 .hero__tagline {
   font-size: 1.2rem;
   max-width: 38ch;
+  font-family: var(--font-type);
 }
 
 .hero__links {
@@ -358,6 +359,7 @@ a:hover::after {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 1rem;
+  align-items: start;
 }
 
 
