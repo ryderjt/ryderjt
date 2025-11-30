@@ -360,7 +360,7 @@ a:hover::after {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: clamp(0.75rem, 2vw, 1.5rem);
+  padding: clamp(0.35rem, 1.25vw, 0.9rem);
   overflow: hidden;
   height: 100%;
   max-height: 100%;

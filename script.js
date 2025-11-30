@@ -298,7 +298,7 @@ const renderStage = () => {
     const stageRect = galleryStage.getBoundingClientRect();
     const maxWidth = stageRect.width;
     const maxHeight = stageRect.height;
-    const scale = Math.min(maxWidth / naturalWidth, maxHeight / naturalHeight, 1);
+    const scale = Math.min(maxWidth / naturalWidth, maxHeight / naturalHeight);
     const width = naturalWidth * scale;
     const height = naturalHeight * scale;
 
