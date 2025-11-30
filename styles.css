@@ -70,19 +70,21 @@ a:hover::after {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  border: 1px solid rgba(27, 26, 26, 0.4);
+  border: 1px solid #fff;
   pointer-events: none;
   transform: translate(-50%, -50%);
   transition: background 0.2s ease, width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
   z-index: 10000;
   backdrop-filter: blur(2px);
+  mix-blend-mode: difference;
+  background: transparent;
 }
 
 #cursor.active {
-  background: var(--accent-soft);
+  background: transparent;
   width: 32px;
   height: 32px;
-  border-color: var(--accent);
+  border-color: #fff;
 }
 
 #cursor.is-hidden {
