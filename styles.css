@@ -88,10 +88,6 @@ a:hover::after {
   transform: translate3d(-50%, -50%, 0) scale(0.6);
 }
 
-body.lightbox-open #cursor {
-  opacity: 0;
-}
-
 .hero {
   min-height: 100vh;
   display: flex;
