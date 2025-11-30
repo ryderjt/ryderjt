@@ -332,6 +332,78 @@ a:hover::after {
   gap: 0.5rem;
 }
 
+.about__lead {
+  font-size: 1.15rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+}
+
+.about__tools {
+  display: flex;
+  gap: 0.5rem;
+  flex-direction: column;
+}
+
+.about__tools-label {
+  font-family: var(--font-type);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.about__tools-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 0.85rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  font-size: 0.95rem;
+  color: var(--text-primary);
+}
+
+.about__note {
+  padding: 1rem 1.1rem;
+  border-radius: 1rem;
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--muted);
+  font-style: italic;
+}
+
+.about__goal {
+  display: grid;
+  gap: 0.35rem;
+  padding: 1rem 1.2rem;
+  border-radius: 1rem;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
+}
+
+.about__goal-label {
+  font-family: var(--font-type);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.about__goal-text {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
 .workspace__body .gallery {
   position: relative;
   flex: 1;
@@ -857,15 +929,62 @@ main {
   background: rgba(255, 255, 255, 0.9);
 }
 
-.contact__list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.contact__intro {
   display: grid;
-  gap: 0.75rem;
-  font-family: var(--font-type);
-  letter-spacing: 0.2em;
+  gap: 0.4rem;
+}
+
+.contact__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  width: fit-content;
+  padding: 0.4rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  letter-spacing: 0.15em;
   text-transform: uppercase;
+  font-family: var(--font-type);
+  font-size: 0.75rem;
+}
+
+.contact__card {
+  display: grid;
+  gap: 0.8rem;
+  padding: 1.2rem 1.4rem;
+  border-radius: 1.1rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.18);
+}
+
+.contact__channels {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.contact__label {
+  font-family: var(--font-type);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.contact__value {
+  display: inline-block;
+  font-size: 1.05rem;
+  color: var(--text-primary);
+}
+
+.contact__value:hover {
+  text-decoration: underline;
+}
+
+.contact__note {
+  margin: 0;
+  color: var(--muted);
 }
 
 .footer {
