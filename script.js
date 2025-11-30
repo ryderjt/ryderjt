@@ -175,32 +175,54 @@ const IMAGE_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.avif'];
 
 const sanitizeFileName = (file) => file.split(/[?#]/)[0].replace(/^\/?\.\//, '').replace(/^\//, '');
 
+const guessGithubRepo = () => {
+  const explicitRepo = document.documentElement.dataset.galleryRepo;
+  if (explicitRepo) return explicitRepo;
+
+  const { hostname, pathname } = window.location;
+  const isGithubPages = hostname.endsWith('github.io');
+  if (!isGithubPages) return 'ryderjt/ryderjt';
+
+  const owner = hostname.replace('.github.io', '');
+  const [, firstSegment] = pathname.split('/');
+  const repoName = firstSegment || `${owner}.github.io`;
+  return `${owner}/${repoName}`;
+};
+
 const discoverGithubImages = async () => {
-  const repo = document.documentElement.dataset.galleryRepo || 'ryderjt/ryderjt';
-  const branch = document.documentElement.dataset.galleryBranch || 'work';
+  const repo = guessGithubRepo();
+  const branchCandidates = [
+    document.documentElement.dataset.galleryBranch,
+    'work',
+    'main',
+    'master',
+  ].filter(Boolean);
 
-  try {
-    const response = await fetch(
-      `https://api.github.com/repos/${repo}/contents/assets/gallery?ref=${encodeURIComponent(branch)}`,
-      {
-        headers: { Accept: 'application/vnd.github.v3+json' },
-        cache: 'no-store',
-      }
-    );
+  for (const branch of branchCandidates) {
+    try {
+      const response = await fetch(
+        `https://api.github.com/repos/${repo}/contents/assets/gallery?ref=${encodeURIComponent(branch)}`,
+        {
+          headers: { Accept: 'application/vnd.github.v3+json' },
+          cache: 'no-store',
+        }
+      );
 
-    if (!response.ok) return [];
+      if (!response.ok) continue;
 
-    const files = await response.json();
-    if (!Array.isArray(files)) return [];
+      const files = await response.json();
+      if (!Array.isArray(files)) continue;
 
-    return files
-      .filter((item) => item.type === 'file' && typeof item.name === 'string')
-      .filter((item) => IMAGE_EXTENSIONS.some((ext) => item.name.toLowerCase().endsWith(ext)))
-      .map((item) => normalizeSource(item.path));
-  } catch (error) {
-    console.warn('Unable to read gallery via GitHub API', error);
-    return [];
+      return files
+        .filter((item) => item.type === 'file' && typeof item.name === 'string')
+        .filter((item) => IMAGE_EXTENSIONS.some((ext) => item.name.toLowerCase().endsWith(ext)))
+        .map((item) => normalizeSource(item.path));
+    } catch (error) {
+      console.warn('Unable to read gallery via GitHub API', error);
+    }
   }
+
+  return [];
 };
 
 const discoverDirectoryImages = async () => {
