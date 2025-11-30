@@ -374,6 +374,8 @@ a:hover::after {
   position: relative;
   max-width: 100%;
   max-height: 100%;
+  width: var(--media-width, auto);
+  height: var(--media-height, auto);
   background: transparent;
   border: none;
   box-shadow: none;
@@ -382,9 +384,9 @@ a:hover::after {
 
 .gallery__stage img {
   display: block;
-  width: auto;
-  height: auto;
-  max-width: min(100%, 1100px);
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
   max-height: 100%;
   object-fit: contain;
   border-radius: 1rem;
@@ -393,9 +395,9 @@ a:hover::after {
 
 .gallery__stage figcaption {
   position: absolute;
-  left: 1rem;
+  left: 0;
   bottom: 1rem;
-  right: 1rem;
+  right: 0;
   padding: 0.7rem 0.9rem;
   border-radius: 0.8rem;
   background: linear-gradient(180deg, rgba(27, 26, 26, 0.02), rgba(27, 26, 26, 0.5));
@@ -628,6 +630,8 @@ main {
   max-width: min(100%, 1100px);
   max-height: 100%;
   box-shadow: 0 28px 70px rgba(27, 26, 26, 0.22);
+  width: var(--media-width, auto);
+  height: var(--media-height, auto);
 }
 
 .gallery__grid .gallery__item {
@@ -668,8 +672,8 @@ main {
 }
 
 .gallery__item--single img {
-  width: auto;
-  height: auto;
+  width: 100%;
+  height: 100%;
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
@@ -678,6 +682,8 @@ main {
 .gallery__item figcaption {
   position: absolute;
   bottom: 0;
+  left: 0;
+  right: 0;
   width: 100%;
   padding: 1.2rem;
   background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.6));

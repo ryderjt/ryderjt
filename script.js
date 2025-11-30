@@ -302,6 +302,8 @@ const renderStage = () => {
     const width = naturalWidth * scale;
     const height = naturalHeight * scale;
 
+    figure.style.setProperty('--media-width', `${width}px`);
+    figure.style.setProperty('--media-height', `${height}px`);
     figure.style.width = `${width}px`;
     figure.style.height = `${height}px`;
   };
