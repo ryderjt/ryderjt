@@ -388,7 +388,7 @@ a:hover::after {
   max-height: 100%;
   object-fit: contain;
   border-radius: 1rem;
-  box-shadow: 0 28px 70px rgba(27, 26, 26, 0.2);
+  box-shadow: none;
 }
 
 .gallery__stage figcaption {
@@ -609,13 +609,17 @@ main {
   border: 1px solid rgba(27, 26, 26, 0.08);
   background: rgba(255, 255, 255, 0.65);
   transition: transform 0.6s ease, box-shadow 0.6s ease;
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
+  align-items: stretch;
   isolation: isolate;
   flex: 0 0 auto;
   aspect-ratio: auto;
+  width: auto;
   height: auto;
+  max-width: 100%;
   max-height: 100%;
+  box-shadow: 0 28px 70px rgba(27, 26, 26, 0.2);
 }
 
 .gallery__item--single {
@@ -623,6 +627,7 @@ main {
   height: auto;
   max-width: min(100%, 1100px);
   max-height: 100%;
+  box-shadow: 0 28px 70px rgba(27, 26, 26, 0.22);
 }
 
 .gallery__grid .gallery__item {
@@ -666,7 +671,7 @@ main {
   width: auto;
   height: auto;
   max-width: 100%;
-  max-height: min(78vh, 100%);
+  max-height: 100%;
   object-fit: contain;
 }
 

@@ -272,6 +272,7 @@ const loadManifestImages = async () => {
 let galleryImages = [];
 let galleryIndex = 0;
 let galleryIsGrid = false;
+let stageResizeHandler = null;
 
 const renderStage = () => {
   if (!galleryStage) return;
@@ -287,6 +288,39 @@ const renderStage = () => {
   const figure = createGalleryItem(src, galleryIndex, { suppressLightbox: true });
   figure.classList.add('gallery__item--single');
   figure.addEventListener('click', () => openLightbox(src));
+
+  const image = figure.querySelector('img');
+  const resizeToImage = () => {
+    if (!image || !galleryStage) return;
+    const { naturalWidth, naturalHeight } = image;
+    if (!naturalWidth || !naturalHeight) return;
+
+    const stageRect = galleryStage.getBoundingClientRect();
+    const maxWidth = stageRect.width;
+    const maxHeight = stageRect.height;
+    const scale = Math.min(maxWidth / naturalWidth, maxHeight / naturalHeight, 1);
+    const width = naturalWidth * scale;
+    const height = naturalHeight * scale;
+
+    figure.style.width = `${width}px`;
+    figure.style.height = `${height}px`;
+  };
+
+  if (image) {
+    if (stageResizeHandler) {
+      window.removeEventListener('resize', stageResizeHandler);
+    }
+
+    if (image.complete && image.naturalWidth) {
+      resizeToImage();
+    } else {
+      image.addEventListener('load', resizeToImage, { once: true });
+    }
+
+    stageResizeHandler = resizeToImage;
+    window.addEventListener('resize', stageResizeHandler, { passive: true });
+  }
+
   galleryStage.appendChild(figure);
 };
 
