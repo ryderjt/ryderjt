@@ -315,6 +315,7 @@ a:hover::after {
 
 .workspace__body--flush {
   gap: 0;
+  overflow: visible;
 }
 
 .workspace__body > p,
@@ -431,7 +432,7 @@ a:hover::after {
 
 .gallery.is-grid .gallery__item {
   box-shadow: none;
-  overflow: hidden;
+  overflow: visible;
   border-radius: 1.6rem;
 }
 
@@ -684,6 +685,7 @@ main {
   max-width: 100%;
   height: auto;
   margin: 0 auto;
+  border-radius: 1.6rem;
 }
 
 .gallery__item--single img {
