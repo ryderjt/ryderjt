@@ -404,7 +404,7 @@ a:hover::after {
   gap: 1rem;
   padding: 1.1rem;
   overflow: auto;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   align-content: start;
   min-height: 0;
   max-height: 100%;
