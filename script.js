@@ -1,9 +1,14 @@
 const cursor = document.getElementById('cursor');
 const hoverables = document.querySelectorAll('a, button, [data-tilt]');
 const splitElements = document.querySelectorAll('[data-split]');
-const panels = document.querySelectorAll('.panel');
-const scrollCue = document.querySelector('.hero__scroll');
+const viewButtons = document.querySelectorAll('[data-view-target]');
+const views = document.querySelectorAll('[data-view]');
 const galleryGrid = document.getElementById('gallery-grid');
+const galleryStage = galleryGrid?.querySelector('.gallery__stage');
+const galleryGridView = galleryGrid?.querySelector('.gallery__grid');
+const galleryPrev = galleryGrid?.querySelector('.gallery__nav--prev');
+const galleryNext = galleryGrid?.querySelector('.gallery__nav--next');
+const galleryToggle = galleryGrid?.querySelector('.gallery__toggle');
 const lightbox = document.getElementById('lightbox');
 const lightboxImage = lightbox?.querySelector('.lightbox__image');
 const lightboxCaption = lightbox?.querySelector('.lightbox__caption');
@@ -53,26 +58,8 @@ function revealSplit(element, baseDelay = 0) {
 
 splitElements.forEach((element) => {
   splitText(element);
-  if (!element.closest('.panel')) {
-    revealSplit(element);
-  }
+  revealSplit(element);
 });
-
-const observer = new IntersectionObserver(
-  (entries, obs) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        const splits = entry.target.querySelectorAll('.split');
-        splits.forEach((split, index) => revealSplit(split, index * 160));
-        obs.unobserve(entry.target);
-      }
-    });
-  },
-  { threshold: 0.3 }
-);
-
-panels.forEach((panel) => observer.observe(panel));
 
 document.querySelectorAll('[data-tilt]').forEach((item) => {
   let rafId;
@@ -146,7 +133,7 @@ const openLightbox = (src) => {
 
 const layoutCycle = ['statement', 'tall', 'wide', '', 'tall', 'spotlight', 'wide'];
 
-const createGalleryItem = (src, index = 0) => {
+const createGalleryItem = (src, index = 0, options = {}) => {
   const figure = document.createElement('figure');
   figure.className = 'gallery__item';
   const layout = layoutCycle[index % layoutCycle.length];
@@ -165,14 +152,16 @@ const createGalleryItem = (src, index = 0) => {
   figure.appendChild(image);
   figure.appendChild(caption);
 
-  const activate = () => openLightbox(src);
-  figure.addEventListener('click', activate);
-  figure.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault();
-      activate();
-    }
-  });
+  if (!options?.suppressLightbox) {
+    const activate = () => openLightbox(src);
+    figure.addEventListener('click', activate);
+    figure.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        activate();
+      }
+    });
+  }
 
   return figure;
 };
@@ -260,6 +249,12 @@ const discoverDirectoryImages = async () => {
   }
 };
 
+const changeSlide = (delta) => {
+  if (!galleryImages.length) return;
+  galleryIndex = (galleryIndex + delta + galleryImages.length) % galleryImages.length;
+  renderStage();
+};
+
 const loadManifestImages = async () => {
   try {
     const response = await fetch('assets/gallery/manifest.json', { cache: 'no-store' });
@@ -274,6 +269,100 @@ const loadManifestImages = async () => {
   }
 };
 
+let galleryImages = [];
+let galleryIndex = 0;
+let galleryIsGrid = false;
+let stageResizeHandler = null;
+
+const renderStage = () => {
+  if (!galleryStage) return;
+  galleryStage.innerHTML = '';
+
+  if (!galleryImages.length) {
+    galleryStage.innerHTML =
+      '<p class="gallery__empty">Drop your stills into <span>assets/gallery</span> and they will automatically surface here.</p>';
+    return;
+  }
+
+  const src = galleryImages[galleryIndex];
+  const figure = createGalleryItem(src, galleryIndex, { suppressLightbox: true });
+  figure.classList.add('gallery__item--single');
+  figure.addEventListener('click', () => openLightbox(src));
+
+  const image = figure.querySelector('img');
+  const resizeToImage = () => {
+    if (!image || !galleryStage) return;
+    const { naturalWidth, naturalHeight } = image;
+    if (!naturalWidth || !naturalHeight) return;
+
+    const stageRect = galleryStage.getBoundingClientRect();
+    const maxWidth = stageRect.width || naturalWidth;
+    const maxHeight = stageRect.height || naturalHeight;
+
+    const baseScale = Math.min(maxWidth / naturalWidth, maxHeight / naturalHeight);
+    let scale = baseScale * 1.1;
+
+    let width = naturalWidth * scale;
+    let height = naturalHeight * scale;
+
+    if (width > maxWidth || height > maxHeight) {
+      scale = Math.min(maxWidth / naturalWidth, maxHeight / naturalHeight);
+      width = naturalWidth * scale;
+      height = naturalHeight * scale;
+    }
+
+    figure.style.setProperty('--media-width', `${width}px`);
+    figure.style.setProperty('--media-height', `${height}px`);
+    figure.style.width = `${width}px`;
+    figure.style.height = `${height}px`;
+  };
+
+  if (image) {
+    if (stageResizeHandler) {
+      window.removeEventListener('resize', stageResizeHandler);
+    }
+
+    if (image.complete && image.naturalWidth) {
+      resizeToImage();
+    } else {
+      image.addEventListener('load', resizeToImage, { once: true });
+    }
+
+    stageResizeHandler = resizeToImage;
+    window.addEventListener('resize', stageResizeHandler, { passive: true });
+  }
+
+  galleryStage.appendChild(figure);
+};
+
+const renderGridView = () => {
+  if (!galleryGridView) return;
+  galleryGridView.innerHTML = '';
+
+  if (!galleryImages.length) return;
+
+  const fragment = document.createDocumentFragment();
+  galleryImages.forEach((src, index) => {
+    const figure = createGalleryItem(src, index, { suppressLightbox: true });
+    figure.addEventListener('click', () => {
+      galleryIndex = index;
+      galleryIsGrid = false;
+      galleryGrid?.classList.remove('is-grid');
+      galleryToggle?.setAttribute('aria-pressed', 'false');
+      renderStage();
+    });
+    fragment.appendChild(figure);
+  });
+
+  galleryGridView.appendChild(fragment);
+};
+
+const updateNavState = () => {
+  const disabled = galleryImages.length <= 1;
+  if (galleryPrev) galleryPrev.disabled = disabled;
+  if (galleryNext) galleryNext.disabled = disabled;
+};
+
 const renderGallery = async () => {
   if (!galleryGrid) return;
 
@@ -284,22 +373,24 @@ const renderGallery = async () => {
   ]);
 
   const seen = new Set();
-  const normalizedImages = [...directoryImages, ...manifestImages, ...githubImages].filter((src) => {
+  galleryImages = [...directoryImages, ...manifestImages, ...githubImages].filter((src) => {
     if (!src || seen.has(src)) return false;
     seen.add(src);
     return true;
   });
 
-  if (!normalizedImages.length) {
-    galleryGrid.innerHTML =
-      '<p class="gallery__empty">Drop your stills into <span>assets/gallery</span> and they will automatically surface here.</p>';
+  if (!galleryImages.length) {
+    renderStage();
     return;
   }
 
-  const fragment = document.createDocumentFragment();
-  normalizedImages.forEach((src, index) => fragment.appendChild(createGalleryItem(src, index)));
-  galleryGrid.innerHTML = '';
-  galleryGrid.appendChild(fragment);
+  galleryIndex = 0;
+  galleryIsGrid = false;
+  galleryGrid.classList.remove('is-grid');
+  galleryToggle?.setAttribute('aria-pressed', 'false');
+  renderStage();
+  renderGridView();
+  updateNavState();
 };
 
 if (lightbox) {
@@ -314,16 +405,32 @@ if (lightboxClose) {
   lightboxClose.addEventListener('click', closeLightbox);
 }
 
+if (lightboxImage) {
+  let hoverRaf;
+
+  lightboxImage.addEventListener('mousemove', (event) => {
+    if (hoverRaf) cancelAnimationFrame(hoverRaf);
+    hoverRaf = requestAnimationFrame(() => {
+      const rect = lightboxImage.getBoundingClientRect();
+      const x = ((event.clientX - rect.left) / rect.width) * 100;
+      const y = ((event.clientY - rect.top) / rect.height) * 100;
+      lightboxImage.style.transformOrigin = `${x}% ${y}%`;
+      lightboxImage.classList.add('is-zoomed');
+    });
+  });
+
+  lightboxImage.addEventListener('mouseleave', () => {
+    if (hoverRaf) cancelAnimationFrame(hoverRaf);
+    lightboxImage.classList.remove('is-zoomed');
+    lightboxImage.style.transformOrigin = '';
+  });
+}
+
 window.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') {
     closeLightbox();
   }
 });
-
-const year = document.getElementById('year');
-if (year) {
-  year.textContent = new Date().getFullYear();
-}
 
 animateCursor();
 
@@ -336,14 +443,33 @@ window.addEventListener('load', () => {
   });
 });
 
-const updateScrollCueVisibility = () => {
-  if (!scrollCue) return;
-  const scrollPosition = window.scrollY || document.documentElement.scrollTop;
-  const shouldHide = scrollPosition > 12;
-  scrollCue.classList.toggle('is-hidden', shouldHide);
+const showView = (name) => {
+  views.forEach((view) => {
+    view.classList.toggle('is-active', view.dataset.view === name);
+  });
+
+  viewButtons.forEach((button) => {
+    button.classList.toggle('is-active', button.dataset.viewTarget === name);
+  });
 };
 
-updateScrollCueVisibility();
-window.addEventListener('scroll', updateScrollCueVisibility, { passive: true });
+viewButtons.forEach((button) => {
+  button.addEventListener('click', () => showView(button.dataset.viewTarget));
+});
+
+galleryPrev?.addEventListener('click', () => changeSlide(-1));
+galleryNext?.addEventListener('click', () => changeSlide(1));
+
+galleryToggle?.addEventListener('click', () => {
+  galleryIsGrid = !galleryIsGrid;
+  galleryToggle.setAttribute('aria-pressed', galleryIsGrid ? 'true' : 'false');
+  galleryGrid?.classList.toggle('is-grid', galleryIsGrid);
+});
+
+const initialView =
+  (viewButtons[0] && viewButtons[0].dataset.viewTarget) ||
+  (views[0] && views[0].dataset.view) ||
+  'portfolio';
+showView(initialView);
 
 renderGallery();
