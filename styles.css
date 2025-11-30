@@ -22,6 +22,10 @@ body {
   overflow-x: hidden;
 }
 
+body.is-locked {
+  overflow: hidden;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -364,6 +368,12 @@ main {
   background: linear-gradient(210deg, rgba(246, 243, 239, 0.95), rgba(255, 248, 236, 0.8));
 }
 
+.panel--gallery {
+  background: radial-gradient(120% 120% at 20% 20%, rgba(185, 131, 255, 0.16), transparent),
+    radial-gradient(130% 130% at 80% 0%, rgba(255, 200, 150, 0.18), transparent),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(246, 243, 239, 0.85));
+}
+
 .reels {
   display: grid;
   gap: 3rem;
@@ -413,6 +423,13 @@ main {
   border: 1px solid rgba(27, 26, 26, 0.08);
   background: rgba(255, 255, 255, 0.5);
   transition: transform 0.6s ease, box-shadow 0.6s ease;
+  min-height: 260px;
+  display: grid;
+}
+
+.gallery__item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 28px 70px rgba(27, 26, 26, 0.18);
 }
 
 .gallery__item img {
@@ -440,6 +457,99 @@ main {
 .gallery__item:hover img {
   transform: scale(1.05);
   filter: saturate(1.5) contrast(1.1);
+}
+
+.gallery__empty {
+  padding: 1.2rem 1rem;
+  border-radius: 1rem;
+  background: rgba(27, 26, 26, 0.05);
+  color: rgba(27, 26, 26, 0.7);
+  font-size: 0.95rem;
+}
+
+.gallery__empty span {
+  font-family: var(--font-type);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 8, 16, 0.6);
+  backdrop-filter: blur(16px) saturate(1.1);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+  z-index: 1000;
+}
+
+.lightbox.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox__scrim {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.08), transparent 40%);
+  filter: blur(18px);
+}
+
+.lightbox__frame {
+  position: relative;
+  max-width: min(900px, 82vw);
+  max-height: 82vh;
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: 1.6rem;
+  border: 1px solid rgba(27, 26, 26, 0.12);
+  box-shadow: 0 40px 120px rgba(0, 0, 0, 0.35);
+  padding: 1.6rem 1.6rem 1rem;
+  display: grid;
+  gap: 1rem;
+  z-index: 2;
+}
+
+.lightbox__image {
+  width: 100%;
+  max-height: 68vh;
+  object-fit: contain;
+  border-radius: 1rem;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25);
+}
+
+.lightbox__caption {
+  margin: 0;
+  font-family: var(--font-type);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.lightbox__close {
+  position: absolute;
+  top: 1rem;
+  right: 1.2rem;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(27, 26, 26, 0.12);
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  font-size: 1.3rem;
+  display: grid;
+  place-items: center;
+  cursor: pointer !important;
+  transition: transform 0.25s ease, background 0.25s ease;
+  z-index: 3;
+}
+
+.lightbox__close:hover {
+  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.9);
 }
 
 .contact__list {
