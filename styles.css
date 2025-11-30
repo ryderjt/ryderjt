@@ -332,6 +332,93 @@ a:hover::after {
   gap: 0.5rem;
 }
 
+.about__lede {
+  font-size: clamp(1.15rem, 2.3vw, 1.6rem);
+  font-weight: 600;
+  line-height: 1.7;
+}
+
+.about__body {
+  max-width: 48ch;
+}
+
+.about__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.about__card {
+  padding: 1rem 1.1rem;
+  border: 1px solid rgba(27, 26, 26, 0.12);
+  border-radius: 0.9rem;
+  background: linear-gradient(145deg, rgba(27, 26, 26, 0.04), rgba(27, 26, 26, 0.02));
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+}
+
+.about__label {
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(27, 26, 26, 0.7);
+  margin-bottom: 0.35rem;
+}
+
+.about__goal {
+  padding: 1rem 1.2rem;
+  border-radius: 1rem;
+  border: 1px dashed rgba(185, 131, 255, 0.5);
+  background: rgba(185, 131, 255, 0.08);
+  display: grid;
+  gap: 0.3rem;
+  max-width: 620px;
+}
+
+.about__goal-text {
+  font-size: clamp(1.2rem, 2.5vw, 1.75rem);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.contact__lede {
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  font-weight: 600;
+}
+
+.contact__card {
+  padding: 1rem 1.1rem;
+  border-radius: 0.9rem;
+  border: 1px solid rgba(27, 26, 26, 0.12);
+  background: rgba(27, 26, 26, 0.03);
+  display: grid;
+  gap: 0.2rem;
+}
+
+.contact__card--two-up {
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  align-items: start;
+  gap: 0.8rem;
+}
+
+.contact__label {
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(27, 26, 26, 0.7);
+}
+
+.contact__link {
+  font-weight: 600;
+  display: inline-flex;
+  gap: 0.35rem;
+  align-items: center;
+}
+
+.contact__note {
+  font-style: italic;
+  color: rgba(27, 26, 26, 0.7);
+}
+
 .workspace__body .gallery {
   position: relative;
   flex: 1;
