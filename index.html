@@ -12,19 +12,8 @@
 <body>
   <div id="cursor"></div>
   <div class="noise"></div>
+
   <header class="hero" id="top">
-    <nav class="nav">
-      <div class="nav__orbit">
-        <a href="#gallery" class="nav__link">Gallery</a>
-        <a href="#about" class="nav__link">About</a>
-        <a href="#contact" class="nav__link">Contact</a>
-      </div>
-      <div class="nav__socials">
-        <a href="https://www.instagram.com/ryderjt1/" target="_blank" rel="noopener" class="nav__social">IG</a>
-        <a href="https://tiktok.com/@ryderjt" target="_blank" rel="noopener" class="nav__social">TT</a>
-        <a href="mailto:ryder@ryderjt.com" class="nav__social">Mail</a>
-      </div>
-    </nav>
     <div class="hero__content">
       <div class="hero__info">
         <div class="hero__badge" data-split>Visual storyteller — est. 2007</div>
@@ -34,65 +23,60 @@
         </h1>
         <p class="hero__subtitle">Cinematographer / Filmmaker / Photographer / Editor</p>
         <p class="hero__tagline">A jack of all trades is a master of none, but oftentimes better than a master of one.</p>
-        <div class="hero__scroll">
-          <span>scroll to enter</span>
+
+        <div class="hero__links" aria-label="Primary links">
+          <button class="hero__link is-active" type="button" data-view-target="portfolio">Portfolio</button>
+          <button class="hero__link" type="button" data-view-target="about">About</button>
+          <button class="hero__link" type="button" data-view-target="contact">Contact</button>
         </div>
       </div>
-      <div class="hero__portrait" aria-hidden="true">
-        <div class="hero__polaroid">
-          <div class="hero__polaroid-frame">
-            <img src="portrait.jpg" alt="Portrait of Ryder Thomas" class="hero__polaroid-image" />
+
+      <div class="workspace" aria-live="polite">
+        <div class="workspace__panel">
+          <div class="workspace__view is-active" data-view="portfolio">
+            <div class="workspace__heading" data-split>Portfolio</div>
+            <div class="workspace__body">
+              <div class="gallery" id="gallery-grid"></div>
+            </div>
+          </div>
+
+          <div class="workspace__view" data-view="about">
+            <div class="workspace__heading" data-split>About</div>
+            <div class="workspace__body">
+              <p>
+                I’m Ryder Thomas, a 16-year-old cinematographer crafting intimate narratives through lens, light, and motion. I pull emotion out of color, frame rhythm with sound, and cut films with a painter’s patience. My toolkit spans Premiere Pro, After Effects, and DaVinci Resolve — each a brush to sculpt mood and memory.
+              </p>
+              <p>
+                I live for the in-between moments: the flicker before a smile, the pulse of a bassline, the hush of a scene just before it erupts. Every project is a chance to experiment, to stretch a feeling into a sequence, and to make the ordinary feel cinematic.
+              </p>
+            </div>
+          </div>
+
+          <div class="workspace__view" data-view="contact">
+            <div class="workspace__heading" data-split>Contact</div>
+            <div class="workspace__body">
+              <p>
+                Let’s craft something electric. Reach out for collaborations, commissions, or just to talk about the films that keep you up at night.
+              </p>
+              <ul class="contact__list">
+                <li><a href="mailto:ryder@ryderjt.com">ryder@ryderjt.com</a></li>
+                <li><a href="https://www.instagram.com/ryderjt1/" target="_blank" rel="noopener">Instagram</a></li>
+                <li><a href="https://tiktok.com/@ryderjt" target="_blank" rel="noopener">TikTok</a></li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </header>
 
-  <main>
-    <section class="panel panel--gallery" id="gallery">
-      <div class="panel__heading" data-split>Gallery</div>
-      <div class="panel__content">
-        <p>
-          Every frame here is a memory caught in motion. Drift through the gallery, tap an image, and let the light spill past the
-          frame.
-        </p>
-        <div class="gallery" id="gallery-grid" aria-live="polite"></div>
+  <div class="hero__portrait" aria-hidden="true">
+    <div class="hero__polaroid">
+      <div class="hero__polaroid-frame">
+        <img src="portrait.jpg" alt="Portrait of Ryder Thomas" class="hero__polaroid-image" />
       </div>
-    </section>
-
-    <section class="panel panel--about" id="about">
-      <div class="panel__heading" data-split>About</div>
-      <div class="panel__content">
-        <p>
-          I’m Ryder Thomas, a 16-year-old cinematographer crafting intimate narratives through lens, light, and motion. I pull emotion out of color, frame rhythm with sound, and cut films with a painter’s patience. My toolkit spans Premiere Pro, After Effects, and DaVinci Resolve — each a brush to sculpt mood and memory.
-        </p>
-        <p>
-          I live for the in-between moments: the flicker before a smile, the pulse of a bassline, the hush of a scene just before it erupts. Every project is a chance to experiment, to stretch a feeling into a sequence, and to make the ordinary feel cinematic.
-        </p>
-      </div>
-    </section>
-
-    <section class="panel panel--contact" id="contact">
-      <div class="panel__heading" data-split>Contact</div>
-      <div class="panel__content">
-        <p>
-          Let’s craft something electric. Reach out for collaborations, commissions, or just to talk about the films that keep you up at night.
-        </p>
-        <ul class="contact__list">
-          <li><a href="mailto:ryder@ryderjt.com">ryder@ryderjt.com</a></li>
-          <li><a href="https://www.instagram.com/ryderjt1/" target="_blank" rel="noopener">Instagram</a></li>
-          <li><a href="https://tiktok.com/@ryderjt" target="_blank" rel="noopener">TikTok</a></li>
-        </ul>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="footer__inner">
-      <span>© <span id="year"></span> Ryder Thomas</span>
-      <a href="#top" class="footer__top">back to top</a>
     </div>
-  </footer>
+  </div>
 
   <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Gallery image viewer">
     <div class="lightbox__scrim" aria-hidden="true"></div>

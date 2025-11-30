@@ -1,8 +1,8 @@
 const cursor = document.getElementById('cursor');
 const hoverables = document.querySelectorAll('a, button, [data-tilt]');
 const splitElements = document.querySelectorAll('[data-split]');
-const panels = document.querySelectorAll('.panel');
-const scrollCue = document.querySelector('.hero__scroll');
+const viewButtons = document.querySelectorAll('[data-view-target]');
+const views = document.querySelectorAll('[data-view]');
 const galleryGrid = document.getElementById('gallery-grid');
 const lightbox = document.getElementById('lightbox');
 const lightboxImage = lightbox?.querySelector('.lightbox__image');
@@ -53,26 +53,8 @@ function revealSplit(element, baseDelay = 0) {
 
 splitElements.forEach((element) => {
   splitText(element);
-  if (!element.closest('.panel')) {
-    revealSplit(element);
-  }
+  revealSplit(element);
 });
-
-const observer = new IntersectionObserver(
-  (entries, obs) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        const splits = entry.target.querySelectorAll('.split');
-        splits.forEach((split, index) => revealSplit(split, index * 160));
-        obs.unobserve(entry.target);
-      }
-    });
-  },
-  { threshold: 0.3 }
-);
-
-panels.forEach((panel) => observer.observe(panel));
 
 document.querySelectorAll('[data-tilt]').forEach((item) => {
   let rafId;
@@ -320,11 +302,6 @@ window.addEventListener('keydown', (event) => {
   }
 });
 
-const year = document.getElementById('year');
-if (year) {
-  year.textContent = new Date().getFullYear();
-}
-
 animateCursor();
 
 window.addEventListener('load', () => {
@@ -336,14 +313,24 @@ window.addEventListener('load', () => {
   });
 });
 
-const updateScrollCueVisibility = () => {
-  if (!scrollCue) return;
-  const scrollPosition = window.scrollY || document.documentElement.scrollTop;
-  const shouldHide = scrollPosition > 12;
-  scrollCue.classList.toggle('is-hidden', shouldHide);
+const showView = (name) => {
+  views.forEach((view) => {
+    view.classList.toggle('is-active', view.dataset.view === name);
+  });
+
+  viewButtons.forEach((button) => {
+    button.classList.toggle('is-active', button.dataset.viewTarget === name);
+  });
 };
 
-updateScrollCueVisibility();
-window.addEventListener('scroll', updateScrollCueVisibility, { passive: true });
+viewButtons.forEach((button) => {
+  button.addEventListener('click', () => showView(button.dataset.viewTarget));
+});
+
+const initialView =
+  (viewButtons[0] && viewButtons[0].dataset.viewTarget) ||
+  (views[0] && views[0].dataset.view) ||
+  'portfolio';
+showView(initialView);
 
 renderGallery();
