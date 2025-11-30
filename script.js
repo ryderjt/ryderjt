@@ -195,6 +195,7 @@ const discoverGithubImages = async () => {
     document.documentElement.dataset.galleryBranch,
     'work',
     'main',
+    'gh-pages',
     'master',
   ].filter(Boolean);
 
@@ -216,7 +217,7 @@ const discoverGithubImages = async () => {
       return files
         .filter((item) => item.type === 'file' && typeof item.name === 'string')
         .filter((item) => IMAGE_EXTENSIONS.some((ext) => item.name.toLowerCase().endsWith(ext)))
-        .map((item) => normalizeSource(item.path));
+        .map((item) => item.download_url || normalizeSource(item.path));
     } catch (error) {
       console.warn('Unable to read gallery via GitHub API', error);
     }
