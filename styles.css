@@ -367,28 +367,28 @@ a:hover::after {
 }
 
 .gallery__stage figure {
-  width: 100%;
-  height: 100%;
-  max-width: 100%;
-  max-height: 100%;
-  display: flex;
+  margin: 0;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  max-width: 100%;
+  max-height: 100%;
   background: transparent;
-  border-radius: 1.1rem;
   border: none;
   box-shadow: none;
-  padding: clamp(0.5rem, 2vw, 1.2rem);
-  position: relative;
+  padding: 0;
 }
 
 .gallery__stage img {
-  max-width: 100%;
-  max-height: 100%;
-  width: 100%;
+  display: block;
+  width: auto;
   height: auto;
+  max-width: min(100%, 1100px);
+  max-height: 100%;
   object-fit: contain;
-  border-radius: 0.9rem;
+  border-radius: 1rem;
+  box-shadow: 0 28px 70px rgba(27, 26, 26, 0.2);
 }
 
 .gallery__stage figcaption {
@@ -618,6 +618,13 @@ main {
   max-height: 100%;
 }
 
+.gallery__item--single {
+  width: auto;
+  height: auto;
+  max-width: min(100%, 1100px);
+  max-height: 100%;
+}
+
 .gallery__grid .gallery__item {
   width: 100%;
   height: auto;
@@ -652,6 +659,14 @@ main {
   filter: saturate(1.2) contrast(1.05);
   transition: transform 0.6s ease, filter 0.6s ease;
   z-index: 0;
+  object-fit: contain;
+}
+
+.gallery__item--single img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: min(78vh, 100%);
   object-fit: contain;
 }
 
