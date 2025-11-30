@@ -171,29 +171,77 @@ const createGalleryItem = (src) => {
   return figure;
 };
 
+const IMAGE_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.avif'];
+
+const sanitizeFileName = (file) => file.split(/[?#]/)[0].replace(/^\/?\.\//, '').replace(/^\//, '');
+
+const discoverDirectoryImages = async () => {
+  try {
+    const response = await fetch('assets/gallery/', {
+      headers: { Accept: 'text/html,application/xhtml+xml' },
+      cache: 'no-store',
+    });
+
+    if (!response.ok) return [];
+
+    const contentType = response.headers.get('content-type') || '';
+    if (!contentType.toLowerCase().includes('text/html')) return [];
+
+    const directoryHtml = await response.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(directoryHtml, 'text/html');
+    const links = Array.from(doc.querySelectorAll('a'));
+
+    return links
+      .map((link) => link.getAttribute('href') || '')
+      .map(sanitizeFileName)
+      .filter((href) => IMAGE_EXTENSIONS.some((ext) => href.toLowerCase().endsWith(ext)))
+      .map(normalizeSource);
+  } catch (error) {
+    console.warn('Unable to read gallery directory listing', error);
+    return [];
+  }
+};
+
+const loadManifestImages = async () => {
+  try {
+    const response = await fetch('assets/gallery/manifest.json', { cache: 'no-store' });
+    if (!response.ok) return [];
+
+    const manifest = await response.json();
+    const images = Array.isArray(manifest) ? manifest : manifest.images;
+    return (images || []).map(normalizeSource).filter(Boolean);
+  } catch (error) {
+    console.warn('Unable to load gallery manifest', error);
+    return [];
+  }
+};
+
 const renderGallery = async () => {
   if (!galleryGrid) return;
 
-  try {
-    const response = await fetch('assets/gallery/manifest.json', { cache: 'no-store' });
-    if (!response.ok) throw new Error('Manifest not found');
-    const manifest = await response.json();
-    const images = Array.isArray(manifest) ? manifest : manifest.images;
-    const normalizedImages = (images || []).map(normalizeSource).filter(Boolean);
+  const [directoryImages, manifestImages] = await Promise.all([
+    discoverDirectoryImages(),
+    loadManifestImages(),
+  ]);
 
-    if (!normalizedImages.length) {
-      galleryGrid.innerHTML = '<p class="gallery__empty">Drop your stills into <span>assets/gallery</span> to see them here.</p>';
-      return;
-    }
+  const seen = new Set();
+  const normalizedImages = [...directoryImages, ...manifestImages].filter((src) => {
+    if (!src || seen.has(src)) return false;
+    seen.add(src);
+    return true;
+  });
 
-    const fragment = document.createDocumentFragment();
-    normalizedImages.forEach((src) => fragment.appendChild(createGalleryItem(src)));
-    galleryGrid.innerHTML = '';
-    galleryGrid.appendChild(fragment);
-  } catch (error) {
-    console.warn('Unable to load gallery manifest', error);
-    galleryGrid.innerHTML = '<p class="gallery__empty">Gallery is loading soon. Check back for the full spread.</p>';
+  if (!normalizedImages.length) {
+    galleryGrid.innerHTML =
+      '<p class="gallery__empty">Drop your stills into <span>assets/gallery</span> and they will automatically surface here.</p>';
+    return;
   }
+
+  const fragment = document.createDocumentFragment();
+  normalizedImages.forEach((src) => fragment.appendChild(createGalleryItem(src)));
+  galleryGrid.innerHTML = '';
+  galleryGrid.appendChild(fragment);
 };
 
 if (lightbox) {
