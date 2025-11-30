@@ -3,6 +3,7 @@ const hoverables = document.querySelectorAll('a, button, [data-tilt]');
 const splitElements = document.querySelectorAll('[data-split]');
 const viewButtons = document.querySelectorAll('[data-view-target]');
 const views = document.querySelectorAll('[data-view]');
+const workspacePanel = document.querySelector('.workspace__panel');
 const galleryGrid = document.getElementById('gallery-grid');
 const galleryStage = galleryGrid?.querySelector('.gallery__stage');
 const galleryGridView = galleryGrid?.querySelector('.gallery__grid');
@@ -15,6 +16,14 @@ const lightboxCaption = lightbox?.querySelector('.lightbox__caption');
 const lightboxClose = lightbox?.querySelector('.lightbox__close');
 
 const lerp = (a, b, n) => (1 - n) * a + n * b;
+const shuffleArray = (items) => {
+  const array = [...items];
+  for (let i = array.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+};
 let cursorX = window.innerWidth / 2;
 let cursorY = window.innerHeight / 2;
 let targetX = cursorX;
@@ -373,11 +382,13 @@ const renderGallery = async () => {
   ]);
 
   const seen = new Set();
-  galleryImages = [...directoryImages, ...manifestImages, ...githubImages].filter((src) => {
-    if (!src || seen.has(src)) return false;
-    seen.add(src);
-    return true;
-  });
+  galleryImages = shuffleArray(
+    [...directoryImages, ...manifestImages, ...githubImages].filter((src) => {
+      if (!src || seen.has(src)) return false;
+      seen.add(src);
+      return true;
+    }),
+  );
 
   if (!galleryImages.length) {
     renderStage();
@@ -451,6 +462,10 @@ const showView = (name) => {
   viewButtons.forEach((button) => {
     button.classList.toggle('is-active', button.dataset.viewTarget === name);
   });
+
+  if (workspacePanel) {
+    workspacePanel.dataset.activeView = name;
+  }
 };
 
 viewButtons.forEach((button) => {

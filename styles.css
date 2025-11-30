@@ -272,13 +272,16 @@ a:hover::after {
   box-shadow: 0 30px 70px rgba(27, 26, 26, 0.18);
   padding: clamp(1.1rem, 2.5vw, 1.9rem);
   min-height: 320px;
-  height: calc(100vh - (2 * var(--hero-padding-y)));
-  max-height: calc(100vh - (2 * var(--hero-padding-y)));
   width: min(100%, calc(100vw - (2 * var(--hero-padding-x))));
   display: flex;
   flex-direction: column;
   overflow: hidden;
   min-height: 0;
+}
+
+.workspace__panel[data-active-view="portfolio"] {
+  height: calc(100vh - (2 * var(--hero-padding-y)));
+  max-height: calc(100vh - (2 * var(--hero-padding-y)));
 }
 
 .workspace__panel > * {
@@ -290,6 +293,12 @@ a:hover::after {
   height: 100%;
   flex: 1;
   min-height: 0;
+}
+
+.workspace__view[data-view="about"],
+.workspace__view[data-view="contact"] {
+  height: auto;
+  flex: 0 0 auto;
 }
 
 .workspace__view.is-active {
@@ -312,6 +321,12 @@ a:hover::after {
   flex-direction: column;
   gap: 1rem;
   min-height: 0;
+}
+
+.workspace__view[data-view="about"] .workspace__body,
+.workspace__view[data-view="contact"] .workspace__body {
+  flex: 0 0 auto;
+  overflow: visible;
 }
 
 .workspace__body--flush {
@@ -670,8 +685,7 @@ a:hover::after {
   background: rgba(27, 26, 26, 0.08);
   display: grid;
   place-items: center;
-  box-shadow: 0 16px 36px rgba(27, 26, 26, 0.14);
-  transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+  transition: transform 0.25s ease, background 0.25s ease;
   z-index: 6;
 }
 
@@ -686,7 +700,6 @@ a:hover::after {
 .gallery__toggle:hover {
   transform: translateY(-2px);
   background: rgba(185, 131, 255, 0.16);
-  box-shadow: 0 20px 46px rgba(27, 26, 26, 0.18);
 }
 
 .gallery__toggle[aria-pressed='true'] {
