@@ -352,6 +352,20 @@ const discoverDirectoryVideos = async () => {
   }
 };
 
+const loadManifestVideos = async () => {
+  try {
+    const response = await fetch('assets/videos/manifest.json', { cache: 'no-store' });
+    if (!response.ok) return [];
+
+    const manifest = await response.json();
+    const videos = Array.isArray(manifest) ? manifest : manifest.videos;
+    return (videos || []).map(normalizeVideoSource).filter(Boolean);
+  } catch (error) {
+    console.warn('Unable to load videos manifest', error);
+    return [];
+  }
+};
+
 const changeSlide = (delta) => {
   if (!galleryImages.length) return;
   galleryIndex = (galleryIndex + delta + galleryImages.length) % galleryImages.length;
@@ -471,7 +485,17 @@ const renderVideos = async () => {
 
   videoGrid.innerHTML = '';
 
-  const videos = await discoverDirectoryVideos();
+  const [directoryVideos, manifestVideos] = await Promise.all([
+    discoverDirectoryVideos(),
+    loadManifestVideos(),
+  ]);
+
+  const seen = new Set();
+  const videos = [...manifestVideos, ...directoryVideos].filter((src) => {
+    if (!src || seen.has(src)) return false;
+    seen.add(src);
+    return true;
+  });
 
   if (!videos.length) {
     videoGrid.innerHTML =
