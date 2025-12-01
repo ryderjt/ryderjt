@@ -4,6 +4,9 @@ const splitElements = document.querySelectorAll('[data-split]');
 const viewButtons = document.querySelectorAll('[data-view-target]');
 const views = document.querySelectorAll('[data-view]');
 const workspacePanel = document.querySelector('.workspace__panel');
+const themeToggle = document.querySelector('[data-theme-toggle]');
+const themeToggleLabel = themeToggle?.querySelector('.theme-toggle__label');
+const themeToggleIcon = themeToggle?.querySelector('.theme-toggle__icon');
 const galleryGrid = document.getElementById('gallery-grid');
 const galleryStage = galleryGrid?.querySelector('.gallery__stage');
 const galleryGridView = galleryGrid?.querySelector('.gallery__grid');
@@ -46,6 +49,44 @@ window.addEventListener('mousemove', (e) => {
 hoverables.forEach((el) => {
   el.addEventListener('mouseenter', () => cursor.classList.add('active'));
   el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+});
+
+const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+
+const getStoredTheme = () => localStorage.getItem('theme-preference');
+const setStoredTheme = (theme) => localStorage.setItem('theme-preference', theme);
+
+const applyTheme = (theme, persist = true) => {
+  const nextTheme = theme === 'dark' ? 'dark' : 'light';
+  document.body.dataset.theme = nextTheme;
+
+  if (themeToggleLabel) {
+    themeToggleLabel.textContent = nextTheme.charAt(0).toUpperCase() + nextTheme.slice(1);
+  }
+
+  if (themeToggleIcon) {
+    themeToggleIcon.textContent = nextTheme === 'dark' ? '☀' : '☾';
+  }
+
+  themeToggle?.setAttribute('aria-pressed', nextTheme === 'dark' ? 'true' : 'false');
+
+  if (persist) {
+    setStoredTheme(nextTheme);
+  }
+};
+
+const resolvePreferredTheme = () => getStoredTheme() || (prefersDarkScheme.matches ? 'dark' : 'light');
+
+applyTheme(resolvePreferredTheme(), false);
+
+prefersDarkScheme.addEventListener('change', (event) => {
+  if (getStoredTheme()) return;
+  applyTheme(event.matches ? 'dark' : 'light', false);
+});
+
+themeToggle?.addEventListener('click', () => {
+  const nextTheme = document.body.dataset.theme === 'dark' ? 'light' : 'dark';
+  applyTheme(nextTheme);
 });
 
 function splitText(element) {
