@@ -576,7 +576,7 @@ body[data-theme="dark"] .about__goal {
   display: inline-flex;
   padding: 0.3rem 0.8rem;
   border-radius: 999px;
-  background: linear-gradient(135deg, rgba(27, 26, 26, 0.09), rgba(27, 26, 26, 0.04));
+  background: #fff;
   border: 1px solid rgba(27, 26, 26, 0.14);
   font-size: 0.82rem;
   letter-spacing: 0.12em;
@@ -1053,6 +1053,11 @@ main {
   transition: transform 0.6s ease, filter 0.6s ease;
   z-index: 0;
   object-fit: contain;
+}
+
+body[data-theme="dark"] .gallery__stage img,
+body[data-theme="dark"] .gallery__item img {
+  box-shadow: 0 0 0 1px rgba(245, 241, 235, 0.18), 0 12px 28px rgba(0, 0, 0, 0.55);
 }
 
 .gallery__grid .gallery__item img {
