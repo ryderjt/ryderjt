@@ -563,7 +563,7 @@ body[data-theme="dark"] .about__stack-item {
 }
 
 .about__goal {
-  background: linear-gradient(140deg, rgba(255, 253, 248, 0.96), rgba(255, 253, 248, 0.82));
+  background: linear-gradient(140deg, rgba(27, 26, 26, 0.06), rgba(27, 26, 26, 0.03));
   color: var(--text);
 }
 
