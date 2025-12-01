@@ -14,6 +14,8 @@ const lightbox = document.getElementById('lightbox');
 const lightboxImage = lightbox?.querySelector('.lightbox__image');
 const lightboxCaption = lightbox?.querySelector('.lightbox__caption');
 const lightboxClose = lightbox?.querySelector('.lightbox__close');
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let activeViewName = null;
 
 const lerp = (a, b, n) => (1 - n) * a + n * b;
 const shuffleArray = (items) => {
@@ -454,10 +456,41 @@ window.addEventListener('load', () => {
   });
 });
 
+const getViewByName = (name) => Array.from(views).find((view) => view.dataset.view === name);
+
 const showView = (name) => {
-  views.forEach((view) => {
-    view.classList.toggle('is-active', view.dataset.view === name);
-  });
+  if (!name) return;
+
+  const nextView = getViewByName(name);
+  const currentView = activeViewName ? getViewByName(activeViewName) : null;
+
+  if (!nextView || currentView === nextView) return;
+
+  if (currentView) {
+    currentView.classList.remove('is-entering');
+    currentView.classList.add('is-exiting');
+
+    const cleanUp = () => {
+      currentView.classList.remove('is-active', 'is-exiting');
+    };
+
+    if (prefersReducedMotion) {
+      cleanUp();
+    } else {
+      currentView.addEventListener('animationend', cleanUp, { once: true });
+    }
+  }
+
+  nextView.classList.add('is-active', 'is-entering');
+  nextView.classList.remove('is-exiting');
+
+  const removeEntering = () => nextView.classList.remove('is-entering');
+
+  if (prefersReducedMotion) {
+    removeEntering();
+  } else {
+    nextView.addEventListener('animationend', removeEntering, { once: true });
+  }
 
   viewButtons.forEach((button) => {
     button.classList.toggle('is-active', button.dataset.viewTarget === name);
@@ -466,6 +499,8 @@ const showView = (name) => {
   if (workspacePanel) {
     workspacePanel.dataset.activeView = name;
   }
+
+  activeViewName = name;
 };
 
 viewButtons.forEach((button) => {
@@ -485,6 +520,7 @@ const initialView =
   (viewButtons[0] && viewButtons[0].dataset.viewTarget) ||
   (views[0] && views[0].dataset.view) ||
   'portfolio';
+activeViewName = null;
 showView(initialView);
 
 renderGallery();

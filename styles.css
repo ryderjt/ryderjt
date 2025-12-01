@@ -277,6 +277,7 @@ a:hover::after {
   flex-direction: column;
   overflow: hidden;
   min-height: 0;
+  position: relative;
 }
 
 .workspace__panel[data-active-view="portfolio"] {
@@ -293,6 +294,9 @@ a:hover::after {
   height: 100%;
   flex: 1;
   min-height: 0;
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
 }
 
 .workspace__view[data-view="about"],
@@ -305,6 +309,58 @@ a:hover::after {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.workspace__view.is-entering {
+  animation: workspaceEnter 0.45s ease forwards;
+  position: relative;
+  z-index: 2;
+}
+
+.workspace__view.is-exiting {
+  display: flex;
+  position: absolute;
+  inset: 0;
+  gap: 1.25rem;
+  pointer-events: none;
+  animation: workspaceExit 0.35s ease forwards;
+  z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .workspace__view,
+  .workspace__view.is-active,
+  .workspace__view.is-entering,
+  .workspace__view.is-exiting {
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+@keyframes workspaceEnter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes workspaceExit {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
 }
 
 .workspace__heading {
