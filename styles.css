@@ -576,11 +576,16 @@ body[data-theme="dark"] .about__goal {
   display: inline-flex;
   padding: 0.3rem 0.8rem;
   border-radius: 999px;
-  background: rgba(246, 243, 239, 0.12);
-  border: 1px solid rgba(246, 243, 239, 0.2);
+  background: linear-gradient(135deg, rgba(27, 26, 26, 0.09), rgba(27, 26, 26, 0.04));
+  border: 1px solid rgba(27, 26, 26, 0.14);
   font-size: 0.82rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
+}
+
+body[data-theme="dark"] .about__goal-label {
+  background: rgba(245, 241, 235, 0.12);
+  border-color: rgba(245, 241, 235, 0.22);
 }
 
 .about__goal p {
