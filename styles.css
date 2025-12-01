@@ -625,6 +625,7 @@ a:hover::after {
 
 .gallery.is-grid .gallery__grid {
   display: grid;
+  grid-row: 2;
 }
 
 .gallery.is-grid {
@@ -695,6 +696,9 @@ a:hover::after {
   right: 0.85rem;
   justify-self: end;
   align-self: start;
+  grid-column: 1 / -1;
+  grid-row: 1;
+  z-index: 8;
 }
 
 .gallery__toggle:hover {
