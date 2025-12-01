@@ -458,6 +458,69 @@ window.addEventListener('load', () => {
 
 const getViewByName = (name) => Array.from(views).find((view) => view.dataset.view === name);
 
+const measureViewHeight = (view) => {
+  if (!view) return null;
+
+  const wasActive = view.classList.contains('is-active');
+  const previousStyles = {
+    display: view.style.display,
+    position: view.style.position,
+    visibility: view.style.visibility,
+    pointerEvents: view.style.pointerEvents,
+    inset: view.style.inset,
+  };
+
+  if (!wasActive) {
+    view.classList.add('is-active');
+  }
+
+  view.style.display = 'flex';
+  view.style.position = 'absolute';
+  view.style.visibility = 'hidden';
+  view.style.pointerEvents = 'none';
+  view.style.inset = '0';
+
+  const height = view.getBoundingClientRect().height;
+
+  view.style.display = previousStyles.display;
+  view.style.position = previousStyles.position;
+  view.style.visibility = previousStyles.visibility;
+  view.style.pointerEvents = previousStyles.pointerEvents;
+  view.style.inset = previousStyles.inset;
+
+  if (!wasActive) {
+    view.classList.remove('is-active');
+  }
+
+  return height;
+};
+
+const animatePanelHeight = (targetHeight) => {
+  if (!workspacePanel || prefersReducedMotion || !targetHeight) return;
+
+  const startHeight = workspacePanel.getBoundingClientRect().height;
+
+  workspacePanel.style.height = `${startHeight}px`;
+  workspacePanel.style.maxHeight = `${startHeight}px`;
+  workspacePanel.style.transition = 'height 0.35s ease, max-height 0.35s ease';
+
+  requestAnimationFrame(() => {
+    workspacePanel.style.height = `${targetHeight}px`;
+    workspacePanel.style.maxHeight = `${targetHeight}px`;
+  });
+
+  const handleTransitionEnd = (event) => {
+    if (event.propertyName !== 'height' && event.propertyName !== 'max-height') return;
+
+    workspacePanel.style.height = '';
+    workspacePanel.style.maxHeight = '';
+    workspacePanel.style.transition = '';
+    workspacePanel.removeEventListener('transitionend', handleTransitionEnd);
+  };
+
+  workspacePanel.addEventListener('transitionend', handleTransitionEnd);
+};
+
 const showView = (name) => {
   if (!name) return;
 
@@ -465,6 +528,9 @@ const showView = (name) => {
   const currentView = activeViewName ? getViewByName(activeViewName) : null;
 
   if (!nextView || currentView === nextView) return;
+
+  const targetHeight = measureViewHeight(nextView);
+  animatePanelHeight(targetHeight);
 
   if (currentView) {
     currentView.classList.remove('is-entering');
