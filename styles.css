@@ -297,6 +297,9 @@ a:hover::after {
   opacity: 0;
   transform: translateY(12px);
   pointer-events: none;
+  position: absolute;
+  inset: 0;
+  width: 100%;
 }
 
 .workspace__view[data-view="about"],
@@ -312,12 +315,14 @@ a:hover::after {
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
+  position: relative;
 }
 
 .workspace__view.is-entering {
   animation: workspaceEnter 0.45s ease forwards;
-  position: relative;
+  position: absolute;
   z-index: 2;
+  inset: 0;
 }
 
 .workspace__view.is-exiting {
