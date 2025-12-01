@@ -4,6 +4,9 @@ const splitElements = document.querySelectorAll('[data-split]');
 const viewButtons = document.querySelectorAll('[data-view-target]');
 const views = document.querySelectorAll('[data-view]');
 const workspacePanel = document.querySelector('.workspace__panel');
+const themeToggle = document.getElementById('theme-toggle');
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+let activeView = null;
 const galleryGrid = document.getElementById('gallery-grid');
 const galleryStage = galleryGrid?.querySelector('.gallery__stage');
 const galleryGridView = galleryGrid?.querySelector('.gallery__grid');
@@ -14,6 +17,43 @@ const lightbox = document.getElementById('lightbox');
 const lightboxImage = lightbox?.querySelector('.lightbox__image');
 const lightboxCaption = lightbox?.querySelector('.lightbox__caption');
 const lightboxClose = lightbox?.querySelector('.lightbox__close');
+
+const themeStorageKey = 'ryderjt-theme';
+
+const applyTheme = (theme) => {
+  const normalized = theme === 'dark' ? 'dark' : 'light';
+  document.documentElement.dataset.theme = normalized;
+  if (themeToggle) {
+    const label = normalized === 'dark' ? 'Switch to light mode' : 'Switch to dark mode';
+    themeToggle.setAttribute('aria-pressed', normalized === 'dark' ? 'true' : 'false');
+    themeToggle.setAttribute('aria-label', label);
+  }
+};
+
+const syncThemeWithPreference = () => {
+  const stored = localStorage.getItem(themeStorageKey);
+  const prefers = prefersDark.matches ? 'dark' : 'light';
+  applyTheme(stored || prefers);
+};
+
+if (prefersDark) {
+  prefersDark.addEventListener('change', () => {
+    if (!localStorage.getItem(themeStorageKey)) {
+      syncThemeWithPreference();
+    }
+  });
+}
+
+if (themeToggle) {
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.dataset.theme || (prefersDark.matches ? 'dark' : 'light');
+    const next = current === 'dark' ? 'light' : 'dark';
+    localStorage.setItem(themeStorageKey, next);
+    applyTheme(next);
+  });
+}
+
+syncThemeWithPreference();
 
 const lerp = (a, b, n) => (1 - n) * a + n * b;
 const shuffleArray = (items) => {
@@ -455,6 +495,9 @@ window.addEventListener('load', () => {
 });
 
 const showView = (name) => {
+  if (activeView === name) return;
+  activeView = name;
+
   views.forEach((view) => {
     view.classList.toggle('is-active', view.dataset.view === name);
   });
