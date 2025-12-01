@@ -13,6 +13,7 @@ const galleryGridView = galleryGrid?.querySelector('.gallery__grid');
 const galleryPrev = galleryGrid?.querySelector('.gallery__nav--prev');
 const galleryNext = galleryGrid?.querySelector('.gallery__nav--next');
 const galleryToggle = galleryGrid?.querySelector('.gallery__toggle');
+const videoGrid = document.getElementById('video-grid');
 const lightbox = document.getElementById('lightbox');
 const lightboxImage = lightbox?.querySelector('.lightbox__image');
 const lightboxCaption = lightbox?.querySelector('.lightbox__caption');
@@ -177,6 +178,14 @@ const normalizeSource = (src) => {
   return `assets/gallery/${trimmed.replace(/^\.?(\/)*/, '')}`;
 };
 
+const normalizeVideoSource = (src) => {
+  if (!src) return '';
+  const trimmed = src.trim();
+  if (/^https?:\/\//i.test(trimmed)) return trimmed;
+  if (trimmed.startsWith('assets/')) return trimmed;
+  return `assets/videos/${trimmed.replace(/^\.?(\/)*/, '')}`;
+};
+
 const closeLightbox = () => {
   if (!lightbox) return;
   lightbox.classList.remove('is-active');
@@ -231,7 +240,36 @@ const createGalleryItem = (src, index = 0, options = {}) => {
   return figure;
 };
 
+const createVideoItem = (src) => {
+  const figure = document.createElement('figure');
+  figure.className = 'video-card';
+
+  const video = document.createElement('video');
+  video.src = src;
+  video.controls = true;
+  video.loop = true;
+  video.muted = true;
+  video.playsInline = true;
+  video.preload = 'metadata';
+  applyMediaGuards(video);
+
+  video.addEventListener('mouseenter', () => video.play());
+  video.addEventListener('mouseleave', () => {
+    video.pause();
+    video.currentTime = 0;
+  });
+
+  const caption = document.createElement('figcaption');
+  caption.textContent = formatCaption(src);
+
+  figure.appendChild(video);
+  figure.appendChild(caption);
+
+  return figure;
+};
+
 const IMAGE_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.avif'];
+const VIDEO_EXTENSIONS = ['.mp4', '.mov', '.webm'];
 
 const sanitizeFileName = (file) => file.split(/[?#]/)[0].replace(/^\/?\.\//, '').replace(/^\//, '');
 
@@ -314,6 +352,34 @@ const discoverDirectoryImages = async () => {
   }
 };
 
+const discoverDirectoryVideos = async () => {
+  try {
+    const response = await fetch('assets/videos/', {
+      headers: { Accept: 'text/html,application/xhtml+xml' },
+      cache: 'no-store',
+    });
+
+    if (!response.ok) return [];
+
+    const contentType = response.headers.get('content-type') || '';
+    if (!contentType.toLowerCase().includes('text/html')) return [];
+
+    const directoryHtml = await response.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(directoryHtml, 'text/html');
+    const links = Array.from(doc.querySelectorAll('a'));
+
+    return links
+      .map((link) => link.getAttribute('href') || '')
+      .map(sanitizeFileName)
+      .filter((href) => VIDEO_EXTENSIONS.some((ext) => href.toLowerCase().endsWith(ext)))
+      .map(normalizeVideoSource);
+  } catch (error) {
+    console.warn('Unable to read videos directory listing', error);
+    return [];
+  }
+};
+
 const changeSlide = (delta) => {
   if (!galleryImages.length) return;
   galleryIndex = (galleryIndex + delta + galleryImages.length) % galleryImages.length;
@@ -330,6 +396,20 @@ const loadManifestImages = async () => {
     return (images || []).map(normalizeSource).filter(Boolean);
   } catch (error) {
     console.warn('Unable to load gallery manifest', error);
+    return [];
+  }
+};
+
+const loadVideoManifest = async () => {
+  try {
+    const response = await fetch('assets/videos/manifest.json', { cache: 'no-store' });
+    if (!response.ok) return [];
+
+    const manifest = await response.json();
+    const videos = Array.isArray(manifest) ? manifest : manifest.videos;
+    return (videos || []).map(normalizeVideoSource).filter(Boolean);
+  } catch (error) {
+    console.warn('Unable to load video manifest', error);
     return [];
   }
 };
@@ -460,6 +540,37 @@ const renderGallery = async () => {
   updateNavState();
 };
 
+const renderVideos = async () => {
+  if (!videoGrid) return;
+
+  videoGrid.innerHTML = '';
+
+  const [manifestVideos, directoryVideos] = await Promise.all([
+    loadVideoManifest(),
+    discoverDirectoryVideos(),
+  ]);
+
+  const seen = new Set();
+  const videos = [...manifestVideos, ...directoryVideos].filter((src) => {
+    if (!src || seen.has(src)) return false;
+    seen.add(src);
+    return true;
+  });
+
+  if (!videos.length) {
+    videoGrid.innerHTML =
+      '<p class="video-grid__empty">Drop your reels into <span>assets/videos</span> to see them here.</p>';
+    return;
+  }
+
+  const fragment = document.createDocumentFragment();
+  videos.forEach((src) => {
+    fragment.appendChild(createVideoItem(src));
+  });
+
+  videoGrid.appendChild(fragment);
+};
+
 if (lightbox) {
   lightbox.addEventListener('click', (event) => {
     if (event.target === lightbox || event.target.classList.contains('lightbox__scrim')) {
@@ -540,7 +651,8 @@ galleryToggle?.addEventListener('click', () => {
 const initialView =
   (viewButtons[0] && viewButtons[0].dataset.viewTarget) ||
   (views[0] && views[0].dataset.view) ||
-  'portfolio';
+  'photography';
 showView(initialView);
 
 renderGallery();
+renderVideos();
