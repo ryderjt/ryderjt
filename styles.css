@@ -1153,6 +1153,10 @@ main {
   filter: blur(18px);
 }
 
+body[data-theme="dark"] .lightbox__scrim {
+  background: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.35), transparent 42%);
+}
+
 .lightbox__frame {
   position: relative;
   max-width: min(1200px, 92vw);
@@ -1173,8 +1177,8 @@ main {
 
 body[data-theme="dark"] .lightbox__frame {
   background: rgba(18, 15, 13, 0.96);
-  border-color: rgba(245, 241, 235, 0.12);
-  box-shadow: 0 40px 120px rgba(0, 0, 0, 0.6);
+  border-color: rgba(245, 241, 235, 0.2);
+  box-shadow: 0 40px 140px rgba(0, 0, 0, 0.68);
 }
 
 .lightbox__media {
@@ -1239,6 +1243,14 @@ body[data-theme="dark"] .lightbox__close {
 
 body[data-theme="dark"] .lightbox__close:hover {
   background: rgba(24, 20, 19, 0.95);
+}
+
+.media-guarded img,
+.gallery__item img,
+.hero__polaroid-image,
+.lightbox__image {
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 .contact__list {

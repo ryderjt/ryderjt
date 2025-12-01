@@ -18,6 +18,15 @@ const lightboxImage = lightbox?.querySelector('.lightbox__image');
 const lightboxCaption = lightbox?.querySelector('.lightbox__caption');
 const lightboxClose = lightbox?.querySelector('.lightbox__close');
 
+const applyMediaGuards = (element) => {
+  if (!element) return;
+  element.setAttribute('draggable', 'false');
+  element.addEventListener('dragstart', (event) => event.preventDefault());
+  element.addEventListener('contextmenu', (event) => event.preventDefault());
+};
+
+document.body?.classList.add('media-guarded');
+
 const lerp = (a, b, n) => (1 - n) * a + n * b;
 const shuffleArray = (items) => {
   const array = [...items];
@@ -111,6 +120,10 @@ splitElements.forEach((element) => {
   revealSplit(element);
 });
 
+document
+  .querySelectorAll('.hero__polaroid-image, .lightbox__image')
+  .forEach((element) => applyMediaGuards(element));
+
 document.querySelectorAll('[data-tilt]').forEach((item) => {
   let rafId;
   let bounds;
@@ -195,12 +208,14 @@ const createGalleryItem = (src, index = 0, options = {}) => {
   const image = document.createElement('img');
   image.src = src;
   image.alt = formatCaption(src);
+  applyMediaGuards(image);
 
   const caption = document.createElement('figcaption');
   caption.textContent = formatCaption(src);
 
   figure.appendChild(image);
   figure.appendChild(caption);
+  figure.addEventListener('contextmenu', (event) => event.preventDefault());
 
   if (!options?.suppressLightbox) {
     const activate = () => openLightbox(src);
