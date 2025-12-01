@@ -563,12 +563,12 @@ body[data-theme="dark"] .about__stack-item {
 }
 
 .about__goal {
-  background: linear-gradient(140deg, rgba(27, 26, 26, 0.06), rgba(27, 26, 26, 0.03));
+  background: #fff;
   color: var(--text);
 }
 
 body[data-theme="dark"] .about__goal {
-  background: linear-gradient(140deg, rgba(27, 26, 26, 0.95), rgba(27, 26, 26, 0.85));
+  background: rgba(245, 241, 235, 0.12);
   color: #f6f3ef;
 }
 
@@ -576,7 +576,7 @@ body[data-theme="dark"] .about__goal {
   display: inline-flex;
   padding: 0.3rem 0.8rem;
   border-radius: 999px;
-  background: #fff;
+  background: linear-gradient(140deg, rgba(27, 26, 26, 0.06), rgba(27, 26, 26, 0.03));
   border: 1px solid rgba(27, 26, 26, 0.14);
   font-size: 0.82rem;
   letter-spacing: 0.12em;
@@ -584,7 +584,7 @@ body[data-theme="dark"] .about__goal {
 }
 
 body[data-theme="dark"] .about__goal-label {
-  background: rgba(245, 241, 235, 0.12);
+  background: linear-gradient(140deg, rgba(27, 26, 26, 0.95), rgba(27, 26, 26, 0.85));
   border-color: rgba(245, 241, 235, 0.22);
 }
 
