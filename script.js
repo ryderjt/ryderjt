@@ -13,6 +13,7 @@ const galleryGridView = galleryGrid?.querySelector('.gallery__grid');
 const galleryPrev = galleryGrid?.querySelector('.gallery__nav--prev');
 const galleryNext = galleryGrid?.querySelector('.gallery__nav--next');
 const galleryToggle = galleryGrid?.querySelector('.gallery__toggle');
+const videoGrid = document.getElementById('video-grid');
 const lightbox = document.getElementById('lightbox');
 const lightboxImage = lightbox?.querySelector('.lightbox__image');
 const lightboxCaption = lightbox?.querySelector('.lightbox__caption');
@@ -232,8 +233,17 @@ const createGalleryItem = (src, index = 0, options = {}) => {
 };
 
 const IMAGE_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.avif'];
+const VIDEO_EXTENSIONS = ['.mp4', '.mov', '.webm'];
 
 const sanitizeFileName = (file) => file.split(/[?#]/)[0].replace(/^\/?\.\//, '').replace(/^\//, '');
+
+const normalizeVideoSource = (src) => {
+  if (!src) return '';
+  const trimmed = src.trim();
+  if (/^https?:\/\//i.test(trimmed)) return trimmed;
+  if (trimmed.startsWith('assets/')) return trimmed;
+  return `assets/videos/${trimmed.replace(/^\.?(\/)*/, '')}`;
+};
 
 const guessGithubRepo = () => {
   const explicitRepo = document.documentElement.dataset.galleryRepo;
@@ -314,6 +324,34 @@ const discoverDirectoryImages = async () => {
   }
 };
 
+const discoverDirectoryVideos = async () => {
+  try {
+    const response = await fetch('assets/videos/', {
+      headers: { Accept: 'text/html,application/xhtml+xml' },
+      cache: 'no-store',
+    });
+
+    if (!response.ok) return [];
+
+    const contentType = response.headers.get('content-type') || '';
+    if (!contentType.toLowerCase().includes('text/html')) return [];
+
+    const directoryHtml = await response.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(directoryHtml, 'text/html');
+    const links = Array.from(doc.querySelectorAll('a'));
+
+    return links
+      .map((link) => link.getAttribute('href') || '')
+      .map(sanitizeFileName)
+      .filter((href) => VIDEO_EXTENSIONS.some((ext) => href.toLowerCase().endsWith(ext)))
+      .map(normalizeVideoSource);
+  } catch (error) {
+    console.warn('Unable to read video directory listing', error);
+    return [];
+  }
+};
+
 const changeSlide = (delta) => {
   if (!galleryImages.length) return;
   galleryIndex = (galleryIndex + delta + galleryImages.length) % galleryImages.length;
@@ -338,6 +376,7 @@ let galleryImages = [];
 let galleryIndex = 0;
 let galleryIsGrid = false;
 let stageResizeHandler = null;
+let videoSources = [];
 
 const renderStage = () => {
   if (!galleryStage) return;
@@ -460,6 +499,57 @@ const renderGallery = async () => {
   updateNavState();
 };
 
+const createVideoItem = (src) => {
+  const figure = document.createElement('figure');
+  figure.className = 'video-card';
+
+  const video = document.createElement('video');
+  video.src = src;
+  video.muted = true;
+  video.loop = true;
+  video.controls = true;
+  video.preload = 'metadata';
+  video.setAttribute('playsinline', '');
+  applyMediaGuards(video);
+
+  video.addEventListener('mouseenter', () => {
+    video.play().catch(() => {});
+  });
+
+  video.addEventListener('mouseleave', () => {
+    video.pause();
+  });
+
+  const caption = document.createElement('figcaption');
+  caption.textContent = formatCaption(src);
+
+  figure.appendChild(video);
+  figure.appendChild(caption);
+
+  return figure;
+};
+
+const renderVideos = async () => {
+  if (!videoGrid) return;
+  videoGrid.innerHTML = '';
+
+  videoSources = await discoverDirectoryVideos();
+
+  if (!videoSources.length) {
+    videoGrid.innerHTML =
+      '<p class="video-grid__empty">Drop your reels into <span>assets/videos</span> and they will automatically surface here.</p>';
+    return;
+  }
+
+  const fragment = document.createDocumentFragment();
+  videoSources.forEach((src) => {
+    const card = createVideoItem(src);
+    fragment.appendChild(card);
+  });
+
+  videoGrid.appendChild(fragment);
+};
+
 if (lightbox) {
   lightbox.addEventListener('click', (event) => {
     if (event.target === lightbox || event.target.classList.contains('lightbox__scrim')) {
@@ -540,7 +630,8 @@ galleryToggle?.addEventListener('click', () => {
 const initialView =
   (viewButtons[0] && viewButtons[0].dataset.viewTarget) ||
   (views[0] && views[0].dataset.view) ||
-  'portfolio';
+  'photography';
 showView(initialView);
 
 renderGallery();
+renderVideos();
