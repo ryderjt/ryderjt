@@ -496,7 +496,8 @@ body[data-theme="dark"] .about__goal {
   background: rgba(24, 20, 19, 0.95);
 }
 
-.about__card h3 {
+.about__card h3,
+.about__goal-title {
   margin: 0;
   font-size: 1.1rem;
   letter-spacing: 0.06em;
@@ -563,24 +564,13 @@ body[data-theme="dark"] .about__stack-item {
 }
 
 .about__goal {
-  background: linear-gradient(140deg, rgba(255, 253, 248, 0.96), rgba(255, 253, 248, 0.82));
+  background: #fff;
   color: var(--text);
 }
 
 body[data-theme="dark"] .about__goal {
-  background: linear-gradient(140deg, rgba(27, 26, 26, 0.95), rgba(27, 26, 26, 0.85));
+  background: rgba(245, 241, 235, 0.12);
   color: #f6f3ef;
-}
-
-.about__goal-label {
-  display: inline-flex;
-  padding: 0.3rem 0.8rem;
-  border-radius: 999px;
-  background: rgba(246, 243, 239, 0.12);
-  border: 1px solid rgba(246, 243, 239, 0.2);
-  font-size: 0.82rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
 }
 
 .about__goal p {
@@ -1050,6 +1040,11 @@ main {
   object-fit: contain;
 }
 
+body[data-theme="dark"] .gallery__stage img,
+body[data-theme="dark"] .gallery__item img {
+  box-shadow: 0 0 0 1px rgba(245, 241, 235, 0.18), 0 12px 28px rgba(0, 0, 0, 0.55);
+}
+
 .gallery__grid .gallery__item img {
   width: auto;
   max-width: 100%;
@@ -1153,6 +1148,10 @@ main {
   filter: blur(18px);
 }
 
+body[data-theme="dark"] .lightbox__scrim {
+  background: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.35), transparent 42%);
+}
+
 .lightbox__frame {
   position: relative;
   max-width: min(1200px, 92vw);
@@ -1169,6 +1168,12 @@ main {
   gap: 1rem;
   overflow: hidden;
   z-index: 2;
+}
+
+body[data-theme="dark"] .lightbox__frame {
+  background: rgba(18, 15, 13, 0.96);
+  border-color: rgba(245, 241, 235, 0.2);
+  box-shadow: 0 40px 140px rgba(0, 0, 0, 0.68);
 }
 
 .lightbox__media {
@@ -1220,9 +1225,27 @@ main {
   z-index: 3;
 }
 
+body[data-theme="dark"] .lightbox__close {
+  background: rgba(24, 20, 19, 0.8);
+  border-color: rgba(245, 241, 235, 0.16);
+  color: var(--text);
+}
+
 .lightbox__close:hover {
   transform: scale(1.05);
   background: rgba(255, 255, 255, 0.9);
+}
+
+body[data-theme="dark"] .lightbox__close:hover {
+  background: rgba(24, 20, 19, 0.95);
+}
+
+.media-guarded img,
+.gallery__item img,
+.hero__polaroid-image,
+.lightbox__image {
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 .contact__list {
