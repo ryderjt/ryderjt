@@ -13,6 +13,9 @@ const galleryGridView = galleryGrid?.querySelector('.gallery__grid');
 const galleryPrev = galleryGrid?.querySelector('.gallery__nav--prev');
 const galleryNext = galleryGrid?.querySelector('.gallery__nav--next');
 const galleryToggle = galleryGrid?.querySelector('.gallery__toggle');
+const videoGallery = document.getElementById('video-gallery');
+const videoGrid = videoGallery?.querySelector('.video-gallery__grid');
+const videoEmptyState = videoGallery?.querySelector('.video-gallery__empty');
 const lightbox = document.getElementById('lightbox');
 const lightboxImage = lightbox?.querySelector('.lightbox__image');
 const lightboxCaption = lightbox?.querySelector('.lightbox__caption');
@@ -232,6 +235,7 @@ const createGalleryItem = (src, index = 0, options = {}) => {
 };
 
 const IMAGE_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.avif'];
+const VIDEO_EXTENSIONS = ['.mp4', '.mov'];
 
 const sanitizeFileName = (file) => file.split(/[?#]/)[0].replace(/^\/?\.\//, '').replace(/^\//, '');
 
@@ -318,6 +322,34 @@ const changeSlide = (delta) => {
   if (!galleryImages.length) return;
   galleryIndex = (galleryIndex + delta + galleryImages.length) % galleryImages.length;
   renderStage();
+};
+
+const discoverDirectoryVideos = async () => {
+  try {
+    const response = await fetch('assets/videos/', {
+      headers: { Accept: 'text/html,application/xhtml+xml' },
+      cache: 'no-store',
+    });
+
+    if (!response.ok) return [];
+
+    const contentType = response.headers.get('content-type') || '';
+    if (!contentType.toLowerCase().includes('text/html')) return [];
+
+    const directoryHtml = await response.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(directoryHtml, 'text/html');
+    const links = Array.from(doc.querySelectorAll('a'));
+
+    return links
+      .map((link) => link.getAttribute('href') || '')
+      .map(sanitizeFileName)
+      .filter((href) => VIDEO_EXTENSIONS.some((ext) => href.toLowerCase().endsWith(ext)))
+      .map((href) => `assets/videos/${href}`);
+  } catch (error) {
+    console.warn('Unable to read video directory listing', error);
+    return [];
+  }
 };
 
 const loadManifestImages = async () => {
@@ -460,6 +492,51 @@ const renderGallery = async () => {
   updateNavState();
 };
 
+const createVideoItem = (src) => {
+  const figure = document.createElement('figure');
+  figure.className = 'video-gallery__item';
+
+  const video = document.createElement('video');
+  video.src = src;
+  video.controls = true;
+  video.loop = true;
+  video.muted = true;
+  video.playsInline = true;
+  video.preload = 'metadata';
+
+  const caption = document.createElement('figcaption');
+  caption.textContent = formatCaption(src);
+
+  figure.appendChild(video);
+  figure.appendChild(caption);
+
+  return figure;
+};
+
+const renderVideoGallery = async () => {
+  if (!videoGallery || !videoGrid) return;
+
+  const videoSources = await discoverDirectoryVideos();
+  videoGrid.innerHTML = '';
+
+  if (!videoSources.length) {
+    videoGallery.classList.add('is-empty');
+    if (videoEmptyState) videoEmptyState.hidden = false;
+    return;
+  }
+
+  videoGallery.classList.remove('is-empty');
+  if (videoEmptyState) videoEmptyState.hidden = true;
+
+  const fragment = document.createDocumentFragment();
+  videoSources.forEach((src) => {
+    const item = createVideoItem(src);
+    fragment.appendChild(item);
+  });
+
+  videoGrid.appendChild(fragment);
+};
+
 if (lightbox) {
   lightbox.addEventListener('click', (event) => {
     if (event.target === lightbox || event.target.classList.contains('lightbox__scrim')) {
@@ -540,7 +617,8 @@ galleryToggle?.addEventListener('click', () => {
 const initialView =
   (viewButtons[0] && viewButtons[0].dataset.viewTarget) ||
   (views[0] && views[0].dataset.view) ||
-  'portfolio';
+  'photography';
 showView(initialView);
 
 renderGallery();
+renderVideoGallery();
