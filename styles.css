@@ -746,16 +746,21 @@ body[data-theme="dark"] .contact__link:hover {
   display: none;
 }
 
+
+.gallery.is-grid {
+  height: 100%;
+  max-height: 100%;
+  grid-template-rows: auto 1fr;
+  overflow: hidden;
+  overflow-x: hidden;
+}
+
 .gallery.is-grid .gallery__grid {
   display: grid;
   grid-row: 2;
-}
-
-.gallery.is-grid {
-  height: auto;
-  max-height: none;
-  overflow-y: visible;
-  overflow-x: hidden;
+  height: 100%;
+  max-height: 100%;
+  overflow: auto;
 }
 
 .gallery.is-grid .gallery__item {
@@ -817,7 +822,8 @@ body[data-theme="dark"] .gallery__nav:hover {
   height: 44px;
   border-radius: 12px;
   border: 1px solid rgba(27, 26, 26, 0.12);
-  background: rgba(27, 26, 26, 0.08);
+  background: rgba(255, 255, 255, 0.96);
+  color: var(--text);
   display: grid;
   place-items: center;
   transition: transform 0.25s ease, background 0.25s ease;
@@ -826,9 +832,9 @@ body[data-theme="dark"] .gallery__nav:hover {
 
 body[data-theme="dark"] .gallery__toggle {
   border-color: rgba(245, 241, 235, 0.6);
-  background: rgba(245, 241, 235, 0.08);
+  background: rgba(19, 17, 16, 0.92);
   color: #fff;
-  box-shadow: 0 0 0 1px rgba(245, 241, 235, 0.4);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
 }
 
 .gallery.is-grid .gallery__toggle {
@@ -1043,6 +1049,13 @@ main {
 body[data-theme="dark"] .gallery__stage img,
 body[data-theme="dark"] .gallery__item img {
   box-shadow: 0 0 0 1px rgba(245, 241, 235, 0.18), 0 12px 28px rgba(0, 0, 0, 0.55);
+}
+
+body[data-theme="dark"] .gallery__stage figure,
+body[data-theme="dark"] .gallery__item {
+  background: linear-gradient(145deg, rgba(245, 241, 235, 0.06), rgba(245, 241, 235, 0.03));
+  border: 1px solid rgba(245, 241, 235, 0.16);
+  box-shadow: 0 0 0 1px rgba(245, 241, 235, 0.12), 0 20px 48px rgba(0, 0, 0, 0.55);
 }
 
 .gallery__grid .gallery__item img {
