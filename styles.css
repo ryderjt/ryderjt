@@ -1045,6 +1045,13 @@ body[data-theme="dark"] .gallery__item img {
   box-shadow: 0 0 0 1px rgba(245, 241, 235, 0.18), 0 12px 28px rgba(0, 0, 0, 0.55);
 }
 
+body[data-theme="dark"] .gallery__stage figure,
+body[data-theme="dark"] .gallery__item {
+  background: linear-gradient(145deg, rgba(245, 241, 235, 0.06), rgba(245, 241, 235, 0.03));
+  border: 1px solid rgba(245, 241, 235, 0.16);
+  box-shadow: 0 0 0 1px rgba(245, 241, 235, 0.12), 0 20px 48px rgba(0, 0, 0, 0.55);
+}
+
 .gallery__grid .gallery__item img {
   width: auto;
   max-width: 100%;
