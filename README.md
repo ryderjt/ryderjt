@@ -13,5 +13,6 @@ I’ve spent years learning how to tell stories through editing, color, and moti
 
 📫 **Find me online**  
 [Editing Portfolio](https://ryduzz.com)
+[Website](https://ryderjt.com)
 [YouTube](https://www.youtube.com/@ryduzzz)  
 [TikTok](https://www.tiktok.com/@ryduzzz)  
