@@ -100,6 +100,10 @@ h3,
 .brand-name {
   font-size: 20px;
   letter-spacing: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  line-height: 1;
 }
 
 .brand-tag {
@@ -132,6 +136,13 @@ h3,
 .hero-copy h1 {
   font-size: clamp(48px, 9vw, 120px);
   margin: 0 0 20px;
+}
+
+.hero-title {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  line-height: 1;
 }
 
 .hero-label {
