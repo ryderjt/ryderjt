@@ -215,6 +215,14 @@ h3,
   letter-spacing: 2px;
 }
 
+.hero-meta p {
+  margin: 0;
+}
+
+.hero-meta div:first-child {
+  margin-top: -6px;
+}
+
 .hero-mark {
   font-size: clamp(48px, 8vw, 120px);
 }
