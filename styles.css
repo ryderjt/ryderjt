@@ -97,15 +97,6 @@ h3,
   gap: 6px;
 }
 
-.brand-name {
-  font-size: 20px;
-  letter-spacing: 4px;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  line-height: 1;
-}
-
 .brand-tag {
   font-size: 11px;
   letter-spacing: 3px;
@@ -357,7 +348,7 @@ h3,
 
 .design-grid {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
 }
 
@@ -453,12 +444,20 @@ h3,
   .design-grid {
     grid-template-columns: repeat(5, minmax(0, 1fr));
   }
+
+  .design-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 640px) {
   .gallery-track,
   .design-grid {
     grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .design-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
