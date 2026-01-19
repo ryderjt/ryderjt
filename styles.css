@@ -72,6 +72,7 @@ h3,
 
 .hero {
   min-height: 100vh;
+  min-height: 100svh;
   background: var(--accent);
   color: var(--paper);
   position: relative;
@@ -118,22 +119,6 @@ h3,
 .site-nav a {
   text-decoration: none;
   color: inherit;
-}
-
-.palette-button {
-  background: var(--paper);
-  color: var(--accent);
-  border: none;
-  padding: 10px 16px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-size: 11px;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.palette-button:hover {
-  transform: translateY(-2px);
 }
 
 .hero-body {
@@ -305,17 +290,16 @@ h3,
 }
 
 .gallery-track {
-  column-count: 3;
-  column-gap: 18px;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 18px;
   position: relative;
   z-index: 1;
 }
 
 .gallery-item {
-  margin: 0 0 18px;
-  display: inline-block;
+  margin: 0;
   width: 100%;
-  break-inside: avoid;
   transform: translateY(0);
   transition: transform 0.3s ease;
 }
@@ -357,15 +341,14 @@ h3,
 }
 
 .design-grid {
-  column-count: 3;
-  column-gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 20px;
 }
 
 .design-grid figure {
-  margin: 0 0 20px;
-  display: inline-block;
+  margin: 0;
   width: 100%;
-  break-inside: avoid;
   background: var(--paper);
   color: var(--ink);
   transition: transform 0.3s ease;
@@ -453,14 +436,14 @@ h3,
 
   .gallery-track,
   .design-grid {
-    column-count: 2;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 640px) {
   .gallery-track,
   .design-grid {
-    column-count: 1;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 }
 
