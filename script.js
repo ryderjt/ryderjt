@@ -9,8 +9,8 @@ const palette = [
 
 const button = document.querySelector(".palette-button");
 const root = document.documentElement;
-const scribbles = document.querySelectorAll(".hero-scribble");
-const collageItems = document.querySelectorAll(".photo-collage figure");
+const heroIcon = document.querySelector(".hero-icon");
+const galleryItems = document.querySelectorAll(".gallery-item");
 
 const setPalette = () => {
   const [accent, accent2, accent3] = palette
@@ -26,21 +26,20 @@ const setPalette = () => {
 
 const onMove = (event) => {
   const { innerWidth, innerHeight } = window;
-  const moveX = (event.clientX / innerWidth - 0.5) * 12;
-  const moveY = (event.clientY / innerHeight - 0.5) * 12;
+  const moveX = (event.clientX / innerWidth - 0.5) * 10;
+  const moveY = (event.clientY / innerHeight - 0.5) * 10;
 
-  scribbles.forEach((scribble, index) => {
-    const depth = (index + 1) * 0.7;
-    scribble.style.transform = `translate(${moveX * depth}px, ${moveY * depth}px) rotate(${index ? 3 : -5}deg)`;
-  });
+  if (heroIcon) {
+    heroIcon.style.transform = `translate(${moveX}px, ${moveY}px)`;
+  }
 };
 
 button?.addEventListener("click", setPalette);
 window.addEventListener("mousemove", onMove);
 
-collageItems.forEach((item) => {
+galleryItems.forEach((item) => {
   item.addEventListener("mouseenter", () => {
-    item.style.transform = "translateY(-8px)";
+    item.style.transform = "translateY(-10px)";
   });
   item.addEventListener("mouseleave", () => {
     item.style.transform = "translateY(0px)";

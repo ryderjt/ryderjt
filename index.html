@@ -4,30 +4,29 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ryder Thomas — Cinematographer & Photographer</title>
+    <link rel="icon" href="assets/icon.png" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="noise" aria-hidden="true"></div>
-    <header class="site-header">
-      <div class="brand">
-        <span class="brand-mark">RT</span>
-        <div>
-          <p class="brand-name">Ryder Thomas</p>
-          <p class="brand-tag">Cinematography · Photography · Design</p>
-        </div>
-      </div>
-      <nav class="site-nav">
-        <a href="#about">About</a>
-        <a href="#services">Services</a>
-        <a href="#photography">Photography</a>
-        <a href="#design">Design</a>
-        <a href="#contact">Contact</a>
-      </nav>
-      <button class="palette-button" type="button">Shuffle palette</button>
-    </header>
 
-    <main>
-      <section class="hero">
+    <section class="hero" id="top">
+      <header class="site-header">
+        <div class="brand">
+          <span class="brand-name">Ryder Thomas</span>
+          <span class="brand-tag">Cinematography · Photography · Design</span>
+        </div>
+        <nav class="site-nav">
+          <a href="#about">About</a>
+          <a href="#services">Services</a>
+          <a href="#photography">Photography</a>
+          <a href="#design">Design</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <button class="palette-button" type="button">Shuffle palette</button>
+      </header>
+
+      <div class="hero-body">
         <div class="hero-copy">
           <p class="hero-label">16 year-old self-taught visual storyteller</p>
           <h1>Ryder Thomas</h1>
@@ -40,118 +39,129 @@
             <a class="cta alt" href="#photography">View galleries</a>
           </div>
         </div>
-        <div class="hero-media">
-          <img src="assets/photos/cold.jpg" alt="Portrait in cold light" />
-          <span class="hero-scribble">RYDER</span>
-          <span class="hero-scribble second">THOMAS</span>
-          <div class="color-blocks">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
+        <div class="hero-icon">
+          <img src="assets/icon.png" alt="Ryder Thomas icon" />
+          <span class="hero-star">★</span>
         </div>
-      </section>
+      </div>
 
-      <section id="about" class="panel about">
-        <div class="panel-left">
-          <h2>About</h2>
-          <p>
-            I handle projects from planning through final delivery: shooting, editing, and color.
-            Tools include DaVinci Resolve, After Effects, Lightroom, and Premiere Pro.
-          </p>
+      <div class="hero-meta">
+        <div>
+          <p>Founded in 2008</p>
+          <p>© Ryder Thomas</p>
+          <p>Rebooted in 2024</p>
         </div>
-        <div class="panel-right">
-          <div class="detail-card">
-            <p>Work includes short films, social media content, documentary pieces, and portraits.</p>
-            <p>Independent workflow = consistent communication + cohesive visuals.</p>
-          </div>
-          <div class="stacked-tags">
-            <span>DaVinci Resolve</span>
-            <span>After Effects</span>
-            <span>Lightroom</span>
-            <span>Premiere Pro</span>
-          </div>
-        </div>
-      </section>
+        <div class="hero-mark">Projects</div>
+      </div>
+    </section>
 
-      <section id="services" class="panel services">
-        <div class="service-column">
-          <h3>Film + Motion</h3>
-          <ul>
-            <li>Concept planning & shot design</li>
-            <li>Camera, lighting, and direction</li>
-            <li>Editing, sound, and cinematic color</li>
-            <li>Motion graphics & VFX</li>
-          </ul>
+    <section id="about" class="about">
+      <div class="about-column">
+        <h2>About</h2>
+        <p>
+          I handle projects from planning through final delivery: shooting, editing, and color.
+          Tools include DaVinci Resolve, After Effects, Lightroom, and Premiere Pro.
+        </p>
+      </div>
+      <div class="about-column">
+        <p>
+          Work includes short films, social media content, documentary pieces, and portraits for
+          individuals and small brands. Independent workflow means consistent communication and
+          cohesive visuals.
+        </p>
+        <div class="stacked-tags">
+          <span>DaVinci Resolve</span>
+          <span>After Effects</span>
+          <span>Lightroom</span>
+          <span>Premiere Pro</span>
         </div>
-        <div class="service-column highlight">
-          <h3>Photography</h3>
-          <ul>
-            <li>Portraits and editorial stories</li>
-            <li>Brand visuals and lookbooks</li>
-            <li>Location scouting & styling</li>
-            <li>Full Lightroom edit pass</li>
-          </ul>
-        </div>
-        <div class="service-column">
-          <h3>Delivery</h3>
-          <ul>
-            <li>Clear review rounds</li>
-            <li>Optimized exports</li>
-            <li>Fast turnarounds</li>
-            <li>Consistent visual language</li>
-          </ul>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <section id="photography" class="gallery-section">
-        <div class="gallery-head">
-          <h2>Photography</h2>
-          <p>Still frames with bold color and atmosphere.</p>
-        </div>
-        <div class="photo-collage">
-          <figure class="large">
-            <img src="assets/photos/subway.jpg" alt="Subway platform" loading="lazy" />
-          </figure>
-          <figure class="tall">
-            <img src="assets/photos/streetlight.jpg" alt="Streetlight glowing" loading="lazy" />
-          </figure>
-          <figure>
-            <img src="assets/photos/warmth.jpg" alt="Warmth in light" loading="lazy" />
-          </figure>
-          <figure>
-            <img src="assets/photos/city.jpg" alt="City scene at night" loading="lazy" />
-          </figure>
-          <figure class="wide">
-            <img src="assets/photos/rise.jpg" alt="Morning rise" loading="lazy" />
-          </figure>
-          <figure>
-            <img src="assets/photos/winter.jpg" alt="Winter scene" loading="lazy" />
-          </figure>
-        </div>
-      </section>
+    <section id="services" class="services">
+      <div class="service-card">
+        <h3>Film + Motion</h3>
+        <ul>
+          <li>Concept planning & shot design</li>
+          <li>Camera, lighting, and direction</li>
+          <li>Editing, sound, and cinematic color</li>
+          <li>Motion graphics & VFX</li>
+        </ul>
+      </div>
+      <div class="service-card highlight">
+        <h3>Photography</h3>
+        <ul>
+          <li>Portraits and editorial stories</li>
+          <li>Brand visuals and lookbooks</li>
+          <li>Location scouting & styling</li>
+          <li>Full Lightroom edit pass</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <h3>Delivery</h3>
+        <ul>
+          <li>Clear review rounds</li>
+          <li>Optimized exports</li>
+          <li>Fast turnarounds</li>
+          <li>Consistent visual language</li>
+        </ul>
+      </div>
+    </section>
 
-      <section id="design" class="design-section">
-        <div class="design-head">
-          <h2>Graphic Design</h2>
-          <p>Posters and identity explorations with hard color pops.</p>
-        </div>
-        <div class="design-grid">
-          <figure>
-            <img src="assets/design/freefall.png" alt="Freefall design" loading="lazy" />
-            <figcaption>Freefall series</figcaption>
-          </figure>
-          <figure class="offset">
-            <img src="assets/design/passage.png" alt="Passage design" loading="lazy" />
-            <figcaption>Passage poster</figcaption>
-          </figure>
-          <figure>
-            <img src="assets/design/peak.png" alt="Peak design" loading="lazy" />
-            <figcaption>Peak study</figcaption>
-          </figure>
-        </div>
-      </section>
-    </main>
+    <section id="photography" class="gallery">
+      <div class="gallery-header">
+        <h2>Photography</h2>
+        <p>Scroll the stills. Each frame is a story.</p>
+      </div>
+      <div class="gallery-track">
+        <figure class="gallery-item tall">
+          <img src="assets/photos/subway.jpg" alt="Subway platform" loading="lazy" />
+        </figure>
+        <figure class="gallery-item">
+          <img src="assets/photos/city.jpg" alt="City scene at night" loading="lazy" />
+        </figure>
+        <figure class="gallery-item wide">
+          <img src="assets/photos/streetlight.jpg" alt="Streetlight glowing" loading="lazy" />
+        </figure>
+        <figure class="gallery-item">
+          <img src="assets/photos/warmth.jpg" alt="Warmth in light" loading="lazy" />
+        </figure>
+        <figure class="gallery-item tall">
+          <img src="assets/photos/rise.jpg" alt="Morning rise" loading="lazy" />
+        </figure>
+        <figure class="gallery-item">
+          <img src="assets/photos/winter.jpg" alt="Winter scene" loading="lazy" />
+        </figure>
+        <figure class="gallery-item wide">
+          <img src="assets/photos/tower.jpg" alt="Tower structure" loading="lazy" />
+        </figure>
+      </div>
+      <div class="gallery-marquee">
+        <span>Secret friend · secret friend · secret friend ·</span>
+        <span>Secret friend · secret friend · secret friend ·</span>
+      </div>
+    </section>
+
+    <section id="design" class="design">
+      <div class="design-header">
+        <h2>Graphic Design</h2>
+        <p>Poster studies and identity experiments.</p>
+      </div>
+      <div class="design-grid">
+        <figure>
+          <img src="assets/design/freefall.png" alt="Freefall design" loading="lazy" />
+          <figcaption>Freefall series</figcaption>
+        </figure>
+        <figure class="offset">
+          <img src="assets/design/passage.png" alt="Passage design" loading="lazy" />
+          <figcaption>Passage poster</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/design/peak.png" alt="Peak design" loading="lazy" />
+          <figcaption>Peak study</figcaption>
+        </figure>
+      </div>
+    </section>
 
     <footer id="contact" class="site-footer">
       <div>
