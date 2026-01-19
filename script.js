@@ -1,5 +1,3 @@
-const galleryItems = document.querySelectorAll(".gallery-item");
-
 const shuffleNodes = (container) => {
   if (!container) return;
   const items = Array.from(container.children);
@@ -12,12 +10,3 @@ const shuffleNodes = (container) => {
 
 shuffleNodes(document.querySelector(".gallery-track"));
 shuffleNodes(document.querySelector(".design-grid"));
-
-galleryItems.forEach((item) => {
-  item.addEventListener("mouseenter", () => {
-    item.style.transform = "translateY(-10px)";
-  });
-  item.addEventListener("mouseleave", () => {
-    item.style.transform = "translateY(0px)";
-  });
-});

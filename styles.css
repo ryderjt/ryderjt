@@ -198,7 +198,7 @@ h3,
 
 .hero-meta {
   display: flex;
-  align-items: flex-start;
+  align-items: flex-end;
   justify-content: space-between;
   gap: 24px;
   font-size: 12px;
@@ -307,7 +307,6 @@ h3,
   margin: 0;
   width: 100%;
   transform: translateY(0);
-  transition: transform 0.3s ease;
 }
 
 .gallery-item img {
@@ -319,17 +318,22 @@ h3,
 .gallery-marquee {
   position: absolute;
   inset: auto 0 20px;
-  display: flex;
-  gap: 60px;
   font-family: "Akira Expanded", sans-serif;
   font-size: clamp(32px, 8vw, 120px);
   opacity: 0.08;
   white-space: nowrap;
+  overflow: hidden;
+}
+
+.gallery-marquee-track {
+  display: flex;
+  width: max-content;
   animation: marquee 14s linear infinite;
 }
 
 .gallery-marquee span {
   text-transform: uppercase;
+  padding-right: 60px;
 }
 
 .design {
@@ -346,6 +350,11 @@ h3,
   margin-bottom: 30px;
 }
 
+.design-header h2 {
+  font-size: 52px;
+  margin: 0;
+}
+
 .design-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -357,11 +366,6 @@ h3,
   width: 100%;
   background: var(--paper);
   color: var(--ink);
-  transition: transform 0.3s ease;
-}
-
-.design-grid figure:hover {
-  transform: translateY(-6px);
 }
 
 .design-grid img {
