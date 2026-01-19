@@ -197,7 +197,7 @@ h3,
 }
 
 .hero-icon img {
-  width: min(220px, 60vw);
+  width: min(320px, 70vw);
   height: auto;
   filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.35));
 }

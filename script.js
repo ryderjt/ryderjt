@@ -9,7 +9,6 @@ const palette = [
 
 const button = document.querySelector(".palette-button");
 const root = document.documentElement;
-const heroIcon = document.querySelector(".hero-icon");
 const galleryItems = document.querySelectorAll(".gallery-item");
 
 const shuffleNodes = (container) => {
@@ -34,18 +33,7 @@ const setPalette = () => {
   root.style.setProperty("--accent-3", accent3);
 };
 
-const onMove = (event) => {
-  const { innerWidth, innerHeight } = window;
-  const moveX = (event.clientX / innerWidth - 0.5) * 10;
-  const moveY = (event.clientY / innerHeight - 0.5) * 10;
-
-  if (heroIcon) {
-    heroIcon.style.transform = `translate(${moveX}px, ${moveY}px)`;
-  }
-};
-
 button?.addEventListener("click", setPalette);
-window.addEventListener("mousemove", onMove);
 
 shuffleNodes(document.querySelector(".gallery-track"));
 shuffleNodes(document.querySelector(".design-grid"));
