@@ -7,11 +7,14 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="gridlines" aria-hidden="true"></div>
+    <div class="noise" aria-hidden="true"></div>
     <header class="site-header">
-      <div class="logo-block">
-        <span class="logo">RT</span>
-        <span class="logo-text">Ryder Thomas</span>
+      <div class="brand">
+        <span class="brand-mark">RT</span>
+        <div>
+          <p class="brand-name">Ryder Thomas</p>
+          <p class="brand-tag">Cinematography · Photography · Design</p>
+        </div>
       </div>
       <nav class="site-nav">
         <a href="#about">About</a>
@@ -20,50 +23,49 @@
         <a href="#design">Design</a>
         <a href="#contact">Contact</a>
       </nav>
-      <div class="contact-block">
-        <span>Based anywhere / shooting everywhere</span>
-        <button class="palette-button" type="button">Shuffle palette</button>
-      </div>
+      <button class="palette-button" type="button">Shuffle palette</button>
     </header>
 
     <main>
       <section class="hero">
-        <div class="hero-text">
-          <p class="tag">Brutalist visual storyteller</p>
-          <h1>
-            Ryder Thomas<br />
-            Cinematography + Photography
-          </h1>
-          <p class="intro">
-            16 year-old self-taught cinematographer and photographer working in video and stills.
-            I handle projects from planning to final delivery, keeping the workflow consistent and
-            the visuals razor sharp.
+        <div class="hero-copy">
+          <p class="hero-label">16 year-old self-taught visual storyteller</p>
+          <h1>Ryder Thomas</h1>
+          <p class="hero-sub">
+            Short films, documentary-style pieces, social content, and still photography. I shoot,
+            edit, and color everything end-to-end for a consistent visual language.
           </p>
-          <div class="cta-row">
+          <div class="hero-actions">
             <a class="cta" href="#contact">Start a project</a>
-            <a class="cta ghost" href="#photography">See the work</a>
+            <a class="cta alt" href="#photography">View galleries</a>
           </div>
         </div>
-        <div class="hero-shapes" aria-hidden="true">
-          <div class="shape square"></div>
-          <div class="shape circle"></div>
-          <div class="shape triangle"></div>
-          <div class="shape stripe"></div>
+        <div class="hero-media">
+          <img src="assets/photos/cold.jpg" alt="Portrait in cold light" />
+          <span class="hero-scribble">RYDER</span>
+          <span class="hero-scribble second">THOMAS</span>
+          <div class="color-blocks">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
         </div>
       </section>
 
-      <section id="about" class="panel">
-        <div class="panel-header">
+      <section id="about" class="panel about">
+        <div class="panel-left">
           <h2>About</h2>
-          <span class="panel-accent">01</span>
-        </div>
-        <div class="panel-body">
           <p>
-            I shoot, edit, and deliver projects independently for short films, social media content,
-            documentary-style pieces, and photography for individuals and small brands. The goal is
-            always the same: honest images, tight pacing, and color that lands with impact.
+            I handle projects from planning through final delivery: shooting, editing, and color.
+            Tools include DaVinci Resolve, After Effects, Lightroom, and Premiere Pro.
           </p>
-          <div class="tools">
+        </div>
+        <div class="panel-right">
+          <div class="detail-card">
+            <p>Work includes short films, social media content, documentary pieces, and portraits.</p>
+            <p>Independent workflow = consistent communication + cohesive visuals.</p>
+          </div>
+          <div class="stacked-tags">
             <span>DaVinci Resolve</span>
             <span>After Effects</span>
             <span>Lightroom</span>
@@ -72,79 +74,74 @@
         </div>
       </section>
 
-      <section id="services" class="panel">
-        <div class="panel-header">
-          <h2>Services</h2>
-          <span class="panel-accent">02</span>
+      <section id="services" class="panel services">
+        <div class="service-column">
+          <h3>Film + Motion</h3>
+          <ul>
+            <li>Concept planning & shot design</li>
+            <li>Camera, lighting, and direction</li>
+            <li>Editing, sound, and cinematic color</li>
+            <li>Motion graphics & VFX</li>
+          </ul>
         </div>
-        <div class="panel-body split">
-          <div>
-            <h3>Film + Motion</h3>
-            <ul>
-              <li>Concept planning & shot design</li>
-              <li>Camera, lighting, and on-set direction</li>
-              <li>Editing, sound, and cinematic color</li>
-              <li>Motion graphics & VFX touches</li>
-            </ul>
-          </div>
-          <div>
-            <h3>Photography</h3>
-            <ul>
-              <li>Portraits and editorial stories</li>
-              <li>Brand visuals and lookbooks</li>
-              <li>Location scouting & styling</li>
-              <li>Full Lightroom edit pass</li>
-            </ul>
-          </div>
+        <div class="service-column highlight">
+          <h3>Photography</h3>
+          <ul>
+            <li>Portraits and editorial stories</li>
+            <li>Brand visuals and lookbooks</li>
+            <li>Location scouting & styling</li>
+            <li>Full Lightroom edit pass</li>
+          </ul>
+        </div>
+        <div class="service-column">
+          <h3>Delivery</h3>
+          <ul>
+            <li>Clear review rounds</li>
+            <li>Optimized exports</li>
+            <li>Fast turnarounds</li>
+            <li>Consistent visual language</li>
+          </ul>
         </div>
       </section>
 
-      <section id="photography" class="panel gallery">
-        <div class="panel-header">
+      <section id="photography" class="gallery-section">
+        <div class="gallery-head">
           <h2>Photography</h2>
-          <span class="panel-accent">03</span>
+          <p>Still frames with bold color and atmosphere.</p>
         </div>
-        <div class="panel-body">
-          <div class="photo-grid">
-            <figure>
-              <img src="assets/photos/city.jpg" alt="City scene at night" loading="lazy" />
-              <figcaption>City pulse</figcaption>
-            </figure>
-            <figure>
-              <img src="assets/photos/streetlight.jpg" alt="Streetlight glowing" loading="lazy" />
-              <figcaption>Streetlight glow</figcaption>
-            </figure>
-            <figure>
-              <img src="assets/photos/subway.jpg" alt="Subway platform" loading="lazy" />
-              <figcaption>Subway drift</figcaption>
-            </figure>
-            <figure>
-              <img src="assets/photos/rise.jpg" alt="Morning rise" loading="lazy" />
-              <figcaption>Morning rise</figcaption>
-            </figure>
-            <figure>
-              <img src="assets/photos/warmth.jpg" alt="Warmth in light" loading="lazy" />
-              <figcaption>Warmth</figcaption>
-            </figure>
-            <figure>
-              <img src="assets/photos/winter.jpg" alt="Winter scene" loading="lazy" />
-              <figcaption>Winter hush</figcaption>
-            </figure>
-          </div>
+        <div class="photo-collage">
+          <figure class="large">
+            <img src="assets/photos/subway.jpg" alt="Subway platform" loading="lazy" />
+          </figure>
+          <figure class="tall">
+            <img src="assets/photos/streetlight.jpg" alt="Streetlight glowing" loading="lazy" />
+          </figure>
+          <figure>
+            <img src="assets/photos/warmth.jpg" alt="Warmth in light" loading="lazy" />
+          </figure>
+          <figure>
+            <img src="assets/photos/city.jpg" alt="City scene at night" loading="lazy" />
+          </figure>
+          <figure class="wide">
+            <img src="assets/photos/rise.jpg" alt="Morning rise" loading="lazy" />
+          </figure>
+          <figure>
+            <img src="assets/photos/winter.jpg" alt="Winter scene" loading="lazy" />
+          </figure>
         </div>
       </section>
 
-      <section id="design" class="panel design">
-        <div class="panel-header">
+      <section id="design" class="design-section">
+        <div class="design-head">
           <h2>Graphic Design</h2>
-          <span class="panel-accent">04</span>
+          <p>Posters and identity explorations with hard color pops.</p>
         </div>
-        <div class="panel-body design-grid">
+        <div class="design-grid">
           <figure>
             <img src="assets/design/freefall.png" alt="Freefall design" loading="lazy" />
             <figcaption>Freefall series</figcaption>
           </figure>
-          <figure>
+          <figure class="offset">
             <img src="assets/design/passage.png" alt="Passage design" loading="lazy" />
             <figcaption>Passage poster</figcaption>
           </figure>
