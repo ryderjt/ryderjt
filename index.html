@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ryder Thomas — Cinematography + Photography</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="grain"></div>
+    <header class="site-header">
+      <div class="logo-block">
+        <span class="logo-mark">RT</span>
+        <div>
+          <p class="logo-title">Ryder Thomas</p>
+          <p class="logo-sub">Cinematographer • Photographer • Editor</p>
+        </div>
+      </div>
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#capabilities">Capabilities</a>
+        <a href="#work">Work</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-text">
+          <p class="eyebrow">Self-taught • 16 • Full-service visual storyteller</p>
+          <h1>
+            I plan, shoot, edit, and color projects that move fast and feel cinematic.
+          </h1>
+          <p class="hero-body">
+            From short films to social campaigns and documentary pieces, I build
+            visual worlds across video + stills. Every frame is handled end-to-end
+            for a consistent, bold look.
+          </p>
+          <div class="hero-actions">
+            <button class="btn primary" data-action="highlight">Start a project</button>
+            <button class="btn outline" data-action="color">Spin the color wheel</button>
+          </div>
+        </div>
+        <div class="hero-grid">
+          <div class="shape square red"></div>
+          <div class="shape circle blue"></div>
+          <div class="shape triangle yellow"></div>
+          <div class="shape square green"></div>
+          <div class="shape circle orange"></div>
+          <div class="shape triangle purple"></div>
+          <div class="shape feature">
+            <img src="assets/photos/city.jpg" alt="Night cityscape photography" />
+            <span class="shape-label">Cinematic stills</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="about" class="about">
+        <div class="panel">
+          <h2>About Ryder</h2>
+          <p>
+            I am Ryder Thomas, a 16-year-old self-taught cinematographer and
+            photographer. I handle projects from planning through final delivery —
+            shooting, editing, and color in one continuous workflow.
+          </p>
+          <p>
+            I create short films, social media content, documentary-style pieces,
+            and photography for individuals and small brands. Working independently
+            keeps communication clear and the visual language cohesive.
+          </p>
+        </div>
+        <div class="panel tools-panel">
+          <h3>Primary Tools</h3>
+          <ul>
+            <li>DaVinci Resolve — editing + color grading</li>
+            <li>After Effects — motion graphics + VFX</li>
+            <li>Lightroom — photo editing</li>
+            <li>Premiere Pro — fast-turnaround video edits</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="capabilities" class="capabilities">
+        <h2>Capabilities</h2>
+        <div class="capability-grid">
+          <article class="capability-card">
+            <h4>Pre-Production</h4>
+            <p>Concepting, shot lists, and storyboards that keep production tight.</p>
+          </article>
+          <article class="capability-card">
+            <h4>Production</h4>
+            <p>Run-and-gun or structured shoots with a focus on cinematic lighting.</p>
+          </article>
+          <article class="capability-card">
+            <h4>Post</h4>
+            <p>Editing, sound polish, color grading, and motion graphics delivery.</p>
+          </article>
+          <article class="capability-card">
+            <h4>Still Photography</h4>
+            <p>Portraits, small brand campaigns, and atmospheric documentary stills.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="work" class="work">
+        <div class="work-header">
+          <h2>Selected Work</h2>
+          <p>Browse a mix of photography and graphic design.</p>
+          <div class="filter-group">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="photo">Photography</button>
+            <button class="filter-btn" data-filter="design">Design</button>
+          </div>
+        </div>
+        <div class="work-grid">
+          <figure class="work-item" data-category="photo">
+            <img src="assets/photos/sunset.jpg" alt="Warm sunset landscape" />
+            <figcaption>Sunset — golden haze</figcaption>
+          </figure>
+          <figure class="work-item" data-category="photo">
+            <img src="assets/photos/subway.jpg" alt="Subway station photo" />
+            <figcaption>Subway — motion blur</figcaption>
+          </figure>
+          <figure class="work-item" data-category="photo">
+            <img src="assets/photos/warmth.jpg" alt="Warm light on subject" />
+            <figcaption>Warmth — soft focus</figcaption>
+          </figure>
+          <figure class="work-item" data-category="photo">
+            <img src="assets/photos/moon.jpg" alt="Moon photography" />
+            <figcaption>Moon — night study</figcaption>
+          </figure>
+          <figure class="work-item" data-category="photo">
+            <img src="assets/photos/tower.jpg" alt="Tower architecture" />
+            <figcaption>Tower — vertical lines</figcaption>
+          </figure>
+          <figure class="work-item" data-category="design">
+            <img src="assets/design/peak.png" alt="Peak graphic design" />
+            <figcaption>Peak — graphic series</figcaption>
+          </figure>
+          <figure class="work-item" data-category="design">
+            <img src="assets/design/freefall.png" alt="Freefall graphic design" />
+            <figcaption>Freefall — kinetic poster</figcaption>
+          </figure>
+          <figure class="work-item" data-category="design">
+            <img src="assets/design/passage.png" alt="Passage graphic design" />
+            <figcaption>Passage — layered type</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section id="contact" class="contact">
+        <div class="contact-card">
+          <h2>Let’s build something bold.</h2>
+          <p>
+            Reach out for collaborations, commissions, or a quick turnaround
+            project that needs a tight visual system.
+          </p>
+          <div class="contact-actions">
+            <button class="btn primary" data-action="email">Email Ryder</button>
+            <button class="btn outline" data-action="scroll">Back to top</button>
+          </div>
+        </div>
+        <div class="contact-shapes">
+          <div class="shape ring"></div>
+          <div class="shape zig"></div>
+          <div class="shape dot"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2024 Ryder Thomas — Cinematography + Photography</p>
+      <p>Built with brutalist geometry and color-wheel energy.</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
