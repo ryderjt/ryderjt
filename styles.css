@@ -71,8 +71,8 @@ h3,
 }
 
 .hero {
-  min-height: 100vh;
-  min-height: 100svh;
+  height: 100vh;
+  height: 100svh;
   background: var(--accent);
   color: var(--paper);
   position: relative;
