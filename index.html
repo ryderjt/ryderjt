@@ -387,6 +387,27 @@
       transform: translateY(0) scale(1.04);
     }
 
+    .portfolio-cta {
+      padding: 28px 5vw 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    .portfolio-link {
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-size: 13px;
+      border: none;
+      padding: 0;
+      background: none;
+      transition: transform 0.25s ease, color 0.25s ease;
+    }
+
+    .portfolio-link:hover {
+      transform: translateY(-2px);
+      color: rgba(255,255,255,0.75);
+    }
+
     @keyframes slide {
       from { transform: translateX(0); }
       to { transform: translateX(-50%); }
@@ -649,11 +670,12 @@
 <body>
   <div class="page">
     <header>
-      <div class="logo-wrap">
+      <a class="logo-wrap" href="index.html" aria-label="Ryder JT home">
         <img class="logo-img" src="assets/logo.png" alt="Knight logo">
         <div class="logo-text">Ryder JT</div>
-      </div>
+      </a>
       <nav>
+        <a href="portfolio.html">Portfolio</a>
         <a href="#photography">Photography</a>
         <a href="#design">Design</a>
         <a href="#about">About</a>
@@ -686,38 +708,29 @@
       <div class="marquee" aria-label="Photography gallery">
         <div class="marquee-track">
           <div class="marquee-group">
-            <div class="photo-item"><img src="assets/photos/byers.jpg" alt="Byers"></div>
-            <div class="photo-item"><img src="assets/photos/city.jpg" alt="City"></div>
-            <div class="photo-item"><img src="assets/photos/cold.jpg" alt="Cold"></div>
-            <div class="photo-item"><img src="assets/photos/devil.jpg" alt="Devil"></div>
-            <div class="photo-item"><img src="assets/photos/gloves.jpg" alt="Gloves"></div>
-            <div class="photo-item"><img src="assets/photos/moon.jpg" alt="Moon"></div>
-            <div class="photo-item"><img src="assets/photos/ncar.jpg" alt="NCAR"></div>
-            <div class="photo-item"><img src="assets/photos/rise.jpg" alt="Rise"></div>
-            <div class="photo-item"><img src="assets/photos/streetlight.jpg" alt="Streetlight"></div>
-            <div class="photo-item"><img src="assets/photos/subway.jpg" alt="Subway"></div>
-            <div class="photo-item"><img src="assets/photos/sunset.jpg" alt="Sunset"></div>
-            <div class="photo-item"><img src="assets/photos/tower.jpg" alt="Tower"></div>
-            <div class="photo-item"><img src="assets/photos/warmth.jpg" alt="Warmth"></div>
-            <div class="photo-item"><img src="assets/photos/winter.jpg" alt="Winter"></div>
+            <div class="photo-item"><img src="assets/carousel/byers.jpg" alt="Byers in grayscale"></div>
+            <div class="photo-item"><img src="assets/carousel/devil.jpg" alt="Devil in grayscale"></div>
+            <div class="photo-item"><img src="assets/carousel/moon.jpg" alt="Moon in grayscale"></div>
+            <div class="photo-item"><img src="assets/carousel/rocks.jpg" alt="Rocks in grayscale"></div>
+            <div class="photo-item"><img src="assets/carousel/streetlight.jpg" alt="Streetlight in grayscale"></div>
+            <div class="photo-item"><img src="assets/carousel/subway.jpg" alt="Subway in grayscale"></div>
+            <div class="photo-item"><img src="assets/carousel/tree.jpg" alt="Tree in grayscale"></div>
+            <div class="photo-item"><img src="assets/carousel/winter.jpg" alt="Winter in grayscale"></div>
           </div>
           <div class="marquee-group" aria-hidden="true">
-            <div class="photo-item"><img src="assets/photos/byers.jpg" alt=""></div>
-            <div class="photo-item"><img src="assets/photos/city.jpg" alt=""></div>
-            <div class="photo-item"><img src="assets/photos/cold.jpg" alt=""></div>
-            <div class="photo-item"><img src="assets/photos/devil.jpg" alt=""></div>
-            <div class="photo-item"><img src="assets/photos/gloves.jpg" alt=""></div>
-            <div class="photo-item"><img src="assets/photos/moon.jpg" alt=""></div>
-            <div class="photo-item"><img src="assets/photos/ncar.jpg" alt=""></div>
-            <div class="photo-item"><img src="assets/photos/rise.jpg" alt=""></div>
-            <div class="photo-item"><img src="assets/photos/streetlight.jpg" alt=""></div>
-            <div class="photo-item"><img src="assets/photos/subway.jpg" alt=""></div>
-            <div class="photo-item"><img src="assets/photos/sunset.jpg" alt=""></div>
-            <div class="photo-item"><img src="assets/photos/tower.jpg" alt=""></div>
-            <div class="photo-item"><img src="assets/photos/warmth.jpg" alt=""></div>
-            <div class="photo-item"><img src="assets/photos/winter.jpg" alt=""></div>
+            <div class="photo-item"><img src="assets/carousel/byers.jpg" alt=""></div>
+            <div class="photo-item"><img src="assets/carousel/devil.jpg" alt=""></div>
+            <div class="photo-item"><img src="assets/carousel/moon.jpg" alt=""></div>
+            <div class="photo-item"><img src="assets/carousel/rocks.jpg" alt=""></div>
+            <div class="photo-item"><img src="assets/carousel/streetlight.jpg" alt=""></div>
+            <div class="photo-item"><img src="assets/carousel/subway.jpg" alt=""></div>
+            <div class="photo-item"><img src="assets/carousel/tree.jpg" alt=""></div>
+            <div class="photo-item"><img src="assets/carousel/winter.jpg" alt=""></div>
           </div>
         </div>
+      </div>
+      <div class="portfolio-cta">
+        <a class="portfolio-link" href="portfolio.html">View full portfolio</a>
       </div>
     </section>
 
@@ -774,7 +787,7 @@
           <div class="contact-left">
             <p class="contact-lede">Available for new shoots, edits, and collaborations. I handle look, crew, and delivery so every piece shares one visual language.</p>
             <div class="contact-actions">
-              <a class="contact-button" href="mailto:hello@ryderjt.com">Email Ryder</a>
+              <a class="contact-button" href="mailto:hello@ryderjt.com">Email Me</a>
               <div class="contact-note">Avg response &lt; 24h · Boulder, CO (MT)</div>
             </div>
             <div>
