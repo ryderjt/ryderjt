@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ryder JT — Visual Storytelling</title>
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <style>
+    @font-face {
+      font-family: "Cloister Black";
+      src: url("assets/fonts/CloisterBlack.ttf") format("truetype");
+      font-weight: normal;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: "Inter";
+      src: url("assets/fonts/Inter-VariableFont_opsz,wght.ttf") format("truetype");
+      font-weight: 100 900;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: "Inter";
+      src: url("assets/fonts/Inter-Italic-VariableFont_opsz,wght.ttf") format("truetype");
+      font-weight: 100 900;
+      font-style: italic;
+    }
+    @font-face {
+      font-family: "Playfair Display";
+      src: url("assets/fonts/PlayfairDisplay-VariableFont_wght.ttf") format("truetype");
+      font-weight: 100 900;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: "Playfair Display";
+      src: url("assets/fonts/PlayfairDisplay-Italic-VariableFont_wght.ttf") format("truetype");
+      font-weight: 100 900;
+      font-style: italic;
+    }
+
+    :root {
+      --bg: #0b0b0b;
+      --fg: #f7f7f7;
+      --mid: #1a1a1a;
+      --accent: #ffffff;
+      --muted: #c2c2c2;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    *:focus {
+      outline: none;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: "Inter", system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img {
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 24px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      mix-blend-mode: difference;
+      z-index: 20;
+      pointer-events: none;
+    }
+
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      pointer-events: auto;
+    }
+
+    .logo-img {
+      width: 48px;
+      height: 48px;
+      filter: invert(1);
+    }
+
+    .logo-text {
+      font-family: "Cloister Black", serif;
+      font-size: 22px;
+      letter-spacing: 0.04em;
+    }
+
+    nav {
+      display: flex;
+      gap: 18px;
+      pointer-events: auto;
+    }
+
+    nav a {
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      height: 100vh;
+      display: flex;
+      align-items: flex-end;
+      padding: 80px 5vw 56px;
+      background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.08), transparent 35%), url("assets/photos/winter.jpg") center/cover no-repeat;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.8) 70%, rgba(0,0,0,0.95) 100%);
+      mix-blend-mode: multiply;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .hero-kicker {
+      font-size: 13px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .hero-title {
+      font-family: "Cloister Black", serif;
+      font-size: clamp(48px, 6vw + 1rem, 96px);
+      line-height: 0.9;
+      text-transform: none;
+      letter-spacing: 0.04em;
+    }
+
+    .hero-title span {
+      font-family: "Playfair Display", serif;
+      font-style: italic;
+      font-size: 0.9em;
+    }
+
+    .hero-body {
+      font-size: 16px;
+      max-width: 640px;
+      color: var(--fg);
+    }
+
+    .scroll-hint {
+      position: absolute;
+      right: 5vw;
+      bottom: 40px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      z-index: 1;
+      color: var(--muted);
+    }
+
+    .scroll-hint .line {
+      width: 58px;
+      height: 1px;
+      background: var(--muted);
+    }
+
+    section {
+      padding: 120px 5vw;
+      position: relative;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 40px;
+    }
+
+    .section-header .pill {
+      width: 10px;
+      height: 34px;
+      background: var(--fg);
+    }
+
+    .section-title {
+      font-family: "Cloister Black", serif;
+      font-size: clamp(36px, 3vw + 1rem, 64px);
+      letter-spacing: 0.04em;
+    }
+
+    .section-sub {
+      font-family: "Playfair Display", serif;
+      font-style: italic;
+      font-size: 18px;
+      color: var(--muted);
+      margin-left: 10px;
+    }
+
+    .photography {
+      background: radial-gradient(circle at 90% 10%, rgba(255,255,255,0.06), transparent 45%), var(--bg);
+      border-top: 1px solid var(--mid);
+      border-bottom: 1px solid var(--mid);
+      padding: 120px 0;
+    }
+
+    .photography .section-header {
+      padding: 0 5vw;
+    }
+
+    .marquee {
+      overflow: hidden;
+      position: relative;
+      border: 1px solid var(--mid);
+      background: linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.0), rgba(255,255,255,0.06));
+      width: 100vw;
+      margin-left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .marquee::after,
+    .marquee::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 120px;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .marquee::before {
+      left: 0;
+      background: linear-gradient(90deg, var(--bg), transparent);
+    }
+
+    .marquee::after {
+      right: 0;
+      background: linear-gradient(270deg, var(--bg), transparent);
+    }
+
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: slide 64s linear infinite reverse;
+    }
+
+    .marquee-track:hover {
+      animation-play-state: paused;
+    }
+
+    .marquee-group {
+      display: flex;
+      gap: 22px;
+      padding: 34px 24px;
+    }
+
+    .photo-item {
+      position: relative;
+      display: block;
+      flex: 0 0 auto;
+      transition: width 0.5s ease, margin 0.5s ease, opacity 0.5s ease, transform 0.4s ease;
+    }
+
+    .photo-item::before {
+      content: "";
+      position: absolute;
+      inset: -12px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      background:
+        linear-gradient(90deg, var(--muted), var(--muted)) top left,
+        linear-gradient(180deg, var(--muted), var(--muted)) top left,
+        linear-gradient(270deg, var(--muted), var(--muted)) top right,
+        linear-gradient(180deg, var(--muted), var(--muted)) top right,
+        linear-gradient(90deg, var(--muted), var(--muted)) bottom left,
+        linear-gradient(0deg, var(--muted), var(--muted)) bottom left,
+        linear-gradient(270deg, var(--muted), var(--muted)) bottom right,
+        linear-gradient(0deg, var(--muted), var(--muted)) bottom right;
+      background-size: 16px 2px, 2px 16px, 16px 2px, 2px 16px, 16px 2px, 2px 16px, 16px 2px, 2px 16px;
+      background-repeat: no-repeat;
+      background-position: top left, top left, top right, top right, bottom left, bottom left, bottom right, bottom right;
+    }
+
+    .photo-item:hover {
+      transform: translateY(-8px) scale(1.01);
+    }
+
+    .photo-item:hover::before {
+      opacity: 1;
+    }
+
+    .marquee-group img {
+      height: 440px;
+      width: auto;
+      object-fit: contain;
+      transition: filter 0.4s ease;
+      cursor: zoom-in;
+    }
+
+    .photo-item:hover img {
+      filter: none;
+    }
+
+    .photo-item.slot-collapsed {
+      width: 0 !important;
+      margin: 0 -22px 0 0 !important;
+      opacity: 0;
+    }
+
+    .photo-item.slot-returning {
+      opacity: 1;
+    }
+
+    .photo-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.88);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+
+    .photo-overlay.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .overlay-img {
+      max-width: 86vw;
+      max-height: 86vh;
+      box-shadow: 0 20px 80px rgba(0,0,0,0.45);
+      transform: translateY(12px) scale(0.96);
+      transition: transform 0.35s ease;
+    }
+
+    .photo-overlay.visible .overlay-img {
+      transform: translateY(0) scale(1.04);
+    }
+
+    @keyframes slide {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    .design {
+      background: var(--fg);
+      color: var(--bg);
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .design .section-header .pill {
+      background: var(--bg);
+    }
+
+    .design-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 26px;
+    }
+
+    .design-card {
+      background: #f0f0f0;
+      padding: 0;
+      border: 1px solid #d0d0d0;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .design-card:hover {
+      transform: translateY(-6px);
+      background: #ffffff;
+    }
+
+    .design-card img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    .text-section {
+      max-width: 920px;
+      margin: 0 auto;
+      display: grid;
+      gap: 28px;
+    }
+
+    .text-section p {
+      font-size: 16px;
+      color: inherit;
+    }
+
+    .text-section strong {
+      font-family: "Playfair Display", serif;
+      font-style: italic;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+      align-items: start;
+    }
+
+    .contact-card {
+      padding: 20px;
+      border: 1px solid var(--mid);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .contact-card.light {
+      background: #f5f5f5;
+      color: #080808;
+      border-color: #d0d0d0;
+    }
+
+    footer {
+      padding: 28px 5vw 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    @media (max-width: 900px) {
+      header {
+        padding: 18px 20px;
+      }
+      nav {
+        display: none;
+      }
+      .hero {
+        align-items: flex-end;
+        padding: 140px 6vw 64px;
+      }
+      .hero-title {
+        font-size: clamp(44px, 10vw, 72px);
+      }
+      .marquee-group img {
+        height: 280px;
+      }
+      .design-card img {
+        height: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="logo-wrap">
+        <img class="logo-img" src="assets/logo.png" alt="Knight logo">
+        <div class="logo-text">Ryder JT</div>
+      </div>
+      <nav>
+        <a href="#photography">Photography</a>
+        <a href="#design">Design</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="hero-content">
+        <div class="hero-kicker">Visual Storytelling / 2026 Portfolio</div>
+        <h1 class="hero-title">Cinematography, Photography, Design</h1>
+        <p class="hero-body">
+          I’m Ryder Thomas, a 16-year-old self-taught visual storyteller working across cinematography, photography, and design. I handle planning, shooting, editing, and color end-to-end so film and still work share a consistent visual language.
+        </p>
+      </div>
+      <div class="scroll-hint">
+        <div class="line"></div>
+        <span>Scroll Down</span>
+      </div>
+    </section>
+
+    <section id="photography" class="photography">
+      <div class="section-header">
+        <div class="pill"></div>
+        <div>
+          <div class="section-title">Photography</div>
+          <div class="section-sub">Selected stills / ongoing work</div>
+        </div>
+      </div>
+      <div class="marquee" aria-label="Photography gallery">
+        <div class="marquee-track">
+          <div class="marquee-group">
+            <div class="photo-item"><img src="assets/photos/byers.jpg" alt="Byers"></div>
+            <div class="photo-item"><img src="assets/photos/city.jpg" alt="City"></div>
+            <div class="photo-item"><img src="assets/photos/cold.jpg" alt="Cold"></div>
+            <div class="photo-item"><img src="assets/photos/devil.jpg" alt="Devil"></div>
+            <div class="photo-item"><img src="assets/photos/gloves.jpg" alt="Gloves"></div>
+            <div class="photo-item"><img src="assets/photos/moon.jpg" alt="Moon"></div>
+            <div class="photo-item"><img src="assets/photos/ncar.jpg" alt="NCAR"></div>
+            <div class="photo-item"><img src="assets/photos/rise.jpg" alt="Rise"></div>
+            <div class="photo-item"><img src="assets/photos/streetlight.jpg" alt="Streetlight"></div>
+            <div class="photo-item"><img src="assets/photos/subway.jpg" alt="Subway"></div>
+            <div class="photo-item"><img src="assets/photos/sunset.jpg" alt="Sunset"></div>
+            <div class="photo-item"><img src="assets/photos/tower.jpg" alt="Tower"></div>
+            <div class="photo-item"><img src="assets/photos/warmth.jpg" alt="Warmth"></div>
+            <div class="photo-item"><img src="assets/photos/winter.jpg" alt="Winter"></div>
+          </div>
+          <div class="marquee-group" aria-hidden="true">
+            <div class="photo-item"><img src="assets/photos/byers.jpg" alt=""></div>
+            <div class="photo-item"><img src="assets/photos/city.jpg" alt=""></div>
+            <div class="photo-item"><img src="assets/photos/cold.jpg" alt=""></div>
+            <div class="photo-item"><img src="assets/photos/devil.jpg" alt=""></div>
+            <div class="photo-item"><img src="assets/photos/gloves.jpg" alt=""></div>
+            <div class="photo-item"><img src="assets/photos/moon.jpg" alt=""></div>
+            <div class="photo-item"><img src="assets/photos/ncar.jpg" alt=""></div>
+            <div class="photo-item"><img src="assets/photos/rise.jpg" alt=""></div>
+            <div class="photo-item"><img src="assets/photos/streetlight.jpg" alt=""></div>
+            <div class="photo-item"><img src="assets/photos/subway.jpg" alt=""></div>
+            <div class="photo-item"><img src="assets/photos/sunset.jpg" alt=""></div>
+            <div class="photo-item"><img src="assets/photos/tower.jpg" alt=""></div>
+            <div class="photo-item"><img src="assets/photos/warmth.jpg" alt=""></div>
+            <div class="photo-item"><img src="assets/photos/winter.jpg" alt=""></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="design" class="design">
+      <div class="section-header">
+        <div class="pill"></div>
+        <div>
+          <div class="section-title">Graphic Design</div>
+          <div class="section-sub">Posters / covers</div>
+        </div>
+      </div>
+      <div class="design-grid">
+        <div class="design-card">
+          <img src="assets/design/freefall.png" alt="Freefall design">
+        </div>
+        <div class="design-card">
+          <img src="assets/design/passage.png" alt="Passage design">
+        </div>
+        <div class="design-card">
+          <img src="assets/design/peak.png" alt="Peak design">
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="text-section">
+      <div class="section-header">
+        <div class="pill"></div>
+        <div>
+          <div class="section-title">About</div>
+          <div class="section-sub">Direct and minimal</div>
+        </div>
+      </div>
+      <p>
+        I am Ryder Thomas, a 16-year-old self-taught visual storyteller. I work across cinematography, photography, and design, covering planning, shooting, editing, and color to keep one visual language.
+      </p>
+      <p>
+        My projects include short films, documentary-style pieces, social content, and still photography. I shoot portraits, editorial stories, brand visuals, and lookbooks; I scout locations, style, and deliver full Lightroom edit passes.
+      </p>
+      <p>
+        Film and motion work includes concept planning, shot design, camera and lighting direction, editing, sound, cinematic color, and motion graphics/VFX with clear review rounds and fast turnarounds. Tools: DaVinci Resolve, After Effects, Lightroom, Premiere Pro. Portfolio date: <strong>2026</strong>.
+      </p>
+    </section>
+
+    <section id="contact" class="text-section">
+      <div class="section-header">
+        <div class="pill"></div>
+        <div>
+          <div class="section-title">Contact</div>
+          <div class="section-sub">Straight lines only</div>
+        </div>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <p>Available for new shoots, edits, and collaborations. Let’s shape something stark and cinematic.</p>
+        </div>
+        <div class="contact-card light">
+          <p>Email: <a href="mailto:hello@ryderjt.com">hello@ryderjt.com</a></p>
+          <p>Location: remote + on-site when the story demands it.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <span>Ryder JT — Visual Storytelling</span>
+      <span>Brutalist / Gothic / Intentional</span>
+    </footer>
+  </div>
+
+  <div class="photo-overlay" aria-hidden="true">
+    <img class="overlay-img" src="" alt="Expanded photography">
+  </div>
+
+  <script>
+    const shuffle = (list) => {
+      for (let i = list.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [list[i], list[j]] = [list[j], list[i]];
+      }
+      return list;
+    };
+
+    const marqueeGroups = document.querySelectorAll(".marquee-group");
+    if (marqueeGroups.length >= 2) {
+      const firstGroupItems = Array.from(marqueeGroups[0].children);
+      shuffle(firstGroupItems);
+      marqueeGroups[0].innerHTML = "";
+      firstGroupItems.forEach((node) => marqueeGroups[0].appendChild(node));
+      marqueeGroups[1].innerHTML = marqueeGroups[0].innerHTML;
+    }
+
+    const overlay = document.querySelector(".photo-overlay");
+    const overlayImg = document.querySelector(".overlay-img");
+    const photoItems = document.querySelectorAll(".photo-item");
+    let activeItem = null;
+
+    const collapseSlot = (item) => {
+      const currentWidth = item.getBoundingClientRect().width;
+      item.style.width = currentWidth + "px";
+      requestAnimationFrame(() => {
+        item.classList.add("slot-collapsed");
+      });
+    };
+
+    const restoreSlot = (item) => {
+      item.classList.remove("slot-collapsed");
+      item.classList.add("slot-returning");
+      const onEnd = (event) => {
+        if (event.propertyName === "width") {
+          item.classList.remove("slot-returning");
+          item.style.width = "";
+          item.removeEventListener("transitionend", onEnd);
+        }
+      };
+      item.addEventListener("transitionend", onEnd);
+    };
+
+    const openPhoto = (item) => {
+      if (activeItem) return;
+      const img = item.querySelector("img");
+      collapseSlot(item);
+      overlayImg.src = img.src;
+      overlay.classList.add("visible");
+      overlay.setAttribute("aria-hidden", "false");
+      activeItem = item;
+      document.addEventListener("keydown", handleKey);
+    };
+
+    const closePhoto = () => {
+      if (!activeItem) return;
+      overlay.classList.remove("visible");
+      overlay.setAttribute("aria-hidden", "true");
+      restoreSlot(activeItem);
+      activeItem = null;
+      document.removeEventListener("keydown", handleKey);
+    };
+
+    const handleKey = (event) => {
+      if (event.key === "Escape") {
+        closePhoto();
+      }
+    };
+
+    overlay.addEventListener("click", (event) => {
+      if (event.target === overlay) {
+        closePhoto();
+      }
+    });
+
+    photoItems.forEach((item) => {
+      const img = item.querySelector("img");
+      img.addEventListener("click", (event) => {
+        event.preventDefault();
+        openPhoto(item);
+      });
+    });
+  </script>
+</body>
+</html>
