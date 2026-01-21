@@ -432,6 +432,15 @@
       font-style: italic;
     }
 
+    .contact-shell {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      gap: 28px;
+    }
+
     .contact-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -441,18 +450,45 @@
 
     .contact-card {
       padding: 20px;
-      border: 1px solid var(--mid);
-      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(4px);
+      box-shadow: 0 12px 48px rgba(0,0,0,0.32);
     }
 
     .contact-card.light {
-      background: #f5f5f5;
+      background: rgba(255,255,255,0.9);
       color: #080808;
       border-color: #d0d0d0;
     }
 
-    footer {
-      padding: 28px 5vw 48px;
+    .contact-block {
+      position: relative;
+      min-height: 82vh;
+      padding: 130px 5vw 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 32px;
+      background: url("assets/photos/subway.jpg") center/cover no-repeat;
+      overflow: hidden;
+    }
+
+    .contact-block::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, var(--bg) 0%, rgba(11,11,11,0.95) 18%, rgba(11,11,11,0.76) 44%, rgba(11,11,11,0.55) 68%, rgba(11,11,11,0.32) 100%);
+      pointer-events: none;
+    }
+
+    .contact-footer {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 12px 0 10px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -481,6 +517,10 @@
       }
       .design-card img {
         height: auto;
+      }
+      .contact-block {
+        padding: 120px 6vw 70px;
+        min-height: 68vh;
       }
     }
   </style>
@@ -600,29 +640,29 @@
       </p>
     </section>
 
-    <section id="contact" class="text-section">
-      <div class="section-header">
-        <div class="pill"></div>
-        <div>
-          <div class="section-title">Contact</div>
-          <div class="section-sub">Straight lines only</div>
+    <section id="contact" class="contact-block">
+      <div class="contact-shell">
+        <div class="section-header">
+          <div class="pill"></div>
+          <div>
+            <div class="section-title">Contact</div>
+            <div class="section-sub">Bookings / collaborations</div>
+          </div>
+        </div>
+        <div class="contact-grid">
+          <div class="contact-card">
+            <p>Available for new shoots, edits, and collaborations. Clear briefs, fast feedback, cinematic delivery.</p>
+          </div>
+          <div class="contact-card light">
+            <p>Email: <a href="mailto:hello@ryderjt.com">hello@ryderjt.com</a></p>
+            <p>Location: Boulder, Colorado.</p>
+          </div>
         </div>
       </div>
-      <div class="contact-grid">
-        <div class="contact-card">
-          <p>Available for new shoots, edits, and collaborations. Let’s shape something stark and cinematic.</p>
-        </div>
-        <div class="contact-card light">
-          <p>Email: <a href="mailto:hello@ryderjt.com">hello@ryderjt.com</a></p>
-          <p>Location: remote + on-site when the story demands it.</p>
-        </div>
+      <div class="contact-footer">
+        <span>Ryder JT — Visual Storytelling</span>
       </div>
     </section>
-
-    <footer>
-      <span>Ryder JT — Visual Storytelling</span>
-      <span>Brutalist / Gothic / Intentional</span>
-    </footer>
   </div>
 
   <div class="photo-overlay" aria-hidden="true">
