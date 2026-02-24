@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ryder JT</title>
-  <link rel="icon" type="image/png" href="assets/logo.png">
+  <link rel="icon" type="image/png" href="assets/icon.png">
   <meta name="description" content="Ryder Thomas — cinematography, photography, and design.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://ryderjt.com/">
@@ -112,8 +112,8 @@
     }
 
     .logo-img {
-      width: 48px;
-      height: 48px;
+      width: 40px;
+      height: 40px;
       filter: invert(1);
     }
 
@@ -142,7 +142,7 @@
       display: flex;
       align-items: flex-end;
       padding: 80px 5vw 56px;
-      background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.08), transparent 35%), url("assets/photos/winter.jpg") center/cover no-repeat;
+      background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.08), transparent 35%), url("assets/portfolio/Landscape/IMG_1327.JPG") center/cover no-repeat;
     }
 
     .hero::after {
@@ -256,6 +256,45 @@
 
     .photography .section-header {
       padding: 0 5vw;
+    }
+
+    .cinematography {
+      background:
+        linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(11,11,11,0.6) 35%, rgba(11,11,11,0) 100%),
+        radial-gradient(circle at 90% 10%, rgba(255,255,255,0.06), transparent 45%),
+        var(--bg);
+      border-bottom: 1px solid var(--mid);
+      padding: 100px 0 90px;
+    }
+
+    .cinematography .section-header {
+      padding: 0 5vw;
+      margin-bottom: 24px;
+    }
+
+    .video-shell {
+      width: min(1200px, 94vw);
+      margin: 0 auto;
+      border: 1px solid var(--mid);
+      background: #090909;
+      padding: 10px;
+      box-shadow: 0 18px 50px rgba(0,0,0,0.35);
+    }
+
+    .video-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #000;
+    }
+
+    .video-frame iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
     }
 
     .marquee {
@@ -513,10 +552,10 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 12px 18px;
-      background: var(--fg);
-      color: var(--bg);
-      border: 1px solid var(--fg);
+      padding: 9px 16px;
+      background: transparent;
+      color: var(--fg);
+      border: 1px solid rgba(255,255,255,0.22);
       letter-spacing: 0.08em;
       text-transform: uppercase;
       font-size: 13px;
@@ -525,8 +564,8 @@
 
     .contact-button:hover {
       transform: translateY(-2px);
-      background: #fdfdfd;
-      color: #000;
+      background: rgba(255,255,255,0.08);
+      color: var(--fg);
     }
 
     .contact-note {
@@ -572,7 +611,6 @@
     }
 
     .contact-card.primary {
-      border-color: rgba(255,255,255,0.2);
       background: rgba(10,10,10,0.65);
       box-shadow: 0 10px 36px rgba(0,0,0,0.4);
     }
@@ -604,7 +642,7 @@
       flex-direction: column;
       justify-content: space-between;
       gap: 32px;
-      background: url("assets/photos/subway.jpg") center/cover no-repeat;
+      background: url("assets/portfolio/Urban/IMG_0872.jpg") center/cover no-repeat;
       overflow: hidden;
     }
 
@@ -701,6 +739,27 @@
       </div>
     </section>
 
+    <section id="cinematography" class="cinematography">
+      <div class="section-header">
+        <div class="pill"></div>
+        <div>
+          <div class="section-title">Cinematography</div>
+          <div class="section-sub">Selected film work</div>
+        </div>
+      </div>
+      <div class="video-shell">
+        <div class="video-frame">
+          <iframe
+            src="https://www.youtube.com/embed/AoY6qpUTmKs"
+            title="Cinematography reel"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen></iframe>
+        </div>
+      </div>
+    </section>
+
     <section id="photography" class="photography">
       <div class="section-header">
         <div class="pill"></div>
@@ -712,50 +771,29 @@
       <div class="marquee" aria-label="Photography gallery">
         <div class="marquee-track">
           <div class="marquee-group">
-            <div class="photo-item"><img src="assets/carousel/byers.jpg" alt="Byers in grayscale"></div>
-            <div class="photo-item"><img src="assets/carousel/devil.jpg" alt="Devil in grayscale"></div>
-            <div class="photo-item"><img src="assets/carousel/moon.jpg" alt="Moon in grayscale"></div>
-            <div class="photo-item"><img src="assets/carousel/rocks.jpg" alt="Rocks in grayscale"></div>
-            <div class="photo-item"><img src="assets/carousel/streetlight.jpg" alt="Streetlight in grayscale"></div>
-            <div class="photo-item"><img src="assets/carousel/subway.jpg" alt="Subway in grayscale"></div>
-            <div class="photo-item"><img src="assets/carousel/tree.jpg" alt="Tree in grayscale"></div>
-            <div class="photo-item"><img src="assets/carousel/winter.jpg" alt="Winter in grayscale"></div>
+            <div class="photo-item"><img src="assets/portfolio/Portrait/IMG_1283.jpg" alt="Portrait in grayscale"></div>
+            <div class="photo-item"><img src="assets/portfolio/Urban/IMG_0724.jpg" alt="Urban scene in grayscale"></div>
+            <div class="photo-item"><img src="assets/portfolio/Landscape/IMG_0713.jpg" alt="Landscape in grayscale"></div>
+            <div class="photo-item"><img src="assets/portfolio/Fashion/IMG_0217.jpg" alt="Fashion portrait in grayscale"></div>
+            <div class="photo-item"><img src="assets/portfolio/Urban/IMG_0852.jpg" alt="City detail in grayscale"></div>
+            <div class="photo-item"><img src="assets/portfolio/Portrait/IMG_1304.jpg" alt="Portrait in grayscale"></div>
+            <div class="photo-item"><img src="assets/portfolio/Landscape/IMG_1293.jpg" alt="Landscape in grayscale"></div>
+            <div class="photo-item"><img src="assets/portfolio/Urban/IMG_0919.jpg" alt="Urban scene in grayscale"></div>
           </div>
           <div class="marquee-group" aria-hidden="true">
-            <div class="photo-item"><img src="assets/carousel/byers.jpg" alt=""></div>
-            <div class="photo-item"><img src="assets/carousel/devil.jpg" alt=""></div>
-            <div class="photo-item"><img src="assets/carousel/moon.jpg" alt=""></div>
-            <div class="photo-item"><img src="assets/carousel/rocks.jpg" alt=""></div>
-            <div class="photo-item"><img src="assets/carousel/streetlight.jpg" alt=""></div>
-            <div class="photo-item"><img src="assets/carousel/subway.jpg" alt=""></div>
-            <div class="photo-item"><img src="assets/carousel/tree.jpg" alt=""></div>
-            <div class="photo-item"><img src="assets/carousel/winter.jpg" alt=""></div>
+            <div class="photo-item"><img src="assets/portfolio/Portrait/IMG_1283.jpg" alt=""></div>
+            <div class="photo-item"><img src="assets/portfolio/Urban/IMG_0724.jpg" alt=""></div>
+            <div class="photo-item"><img src="assets/portfolio/Landscape/IMG_0713.jpg" alt=""></div>
+            <div class="photo-item"><img src="assets/portfolio/Fashion/IMG_0217.jpg" alt=""></div>
+            <div class="photo-item"><img src="assets/portfolio/Urban/IMG_0852.jpg" alt=""></div>
+            <div class="photo-item"><img src="assets/portfolio/Portrait/IMG_1304.jpg" alt=""></div>
+            <div class="photo-item"><img src="assets/portfolio/Landscape/IMG_1293.jpg" alt=""></div>
+            <div class="photo-item"><img src="assets/portfolio/Urban/IMG_0919.jpg" alt=""></div>
           </div>
         </div>
       </div>
       <div class="portfolio-cta">
         <a class="portfolio-link" href="portfolio.html">View full portfolio</a>
-      </div>
-    </section>
-
-    <section id="design" class="design">
-      <div class="section-header">
-        <div class="pill"></div>
-        <div>
-          <div class="section-title">Graphic Design</div>
-          <div class="section-sub">Posters / covers</div>
-        </div>
-      </div>
-      <div class="design-grid">
-        <div class="design-card">
-          <img src="assets/design/freefall.png" alt="Freefall design">
-        </div>
-        <div class="design-card">
-          <img src="assets/design/passage.png" alt="Passage design">
-        </div>
-        <div class="design-card">
-          <img src="assets/design/peak.png" alt="Peak design">
-        </div>
       </div>
     </section>
 
