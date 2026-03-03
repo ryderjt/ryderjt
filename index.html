@@ -3,6 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    (() => {
+      const canonicalHost = "ryderjt.com";
+      const needsHttps = window.location.protocol !== "https:";
+      const needsHost = window.location.hostname === "www.ryderjt.com";
+      const needsIndexPath = /\/index\.html$/.test(window.location.pathname);
+
+      if (!needsHttps && !needsHost && !needsIndexPath) {
+        return;
+      }
+
+      const canonicalPath = window.location.pathname.replace(/\/index\.html$/, "/") || "/";
+      const canonicalUrl = `https://${canonicalHost}${canonicalPath}${window.location.search}${window.location.hash}`;
+      window.location.replace(canonicalUrl);
+    })();
+  </script>
   <title>Ryder JT</title>
   <link rel="icon" type="image/png" href="assets/icon.png">
   <meta name="description" content="Ryder Thomas — cinematography, photography, and design.">
@@ -714,7 +730,7 @@
 <body>
   <div class="page">
     <header>
-      <a class="logo-wrap" href="index.html" aria-label="Ryder JT home">
+      <a class="logo-wrap" href="/" aria-label="Ryder JT home">
         <img class="logo-img" src="assets/logo.png" alt="Knight logo">
         <div class="logo-text">Ryder JT</div>
       </a>
